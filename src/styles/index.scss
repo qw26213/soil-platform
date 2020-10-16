@@ -1,0 +1,158 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+body { height: 100%; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif; }
+label { font-weight: 700; }
+html { height: 100%; box-sizing: border-box; }
+#app { height: 100%; }
+*, *:before, *:after { box-sizing: inherit; }
+.no-padding { padding: 0px !important; }
+.padding-content { padding: 4px 0; }
+a:focus, a:active { outline: none; }
+a, a:focus, a:hover { cursor: pointer; color: inherit; text-decoration: none; }
+div:focus { outline: none; }
+.fr { float: right; }
+.fl { float: left; }
+.block { display: block; }
+.pointer { cursor: pointer; }
+.inlineBlock { display: block; }
+.fon_12 { font-size: 12px; }
+.fon_13 { font-size: 13px; }
+.fon_14 { font-size: 14px; }
+.fon_16 { font-size: 16px; }
+.fon_18 { font-size: 18px; }
+.fon_20 { font-size: 20px; }
+.fon_24 { font-size: 24px; }
+.fon_26 { font-size: 26px; }
+.fon_28 { font-size: 28px; }
+.fon_30 { font-size: 30px; }
+.fon_32 { font-size: 32px; }
+.fon_34 { font-size: 34px; }
+.fon_36 { font-size: 36px; }
+.fon_44 { font-size: 44px; }
+.bold { font-weight: bold; }
+.col_7BDD92 { color: #7BDD92; }
+.col_aeaeae { color: #aeaeae; }
+.col_333333 { color: #333333; }
+.col_5381ff { color: #5381ff; }
+.col_333333 { color: #333333; }
+.col_509bfc { color: #509bfc; }
+.col_68f58e { color: #68f58e; }
+.col_a9a9a9 { color: #a9a9a9; }
+.col_ffffff { color: #ffffff; }
+.col_9B9B9B { color: #9B9B9B; }
+.col_EB9C3A { color: #EB9C3A; }
+.col_ff555a { color: #ff555a; }
+.col_413F70 { color: #413F70; }
+.col_5D58F7 { color: #5D58F7; }
+.col_7f7f7f { color: #7F7F7F; }
+.col_656565 { color: #656565; }
+.back_ffffff { background-color: #ffffff; }
+.back_413F70 { background-color: #413F70; }
+.back_col_413F7001 { background-color: #ECECF1; }
+.back_col_EB9C3A { background-color: rgba(#EB9C3A, 1); }
+.back_9b9b9b { background: rgba(65, 63, 112, 0.1); }
+.back_5D58F7 { background-color: #5D58F7; }
+.back_000000 { background-color: #000000; }
+.xian { width: 100%; height: 2px; background-color: #EAEAEA; }
+.flex { display: flex; }
+.jus_center { justify-content: center; }
+.jus_around { justify-content: space-around; }
+.jus_between { justify-content: space-between; }
+.jus_end { justify-content: flex-end; }
+.ali_center { align-items: center; }
+.ali_end { align-items: flex-end; }
+.flex1 { flex: 1; }
+.flex_dir_col { flex-direction: column; }
+.flex_dir_row { flex-direction: row; }
+.wrap { flex-wrap: wrap; }
+.mar_auto { margin: auto; }
+.mar_top_10 { margin-top: 12px; margin-bottom: 12px; }
+.mar_top_60 { margin-top: 60px; margin-bottom: 60px; }
+.mar_top_70 { margin-top: 70px; margin-bottom: 70px; }
+.mar_top_30 { margin-top: 30px; margin-bottom: 30px; }
+.mar_top_40 { margin-top: 40px; margin-bottom: 40px; }
+.mar_top_160 { margin-top: 160px; }
+.mar_bot_0 { margin-bottom: 0px; }
+.mar_bot_24 { margin-bottom: 24px; }
+.mar_bot_40 { margin-bottom: 40px; }
+.mar_left_6 { margin-left: 6px; margin-right: 6px; }
+.mar_left_10 { margin-left: 10px; margin-right: 10px; }
+.mar_left_20 { margin-left: 20px; margin-right: 20px; }
+.mar_left_30 { margin-left: 30px; margin-right: 30px; }
+.mar_rig_20 { margin-right: 20px; }
+.mar_rig_50 { margin-right: 50px; }
+.pad_top_8 { padding-top: 8px; padding-bottom: 8px; }
+.pad_top_10 { padding-top: 10px; padding-bottom: 10px; }
+.pad_top_14 { padding-top: 14px; padding-bottom: 14px; }
+.pad_top_20 { padding-top: 20px; padding-bottom: 20px; }
+.pad_top_30 { padding-top: 30px; padding-bottom: 30px; }
+.pad_top_40 { padding-top: 40px; padding-bottom: 40px; }
+.pad_top_60 { padding-top: 60px; }
+.pad_bot_0 { padding-bottom: 0px; }
+.pad_bot_20 { padding-bottom: 20px; }
+.pad_bot_30 { padding-bottom: 30px; }
+.pad_bot_50 { padding-bottom: 50px; }
+.pad_lef_14 { padding-left: 14px; padding-right: 14px; }
+.pad_lef_30 { padding-left: 30px; padding-right: 30px; }
+.pad_lef_70 { padding-left: 70px; padding-right: 70px; }
+.pad_rig_30 { padding-right: 30px; }
+.cursor { cursor: pointer; }
+.bor_rad_8 { border-radius: 8px; }
+.bor_rad_16 { border-radius: 16px; }
+.bor_rad_33 { border-radius: 33px; }
+.bor_rad_50 { border-radius: 50%; }
+.bor_rad_60 { border-radius: 60px; }
+.fixed_nav { width: 100%; position: fixed; top: 0; left: 0; }
+.fixed_footer { width: 100%; position: fixed; bottom: 0; left: 0; }
+.mar_auto { margin: auto; }
+.shadow { box-shadow: 0px 4px 4px 0px rgba(25, 25, 100, 0.07); }
+.fill_h { min-height: 100vh; }
+.fill_w { width: 100%; }
+.back { width: 26px; height: 36px; }
+.fixed_nav { z-index: 999; }
+.position_relate { position: relative; }
+.position_absolute { position: absolute; }
+.lin_h_40 { line-height: 40px; }
+.comment_icon { width: 28px; height: 26px; }
+.eye_icon { width: 40px; height: 26px; }
+.group { width: 38px; height: 34px; }
+.z_index_10 { z-index: 10; }
+.online_icon { width: 30px; height: 30px; bottom: 6px; left: 80px; z-index: 6; }
+.avater { width: 92px; height: 92px; border-radius: 50%; }
+.sex { width: 28px; height: 28px; }
+.break_word { word-break: break-all; }
+.shrink0 { flex-shrink: 0; }
+.border { border: 2px solid #9B9B9B; padding: 6px 10px; border-radius: 10px; }
+.text_center { text-align: center; }
+.clearfix { clear: both; content: ''; display: table }
+.clearfix { &:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+}
+aside { 
+  background: #eef1f6; padding: 8px 24px; margin-bottom: 20px; border-radius: 2px; display: block; line-height: 32px; font-size: 16px; color: #2c3e50;
+  a { color: #337ab7; cursor: pointer;
+    &:hover { color: rgb(32, 160, 255); }
+  }
+}
+.mainPage{
+	min-height: calc(100vh - 120px);
+	padding: 20px;
+  background: rgba(65,63,112,0.1);
+}
+.filterDiv{
+	border-radius: 8px;
+	padding: 20px;
+    background-color: #ffffff;
+    width:100%;
+    position:relative;
+    margin-bottom: 10px;
+}
+
+.contentDiv{
+	border-radius: 8px;
+	padding: 20px;
+    background-color: #ffffff;
+}
+.seeWidth, .mapBox{height: calc(100vh - 60px)!important;}
