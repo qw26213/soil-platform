@@ -1,6 +1,6 @@
 <template>
   <div class="login_pos position_absolute flex flex_dir_col ali_center">
-    <div class="fon_24 col_ffffff">欢迎登入土壤采集管理系统！</div>
+    <div class="fon_24 col_ffffff">欢迎登录土壤采集管理系统</div>
     <el-card shadow="hover" class="login-main" :body-style="{ padding: '30px' }">
       <p class="login-main-title">系统登入</p>
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
@@ -8,13 +8,13 @@
           <span class="svg-container">
             <svg-icon icon-class="user" />
           </span>
-          <el-input ref="username" v-model="loginForm.username" placeholder="请输入邮箱/手机号" tabindex="1" autocomplete="on" />
+          <el-input ref="username" v-model="loginForm.username" placeholder="登录手机号/邮箱" tabindex="1" autocomplete="on" />
         </el-form-item>
         <el-form-item label prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
-          <el-input ref="password" v-model="loginForm.password" type="password" placeholder="请输入账户密码" tabindex="2" autocomplete="on" @keyup.enter.native="handleLogin" />
+          <el-input ref="password" v-model="loginForm.password" type="password" placeholder="登录密码" tabindex="2" autocomplete="on" @keyup.enter.native="handleLogin" />
         </el-form-item>
       </el-form>
       <div class="login-main-remember-password flex">
@@ -35,21 +35,23 @@
 export default {
   name: 'login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      let phoneAndReEmail = new RegExp(
+    const validateUser = (rule, value, callback) => {
+      const rep = new RegExp(
         '(^[\\w.\\-]+@(?:[a-z0-9]+(?:-[a-z0-9]+)*\\.)+[a-z]{2,3}$)|(^1[3|4|5|8]\\d{9}$)'
       )
-      setTimeout(() => {
-        if (!phoneAndReEmail.test(value)) {
-          callback(new Error('请输入有效的手机号码或者邮箱号!'))
-        } else {
-          callback()
-        }
-      }, 200)
+      if (value === '') {
+        callback(new Error('请输入登录手机号或邮箱!'))
+      } else if (!rep.test(value)) {
+        callback(new Error('手机号或邮箱格式不正确！'))
+      } else {
+        callback()
+      }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('密码不能少于6位!'))
+      if (value === '') {
+        callback(new Error('请输入登录密码!'))
+      } else if (value.length < 6) {
+        callback(new Error('登录密码不能少于6位!'))
       } else {
         callback()
       }
@@ -66,7 +68,7 @@ export default {
           {
             required: true,
             trigger: 'blur',
-            validator: validateUsername
+            validator: validateUser
           }
         ],
         password: [
@@ -84,8 +86,6 @@ export default {
   methods: {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
-        // let phone = /^[1][3,4,5,7,8][0-9]{9}$/; //判断用户输入的是否为手机号
-        // phone.test(this.loginForm.username) ? this.loginForm.type = '2' : this.loginForm.type = '3'
         if (valid) {
           this.loading = true
           // 是否选择了记住密码

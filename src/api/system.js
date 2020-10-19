@@ -52,3 +52,21 @@ export function order(data) {
 		data
 	})
 }
+
+// 获取参数
+export function getParam(data) {
+	return request({
+		url: '/api/v1/soil/system/system',
+		method: 'get',
+		data
+	})
+}
+
+// 更新参数
+export function updateParam(data) {
+	return request({
+		url: '/api/v1/soil/system/system',
+		method: 'post',
+		data
+	})
+}

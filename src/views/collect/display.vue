@@ -9,24 +9,24 @@
         <i class="col_ffffff" :class="leftShow?'el-icon-d-arrow-left':'el-icon-d-arrow-right'"></i>
       </div>
       <!-- 选择省市 -->
-      <div class="pad_top_8">省（直辖市）：</div>
-      <el-select v-model="province" size="medium" class="provinceSelectWidth" @change="changeProvince()">
+      <div class="label">省(直辖市)：</div>
+      <el-select v-model="province" size="small" class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="pad_top_8">市 ：</div>
-      <el-select v-model="city" size="medium" class="provinceSelectWidth" @change="changeCity()">
+      <div class="label">市 ：</div>
+      <el-select v-model="city" size="small" class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="pad_top_8">城区（县）：</div>
-      <el-select v-model="county" size="medium" class="provinceSelectWidth" @change="changeCounty()">
+      <div class="label">区(县)：</div>
+      <el-select v-model="county" size="small" class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="pad_top_8">镇乡 ：</div>
-      <el-select v-model="town" size="medium" class="provinceSelectWidth" @change="changeTown()">
+      <div class="label">镇(乡) ：</div>
+      <el-select v-model="town" size="small" class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="pad_top_8">村 ：</div>
-      <el-select v-model="village" size="medium" class="provinceSelectWidth" @change="changeVillage()">
+      <div class="label">村 ：</div>
+      <el-select v-model="village" size="small" class="provinceSelectWidth" @change="changeVillage()">
         <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <!-- 田亩大小 -->
@@ -268,13 +268,13 @@ export default {
   height: calc(100%);
   background-color: #eeeeee;
 }
-
+.label{padding:10px 0 3px; font-size: 12px;}
 .left {
   top: 0px;
-  left: 200px;
+  left: 0px;
   width: 200px !important;
   height: 100%;
-  padding: 20px 30px;
+  padding: 1px 20px 20px;
   background-color: rgba($color: #000000, $alpha: 0.5);
   box-sizing: border-box;
   transition: left 0.5s;

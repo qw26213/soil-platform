@@ -3,7 +3,7 @@
     <li v-for="(item, index) in landData" :key="index">
       <el-checkbox v-model="item.checked" @change="layerChecked(item)">
         <span class="layer-legend" :style="{background: item.color}"></span>
-        {{ item.name }}
+        <span style="color:#fff">{{ item.name }}</span>
       </el-checkbox>
     </li>
   </div>
@@ -101,22 +101,19 @@
 </script>
 
 <style scoped lang="scss">
-  $main-color: #409eff;
-  $padding: 20px;
-  $border-radius: 4px;
   .map-layers {
     position: absolute;
-    top: 120px;
-    right: $padding;
-    z-index: 99;
+    left: 10px;
+    bottom: 10px;
+    padding: 10px;
+    z-index: 9999;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.3);
     margin: 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: $border-radius;
-    padding: $padding * 0.5;
     .layer-legend {
       display: inline-block;
-      width: $padding * 0.6;
-      height: $padding * 0.6;
+      width: 12px;
+      height: 12px;
       margin-right: 5px;
     }
   }

@@ -9,24 +9,24 @@
         <i class="col_ffffff" :class="leftShow?'el-icon-d-arrow-left':'el-icon-d-arrow-right'"></i>
       </div>
       <!-- 选择省市 -->
-      <div class="pad_top_8">省（直辖市）：</div>
-      <el-select v-model="province" size="medium" filterable class="provinceSelectWidth" @change="changeProvince()">
+      <div class="label">省(直辖市):</div>
+      <el-select v-model="province" size="small" filterable class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">市 ：</div>
-      <el-select v-model="city" size="medium" filterable class="provinceSelectWidth" @change="changeCity()">
+      <div class="label">市：</div>
+      <el-select v-model="city" size="small" filterable class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">城区（县）：</div>
-      <el-select v-model="county" size="medium" filterable class="provinceSelectWidth" @change="changeCounty()">
+      <div class="label">城区(县)：</div>
+      <el-select v-model="county" size="small" filterable class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">镇乡 ：</div>
-      <el-select v-model="town" size="medium" filterable class="provinceSelectWidth" @change="changeTown()">
+      <div class="label">镇/乡：</div>
+      <el-select v-model="town" size="small" filterable class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">村 ：</div>
-      <el-select v-model="village" size="medium" filterable class="provinceSelectWidth" @change="changeVillage()">
+      <div class="label">村：</div>
+      <el-select v-model="village" size="small" filterable class="provinceSelectWidth" @change="changeVillage()">
         <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <!-- 四个单选 -->
@@ -35,27 +35,27 @@
       </div>-->
       <!-- 耕作形式 -->
       <div class="flex jus_between ali_center fon_12" style="margin-top:5px">
-        <div class="pad_top_8 felx1">耕作形式 ：</div>
+        <div class="pad_top_8 felx1">耕作形式：</div>
         <div class="areaSelectWidth">
-          <el-select v-model="Gway" size="mini" placeholder="选择">
+          <el-select v-model="Gway" size="small" placeholder="选择">
             <el-option v-for="(e,k) of GList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
       </div>
       <!-- 土壤属性 -->
       <div class="flex jus_between ali_center fon_12" style="margin-top:5px">
-        <div class="pad_top_8 felx1">土壤属性 ：</div>
+        <div class="pad_top_8 felx1">土壤属性：</div>
         <div class="areaSelectWidth">
-          <el-select v-model="Tway" size="mini" placeholder="选择">
+          <el-select v-model="Tway" size="small" placeholder="选择">
             <el-option v-for="(e,k) of TList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
       </div>
       <!-- 土壤酸碱度 -->
       <div class="jus_between flex ali_center fon_12" style="margin-top:5px">
-        <div class="pad_top_8 felx1">土壤酸碱度 ：</div>
+        <div class="pad_top_8 felx1">土壤酸碱度：</div>
         <div class="areaSelectWidth">
-          <el-select v-model="Sway" size="mini" placeholder="选择">
+          <el-select v-model="Sway" size="small" placeholder="选择">
             <el-option v-for="(e,k) of SList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
@@ -115,7 +115,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="$router.push(`./batchdetail?type=toDistributionPoint&code=${saveSuccessBatch}`)">直接分配</el-button>
-        <el-button @click="$router.push(`./batchdetail?type=changePublishReward&code=${saveSuccessBatch}`)">查看批次</el-button>
+        <el-button @click="$router.push(`./batch`)">查看批次</el-button>
       </div>
       <!-- <div class="col_9B9B9B fon_14">自动跳转批次管理界面 <span class="col_ff555a">{{time}} s</span> <span class="col_5381ff pad_lef_14"
       @click="jumpNow()">立即跳转</span></div>-->
@@ -410,19 +410,18 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .seeWidth {
   width: 100%;
   height: 100%;
 }
-
+.label{padding:10px 0 3px; font-size: 12px;}
 .left {
   top: 0px;
   left: 0px;
   width: 200px !important;
   height: 100%;
-  padding: 20px 20px;
+  padding: 0 20px 20px;
   background-color: rgba($color: #000000, $alpha: 0.5);
   box-sizing: border-box;
   transition: left 0.5s;

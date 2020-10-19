@@ -53,7 +53,7 @@
       <div class="leftNav position_absolute">
         <div class="fon_16 col_333333 fill_w text_center">
           本批次点数剩余：
-          <span class="col_ff555a">{{batchLstPointNumber}}</span> 个
+          <span class="col_ff555a">{{ batchLstPointNumber }}</span> 个
         </div>
       </div>
     </template>
