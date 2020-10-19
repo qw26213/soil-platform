@@ -78,14 +78,14 @@ export const asyncRoutes = [{
                 title: '任务管理'
             }
         }, {
-            path: '/people',
+            path: 'people',
             component: () => import('@/views/collect/people'),
             name: 'people',
             meta: {
                 title: '志愿者管理'
             }
         }, {
-            path: '/peopledetail',
+            path: 'peopledetail',
             component: () => import('@/views/collect/peopledetail'),
             name: 'peopledetail',
             hidden: true,
@@ -93,7 +93,7 @@ export const asyncRoutes = [{
                 title: '志愿者详情'
             }
         }, {
-            path: '/display',
+            path: 'display',
             component: () => import('@/views/collect/display'),
             name: 'display',
             meta: {

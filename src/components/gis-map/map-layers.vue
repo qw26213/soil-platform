@@ -1,8 +1,6 @@
 <template>
   <div class="map-layers">
-    <li
-      v-for="(item, index) in landData"
-      :key="index">
+    <li v-for="(item, index) in landData" :key="index">
       <el-checkbox v-model="item.checked" @change="layerChecked(item)">
         <span class="layer-legend" :style="{background: item.color}"></span>
         {{ item.name }}
@@ -77,7 +75,7 @@
                             'fill-color': layer.color,
                             'fill-opacity': 0.5
                         }
-                    });
+                    }, 'background');
                 } else {
                     const show = layer.checked ? 'visible' : 'none';
                     map.setLayoutProperty(layer.code, 'visibility', show);
@@ -108,7 +106,7 @@
   $border-radius: 4px;
   .map-layers {
     position: absolute;
-    top: $padding * 3.4;
+    top: 120px;
     right: $padding;
     z-index: 99;
     margin: 0;

@@ -308,6 +308,13 @@ export default {
                         source: 'TdtImgLabel',
                         minzoom: 3,
                         maxzoom: 18
+                    },
+                    {
+                        "id": "background",
+                        "type": "background",
+                        "paint": {
+                            "background-color": "rgba(0, 0, 0, 0)"
+                        }
                     }
                 ]
             };

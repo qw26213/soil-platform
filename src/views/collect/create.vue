@@ -11,23 +11,23 @@
       <!-- 选择省市 -->
       <div class="pad_top_8">省（直辖市）：</div>
       <el-select v-model="province" size="medium" filterable class="provinceSelectWidth" @change="changeProvince()">
-        <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code"></el-option>
+        <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">市 ：</div>
       <el-select v-model="city" size="medium" filterable class="provinceSelectWidth" @change="changeCity()">
-        <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code"></el-option>
+        <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">城区（县）：</div>
       <el-select v-model="county" size="medium" filterable class="provinceSelectWidth" @change="changeCounty()">
-        <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code"></el-option>
+        <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">镇乡 ：</div>
       <el-select v-model="town" size="medium" filterable class="provinceSelectWidth" @change="changeTown()">
-        <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code"></el-option>
+        <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">村 ：</div>
       <el-select v-model="village" size="medium" filterable class="provinceSelectWidth" @change="changeVillage()">
-        <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
+        <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <!-- 四个单选 -->
       <!-- <div class="mar_top_10 flex wrap">
@@ -38,7 +38,7 @@
         <div class="pad_top_8 felx1">耕作形式 ：</div>
         <div class="areaSelectWidth">
           <el-select v-model="Gway" size="mini" placeholder="选择">
-            <el-option v-for="(e,k) of GList" :key="k" :label="e.name" :value="e.code"></el-option>
+            <el-option v-for="(e,k) of GList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
       </div>
@@ -47,7 +47,7 @@
         <div class="pad_top_8 felx1">土壤属性 ：</div>
         <div class="areaSelectWidth">
           <el-select v-model="Tway" size="mini" placeholder="选择">
-            <el-option v-for="(e,k) of TList" :key="k" :label="e.name" :value="e.code"></el-option>
+            <el-option v-for="(e,k) of TList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
       </div>
@@ -56,7 +56,7 @@
         <div class="pad_top_8 felx1">土壤酸碱度 ：</div>
         <div class="areaSelectWidth">
           <el-select v-model="Sway" size="mini" placeholder="选择">
-            <el-option v-for="(e,k) of SList" :key="k" :label="e.name" :value="e.code"></el-option>
+            <el-option v-for="(e,k) of SList" :key="k" :label="e.name" :value="e.code" />
           </el-select>
         </div>
       </div>
@@ -64,23 +64,23 @@
       <div class="fon_12 flex wrap mar_top_10 mar_bot_0">
         <div class="flex ali_center leftWidth lineHiegh10">
           <div class="yellow"></div>
-          <div class="mar_left_6">0亩- 1亩</div>
+          <div class="mar_left_6">0 - 1亩</div>
         </div>
         <div class="flex ali_center leftWidth lineHiegh10">
           <div class="red"></div>
-          <div class="mar_left_6">1亩- 10亩</div>
+          <div class="mar_left_6">1 - 10亩</div>
         </div>
         <div class="flex ali_center leftWidth lineHiegh10">
           <div class="green"></div>
-          <div class="mar_left_6">10亩- 100亩</div>
+          <div class="mar_left_6">10 - 100亩</div>
         </div>
         <div class="flex ali_center leftWidth lineHiegh10">
           <div class="blue"></div>
-          <div class="mar_left_6">100亩- 1000亩</div>
+          <div class="mar_left_6">100 - 1000亩</div>
         </div>
         <div class="flex ali_center lineHiegh10">
           <div class="gray"></div>
-          <div class="mar_left_6">1000亩- 100,0000亩</div>
+          <div class="mar_left_6">1000 - 100,0000亩</div>
         </div>
       </div>
     </div>
@@ -114,8 +114,8 @@
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="$router.push(`/batchManagementDetails?type=toDistributionPoint&code=${saveSuccessBatch}`)">直接分配</el-button>
-        <el-button @click="$router.push(`/batchManagementDetails?type=changePublishReward&code=${saveSuccessBatch}`)">查看批次</el-button>
+        <el-button @click="$router.push(`./batchdetail?type=toDistributionPoint&code=${saveSuccessBatch}`)">直接分配</el-button>
+        <el-button @click="$router.push(`./batchdetail?type=changePublishReward&code=${saveSuccessBatch}`)">查看批次</el-button>
       </div>
       <!-- <div class="col_9B9B9B fon_14">自动跳转批次管理界面 <span class="col_ff555a">{{time}} s</span> <span class="col_5381ff pad_lef_14"
       @click="jumpNow()">立即跳转</span></div>-->

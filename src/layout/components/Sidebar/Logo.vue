@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: '土壤采集管理系统',
+      title: '山水云图土壤采集管理系统',
       logo: logoUrl
     }
   }

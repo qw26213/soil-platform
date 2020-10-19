@@ -34,9 +34,14 @@
           已认领：
           <span class="col_509bfc">{{batchInfo.required || 0}}</span>
         </div>
+        <!-- <div class="fon_16 col_333333 flex ali_center pad_top_8">
+          <img src="../../assets/requiredIcon.png" alt class="localIcon" />
+          已采集：
+          <span class="col_509bfc">{{batchInfo.required || 0}}</span>
+        </div> -->
         <div class="fon_16 col_333333 mar_top_10">已发布：{{batchInfo.batch_number || 0}} 组</div>
         <div class="flex jus_between borderTop mar_top_10 mar_bot_0">
-          <div class="lineHiegh10 fon_16 col_509bfc borderRight flex1 flex jus_center ali_center cursor" @click="getPointBindDetails()">查看认领</div>
+          <div class="lineHiegh10 fon_16 col_509bfc borderRight flex1 flex jus_center ali_center cursor" @click="getPointBindDetails()">认领详情</div>
           <div v-if="batchInfo.unrequired != 0" class="lineHiegh10 fon_16 col_509bfc flex1 flex jus_center ali_center cursor" @click="dislogRestTask = true">再发布</div>
           <div v-else class="lineHiegh10 fon_16 col_9B9B9B flex1 flex jus_center ali_center cursor">再发布</div>
         </div>
@@ -201,7 +206,6 @@ import {
 } from '@/api/collect.js'
 
 import GisMap from '@/components/gis-map'
-
 export default {
   components: {
     GisMap
@@ -559,10 +563,11 @@ export default {
 .leftNav {
   left: 20px;
   top: 30px;
-  width: 240px;
-  padding: 10px 20px;
+  width: 285px;
+  padding:15px 15px 10px;
   background-color: rgba($color: #ffffff, $alpha: 0.8);
   box-sizing: border-box;
+  border-radius: 4px;
 }
 
 .rightUpPos {
