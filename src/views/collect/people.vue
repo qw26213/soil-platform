@@ -6,16 +6,16 @@
             <!-- <span>手机号：</span> -->
             <!-- <el-input size="mini" placeholder="手机号码" v-model="vPhone" class="phoneWidth" /> -->
             <span style="margin-left:10px">所在区域:</span>
-            <el-select v-model="province" size="mini" class="phoneWidth" @change="changeProvince()" placeholder="省（直辖市）：">
+            <el-select v-model="province" size="mini" class="phoneWidth" @change="changeProvince()" placeholder="省(直辖市)：">
                 <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
             </el-select>
             <el-select v-model="city" size="mini" class="phoneWidth" @change="changeCity()" placeholder="市：">
                 <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
             </el-select>
-            <el-select v-model="county" size="mini" class="phoneWidth" @change="changeCounty()" placeholder="城区（县）：">
+            <el-select v-model="county" size="mini" class="phoneWidth" @change="changeCounty()" placeholder="县(区)：">
                 <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
             </el-select>
-            <el-select v-model="town" size="mini" class="phoneWidth" @change="changeTown()" placeholder="镇乡：">
+            <el-select v-model="town" size="mini" class="phoneWidth" @change="changeTown()" placeholder="镇/乡：">
                 <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
             </el-select>
             <el-select v-model="village" size="mini" class="phoneWidth" @change="changeVillage()" placeholder="村：">
@@ -59,7 +59,7 @@ export default {
             tableData: [],
             // 分页
             page: 1,
-            pageSize: 10,
+            pageSize: 50,
             totalPage: 0,
             // 多级联动的参数
             // 省市级选择

@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import { getFuncs } from '@/api/system'
+import { getParam } from '@/api/system'
 export default {
   name: 'FuncList',
   data() {
