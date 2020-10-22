@@ -89,7 +89,6 @@
                 that.addPopup();
                 that.addDrawLayer();
                 that.addShowLayer();
-
                 map.on('click', function(e) {
                     if (that.isDraw) {
                         switch (that.mapTool) {
@@ -198,7 +197,6 @@
                     offset: [0, -28],
                     anchor: 'bottom'
                 });
-
                 that.popup.on('open', function(){
                     var ele = $(that.popup.getElement());
                     var offset = ele.offset();
@@ -225,7 +223,6 @@
                     centerPx = [centerPx.x - h, centerPx.y - v];
                     map.panTo(map.unproject(centerPx));
                 });
-
                 that.popupArea = new mapboxgl.Popup({
                     closeButton: false,
                     closeOnClick: false,
@@ -354,7 +351,6 @@
                     map.getCanvas().style.cursor = '';
                     that.popup.setLngLat([0, 0])
                 });
-
                 // 添加点击事件
                 map.on('click', 'free-markers', function(e) {
                     const feature = e.features[0];
@@ -389,13 +385,13 @@
                 prop = Object.assign(prop, prop.results);
                 const fieldLabel = {
                     'UNREQUIRED': '所属批次,完成日期,所在行政区'.split(','),
-                    'FINISHED': '所属批次,提交日期,所在行政区,采集人,采集形式'.split(','),
+                    'FINISHED': '所属批次,提交日期,所在行政区,采集人,采集编号,农户姓名,采集地址,采集形式'.split(','),
                     'REQUIRED': '所属批次,截止日期,所在行政区,采集人'.split(','),
                     'INCOMED': '所属批次,采土袋ID,入库日期,所属仓库,仓库所在地,采集人,采集形式'.split(',')
                 };
                 const fieldCode = {
                     'UNREQUIRED': 'batch_code,end_time,sample_area'.split(','),
-                    'FINISHED': 'batch_code,submit_time,sample_area,collector,task_attr'.split(','),
+                    'FINISHED': 'batch_code,submit_time,sample_area,collector,remark,farmer,detail_address,task_attr'.split(','),
                     'REQUIRED': 'batch_code,end_time,sample_area,collector'.split(','),
                     'INCOMED': 'batch_code,bag_code,income_time,deport_name,deport_area,collector,task_attr'.split(',')
                 };
@@ -578,7 +574,6 @@
             addDrawLayer() {
                 const that = this;
                 const map = that.map;
-
                 that.tempElement = document.createElement('div');
                 that.tempElement.setAttribute('class', 'measure-result');
                 const option = {
@@ -589,11 +584,9 @@
                 that.tempLength = new mapboxgl.Marker(option)
                     .setLngLat([0, 0])
                     .addTo(map);
-
                 const delElement = document.createElement('div');
                 delElement.setAttribute('class', 'delete-button');
                 delElement.innerHTML = "删除";
-
                 const delOption = {
                     element: delElement,
                     anchor: 'left',
@@ -602,7 +595,6 @@
                 that.delMarker = new mapboxgl.Marker(delOption)
                     .setLngLat([0, 0])
                     .addTo(map);
-
                 delElement.onclick = function () {
                     let msg = that.delObject.layer.id === "draw-markers" ? '是否确认删除该打点?' : ' 是否确定删除此地块以及地块上所有的采集点?';
                     that.$confirm(msg, '提示', {
@@ -632,9 +624,6 @@
                         });
                     });
                 };
-
-
-
                 // 绘制时的临时线，会在绘制结束后清楚
                 const tempLineOpt = {
                     id: 'temp-line',
@@ -651,7 +640,6 @@
                     data: that.getGeojson([])
                 });
                 map.addLayer(tempLineOpt);
-
                 // 绘制时的临时面，会在绘制结束后清楚
                 const tempPolygonOpt = {
                     id: 'temp-polygon',
@@ -716,7 +704,6 @@
                         "text-size": 13,
                         'text-font': ["Open Sans Regular"],
                         'text-allow-overlap': true,
-
                     },
                     paint: {
                         'text-color': '#000',
@@ -725,7 +712,6 @@
                     }
                 };
                 map.addLayer(drawLineLabelOpt);
-
                 // 绘制点图层
                 map.addSource('draw-markers', {
                     type: 'geojson',
@@ -834,7 +820,6 @@
                 }
                 that.polygons = polygons;
                 map.getSource('draw-polygon').setData(that.getGeojson(that.polygons));
-
                 // 删除边界
                 let borders = [];
                 for (let i = 0; i < that.borders.length; i++) {
@@ -949,7 +934,6 @@
                         id: uuid
                     }
                 };
-
                 // 将面积在中心点展示
                 let area = turf.area(geojson);
                 area = area * 0.0015;
@@ -961,12 +945,10 @@
                 }
                 const info = `<b>地块面积</b>：${areaText}亩`;
                 that.$emit('set-info', info);
-
                 // 最后展示的多边形
                 that.polygon = geojson;
                 that.polygons.push(geojson);
                 map.getSource('draw-polygon').setData(that.getGeojson(that.polygons));
-
                 // 展示测量结果
                 for (let i = 1; i < points.length; i++) {
                     const pos0 = that.points[i - 1];
@@ -979,7 +961,6 @@
                     that.borders.push(feat);
                 }
                 map.getSource('draw-border').setData(that.getGeojson(that.borders));
-
                 // 将绘制地块放大
                 let bbox = turf.bbox(geojson);
                 bbox = [[bbox[0], bbox[1]], [bbox[2], bbox[3]]];

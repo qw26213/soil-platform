@@ -46,6 +46,7 @@ export const asyncRoutes = [{
         redirect: '/collect/create',
         meta: {
             title: '采集管理',
+            roles: [100101, 100102, 100103, 100104, 100105, 100106],
             icon: 'collect'
         },
         children: [{
@@ -53,14 +54,16 @@ export const asyncRoutes = [{
             component: () => import('@/views/collect/create'),
             name: 'collect',
             meta: {
-                title: '采集规划'
+                title: '采集规划',
+                roles: [100101]
             }
         }, {
             path: 'batch',
             component: () => import('@/views/collect/batch'),
             name: 'batch',
             meta: {
-                title: '批次管理'
+                title: '批次管理',
+                roles: [100102]
             }
         }, {
             path: 'batchdetail',
@@ -75,14 +78,16 @@ export const asyncRoutes = [{
             component: () => import('@/views/collect/task'),
             name: 'task',
             meta: {
-                title: '任务管理'
+                title: '任务管理',
+                roles: [100103]
             }
         }, {
             path: 'people',
             component: () => import('@/views/collect/people'),
             name: 'people',
             meta: {
-                title: '志愿者管理'
+                title: '志愿者管理',
+                roles: [100104]
             }
         }, {
             path: 'peopledetail',
@@ -97,7 +102,8 @@ export const asyncRoutes = [{
             component: () => import('@/views/collect/display'),
             name: 'display',
             meta: {
-                title: '结果展示'
+                title: '结果展示',
+                roles: [100105]
             }
         }]
     }, {
@@ -107,6 +113,7 @@ export const asyncRoutes = [{
         name: 'store',
         meta: {
             title: '仓库管理',
+            roles: [100201,100202,100203],
             icon: 'store'
         },
         children: [{
@@ -114,7 +121,8 @@ export const asyncRoutes = [{
             component: () => import('@/views/store/code'),
             name: 'code',
             meta: {
-                title: '赋码管理'
+                title: '赋码管理',
+                roles: [100201]
             }
         }, {
             path: 'codedetail',
@@ -122,21 +130,24 @@ export const asyncRoutes = [{
             name: 'codedetail',
             hidden: true,
             meta: {
-                title: '赋码详情'
+                title: '赋码详情',
+                roles: [100201]
             }
         }, {
             path: 'data',
             component: () => import('@/views/store/data'),
             name: 'warehosueData',
             meta: {
-                title: '入库管理'
+                title: '入库管理',
+                roles: [100202]
             }
         }, {
             path: 'query',
             component: () => import('@/views/store/query'),
             name: 'query',
             meta: {
-                title: '查询管理'
+                title: '查询管理',
+                roles: [100203]
             }
         }, {
             path: 'shelfdetail',
@@ -144,7 +155,8 @@ export const asyncRoutes = [{
             name: 'shelfdetail',
             hidden: true,
             meta: {
-                title: '货架详情'
+                title: '货架详情',
+                roles: [100203]
             }
         }]
     }, {
@@ -154,6 +166,7 @@ export const asyncRoutes = [{
         name: 'detect',
         meta: {
             title: '检测管理',
+            roles: [100301,100302,100303],
             icon: 'excel'
         },
         children: [{
@@ -161,21 +174,24 @@ export const asyncRoutes = [{
             component: () => import('@/views/detect/data.vue'),
             name: 'detectData',
             meta: {
-                title: '送检管理'
+                title: '送检管理',
+                roles: [100301]
             }
         }, {
             path: 'input',
             component: () => import('@/views/detect/input.vue'),
             name: 'input',
             meta: {
-                title: '结果录入'
+                title: '结果录入',
+                roles: [100301]
             }
         }, {
             path: 'result',
             component: () => import('@/views/detect/result.vue'),
             name: 'result',
             meta: {
-                title: '结果查询'
+                title: '结果查询',
+                roles: [100301]
             }
         }]
     }, {
@@ -185,42 +201,48 @@ export const asyncRoutes = [{
         name: 'system',
         meta: {
             title: '系统管理',
+            roles: [100401,100402,100403,100404],
             icon: 'maintain'
         },
         children: [{
-            path: 'param',
-            component: () => import('@/views/system/param'),
-            name: 'param',
-            meta: {
-                title: '参数配置'
-            }
-        }, {
+        //     path: 'param',
+        //     component: () => import('@/views/system/param'),
+        //     name: 'param',
+        //     meta: {
+        //         title: '参数配置',
+        //         roles: ['100101']
+        //     }
+        // }, {
             path: 'create',
             component: () => import('@/views/system/create'),
             name: 'create',
             meta: {
-                title: '系统创建'
+                title: '系统创建',
+                roles: [100401]
             }
         }, {
             path: 'role',
             component: () => import('@/views/system/role'),
             name: 'role',
             meta: {
-                title: '角色管理'
+                title: '角色管理',
+                roles: [100402]
             }
         }, {
             path: 'user',
             component: () => import('@/views/system/user'),
             name: 'user',
             meta: {
-                title: '用户管理'
+                title: '用户管理',
+                roles: [100403]
             }
         }, {
             path: 'func',
             component: () => import('@/views/system/func'),
             name: 'func',
             meta: {
-                title: '权限管理'
+                title: '权限管理',
+                roles: [100404]
             }
         }]
     }, {

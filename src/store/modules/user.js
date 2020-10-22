@@ -1,17 +1,6 @@
-import {
-    login,
-    role
-} from '@/api/user'
-import {
-    getToken,
-    setToken,
-    removeToken,
-    setName,
-    getName
-} from '@/utils/auth'
-import {
-    fetchRoles
-} from '@/utils/index'
+import { login, getAdminInfo } from '@/api/user'
+import { getToken, setToken, removeToken, setName, getName } from '@/utils/auth'
+import { fetchRoles } from '@/utils/index'
 import router, {
     resetRouter
 } from '@/router'
@@ -71,13 +60,17 @@ const actions = {
         state
     }) {
         return new Promise((resolve, reject) => {
-            commit('SET_NAME', getName())
-            var roles = [10, 20]
-            if (!roles || roles.length <= 0) {
-                reject('roles must be a non-null array!')
-            }
-            commit('SET_ROLES', roles)
-            resolve(roles)
+            getAdminInfo().then(res => {
+                const userName = res.data.username
+                commit('SET_NAME', userName)
+                const roles = fetchRoles(res.data.menus)
+                console.log(roles)
+                if (!roles || roles.length <= 0) {
+                    reject('roles must be a non-null array!')
+                }
+                commit('SET_ROLES', roles)
+                resolve(roles)
+            })
         })
     },
     // user logout

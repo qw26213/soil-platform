@@ -7,7 +7,7 @@
             <div class="avatar-container right-menu-item hover-effect">
                 <div class="avatar-wrapper">
                     <img :src="avatar" class="user-avatar" />
-                    <span class="user-name" style="color:#fff">{{ userName }}</span>
+                    <span class="user-name" style="color:#fff">{{ name }}</span>
                     <i style="vertical-align: middle;transform:rotate(90deg);color:#fff" class="el-icon-minus" />
                     <el-button type="text" style="color:#fff" size="small" @click="logout">退出登录</el-button>
                 </div>
@@ -23,7 +23,6 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 import { setToken, getToken } from "@/utils/auth";
 import Cookies from "js-cookie";
-import { getAdminInfo } from '@/api/user'
 export default {
     components: {
         logo,
@@ -32,17 +31,13 @@ export default {
     },
     data() {
         return {
-            avatar: userImg,
-            userName: '*******'
+            avatar: userImg
         }
     },
     computed: {
-        ...mapGetters(["sidebar", "device" ])
+        ...mapGetters(["sidebar", "device", "name" ])
     },
     created() {
-        getAdminInfo().then(res => {
-            this.userName = res.data.username
-        })
     },
     methods: {
         toggleSideBar() {

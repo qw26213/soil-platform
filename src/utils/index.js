@@ -74,6 +74,14 @@ export function formatTime(time, option) {
     }
 }
 
+export function fetchRoles(arr) {
+    var codes = []
+    for (var i = 0; i < arr.length; i++) {
+        codes.push(arr[i].id)
+    }
+    return codes
+}
+
 export function cleanArray(actual) {
     const newArray = []
     for (let i = 0; i < actual.length; i++) {
