@@ -159,7 +159,6 @@ export default {
     },
     // 获取省市级
     async getProvince() {
-      console.log('获取省市级')
       let res = await get_city({})
       this.provinceList = res.data
     },

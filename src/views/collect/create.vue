@@ -212,31 +212,26 @@ export default {
   methods: {
     // 获取省市级
     async getProvince() {
-      console.log('获取省市级')
       let res = await get_city({})
       this.provinceList = res.data
     },
     // 获取耕作方式
     async getFarmMethods() {
-      console.log('获取耕作方式')
       let res = await farm_method({})
       this.GList = res.data
     },
     // 获取加载方式
     async load_method() {
-      console.log('获取加载方式')
       let res = await load_method({})
       this.loadList = res.data
     },
     // 获取土壤属性
     async soil_properties() {
-      console.log('获取土壤属性')
       let res = await soil_properties({})
       this.TList = res.data
     },
     // 获取土壤酸碱度
     async getSoilPh() {
-      console.log('获取土壤酸碱度')
       let res = await soil_ph({})
       this.SList = res.data
     },

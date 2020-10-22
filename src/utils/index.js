@@ -77,7 +77,7 @@ export function formatTime(time, option) {
 export function fetchRoles(arr) {
     var codes = []
     for (var i = 0; i < arr.length; i++) {
-        codes.push(arr[i].id)
+        codes.push(String(arr[i].id))
     }
     return codes
 }

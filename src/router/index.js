@@ -43,10 +43,10 @@ export const asyncRoutes = [{
     }, {
         path: '/collect',
         component: Layout,
-        redirect: '/collect/create',
+        redirect: '/collect/display',
         meta: {
             title: '采集管理',
-            roles: [100101, 100102, 100103, 100104, 100105, 100106],
+            roles: ['1001','100101','100102','100103','100104','100105'],
             icon: 'collect'
         },
         children: [{
@@ -55,7 +55,7 @@ export const asyncRoutes = [{
             name: 'collect',
             meta: {
                 title: '采集规划',
-                roles: [100101]
+                roles: ['100101']
             }
         }, {
             path: 'batch',
@@ -63,7 +63,7 @@ export const asyncRoutes = [{
             name: 'batch',
             meta: {
                 title: '批次管理',
-                roles: [100102]
+                roles: ['100102']
             }
         }, {
             path: 'batchdetail',
@@ -79,7 +79,15 @@ export const asyncRoutes = [{
             name: 'task',
             meta: {
                 title: '任务管理',
-                roles: [100103]
+                roles: ['100103']
+            }
+        }, {
+            path: 'display',
+            component: () => import('@/views/collect/display'),
+            name: 'display',
+            meta: {
+                title: '结果展示',
+                roles: ['100105']
             }
         }, {
             path: 'people',
@@ -87,7 +95,7 @@ export const asyncRoutes = [{
             name: 'people',
             meta: {
                 title: '志愿者管理',
-                roles: [100104]
+                roles: ['100104']
             }
         }, {
             path: 'peopledetail',
@@ -97,14 +105,6 @@ export const asyncRoutes = [{
             meta: {
                 title: '志愿者详情'
             }
-        }, {
-            path: 'display',
-            component: () => import('@/views/collect/display'),
-            name: 'display',
-            meta: {
-                title: '结果展示',
-                roles: [100105]
-            }
         }]
     }, {
         path: '/store',
@@ -113,7 +113,7 @@ export const asyncRoutes = [{
         name: 'store',
         meta: {
             title: '仓库管理',
-            roles: [100201,100202,100203],
+            roles: ['100201', '100202', '100203'],
             icon: 'store'
         },
         children: [{
@@ -122,7 +122,7 @@ export const asyncRoutes = [{
             name: 'code',
             meta: {
                 title: '赋码管理',
-                roles: [100201]
+                roles: ['100201']
             }
         }, {
             path: 'codedetail',
@@ -131,7 +131,7 @@ export const asyncRoutes = [{
             hidden: true,
             meta: {
                 title: '赋码详情',
-                roles: [100201]
+                roles: ['100201']
             }
         }, {
             path: 'data',
@@ -139,7 +139,7 @@ export const asyncRoutes = [{
             name: 'warehosueData',
             meta: {
                 title: '入库管理',
-                roles: [100202]
+                roles: ['100202']
             }
         }, {
             path: 'query',
@@ -147,7 +147,7 @@ export const asyncRoutes = [{
             name: 'query',
             meta: {
                 title: '查询管理',
-                roles: [100203]
+                roles: ['100203']
             }
         }, {
             path: 'shelfdetail',
@@ -156,7 +156,7 @@ export const asyncRoutes = [{
             hidden: true,
             meta: {
                 title: '货架详情',
-                roles: [100203]
+                roles: ['100203']
             }
         }]
     }, {
@@ -166,7 +166,7 @@ export const asyncRoutes = [{
         name: 'detect',
         meta: {
             title: '检测管理',
-            roles: [100301,100302,100303],
+            roles: ['1003','100301','100302','100303'],
             icon: 'excel'
         },
         children: [{
@@ -175,7 +175,7 @@ export const asyncRoutes = [{
             name: 'detectData',
             meta: {
                 title: '送检管理',
-                roles: [100301]
+                roles: ['100301']
             }
         }, {
             path: 'input',
@@ -183,7 +183,7 @@ export const asyncRoutes = [{
             name: 'input',
             meta: {
                 title: '结果录入',
-                roles: [100301]
+                roles: ['100301']
             }
         }, {
             path: 'result',
@@ -191,7 +191,7 @@ export const asyncRoutes = [{
             name: 'result',
             meta: {
                 title: '结果查询',
-                roles: [100301]
+                roles: ['100301']
             }
         }]
     }, {
@@ -201,7 +201,7 @@ export const asyncRoutes = [{
         name: 'system',
         meta: {
             title: '系统管理',
-            roles: [100401,100402,100403,100404],
+            roles: ['1004','100401','100402','100403','100404'],
             icon: 'maintain'
         },
         children: [{
@@ -218,7 +218,7 @@ export const asyncRoutes = [{
             name: 'create',
             meta: {
                 title: '系统创建',
-                roles: [100401]
+                roles: ['100401']
             }
         }, {
             path: 'role',
@@ -226,7 +226,7 @@ export const asyncRoutes = [{
             name: 'role',
             meta: {
                 title: '角色管理',
-                roles: [100402]
+                roles: ['100402']
             }
         }, {
             path: 'user',
@@ -234,7 +234,7 @@ export const asyncRoutes = [{
             name: 'user',
             meta: {
                 title: '用户管理',
-                roles: [100403]
+                roles: ['100403']
             }
         }, {
             path: 'func',
@@ -242,7 +242,7 @@ export const asyncRoutes = [{
             name: 'func',
             meta: {
                 title: '权限管理',
-                roles: [100404]
+                roles: ['100404']
             }
         }]
     }, {
