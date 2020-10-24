@@ -49,8 +49,9 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                sessionStorage.clear()
-                this.$router.replace({ path: "/login" })
+                this.$store.dispatch('user/logout').then(() => {
+                    this.$router.replace('/login')
+                })
             })
         }
     }

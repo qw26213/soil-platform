@@ -603,7 +603,7 @@ li {
 
         label {
             display: inline-block;
-            max-width: 220px;
+            max-width: 260px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;

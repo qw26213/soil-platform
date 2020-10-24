@@ -90,6 +90,14 @@ export const asyncRoutes = [{
                 roles: ['100105']
             }
         }, {
+            path: 'query',
+            component: () => import('@/views/collect/query'),
+            name: 'query',
+            meta: {
+                title: '结果查询',
+                roles: ['100105']
+            }
+        }, {
             path: 'people',
             component: () => import('@/views/collect/people'),
             name: 'people',

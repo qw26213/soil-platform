@@ -44,7 +44,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             login(obj).then(res => {
                 if (res.code == 201) {
-                    commit('SET_TOKEN', res.data.token)
+                    commit('SET_TOKEN', res.data.tokenHead + res.data.token)
                     resolve()
                 } else {
                     reject(res.msg)
@@ -79,15 +79,12 @@ const actions = {
         state
     }) {
         return new Promise((resolve, reject) => {
-            toLogout().then(res => {
-                removeToken()
-                commit('SET_TOKEN', '')
-                commit('SET_ROLES', [])
-                sessionStorage.clear()
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            sessionStorage.clear()
+            resolve()
+        }).catch(error => {
+            reject(error)
         })
     },
     // remove token

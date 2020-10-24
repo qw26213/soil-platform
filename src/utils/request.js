@@ -12,9 +12,7 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         const token = sessionStorage.ACCESS_TOKEN
-        if (token) {
-            config.headers['Authorization'] = 'Bearer ' + token
-        }
+        config.headers['Authorization'] = token
 
         // 方法不同 get\put 请求放在params post请求放在query上
         if (config.method == 'get' || config.method == 'put') {

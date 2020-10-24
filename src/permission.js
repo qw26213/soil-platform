@@ -35,9 +35,11 @@ router.beforeEach(async (to, from, next) => {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
           const roles = await store.dispatch('user/getInfo')
+          const roleArr = roles.indexOf('100105') >= 0 ? roles : roles.concat(['100105'])
+          console.log(roleArr)
 
           // generate accessible routes map based on roles
-          const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          const accessRoutes = await store.dispatch('permission/generateRoutes', roleArr)
 
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
@@ -53,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    if (to.path === '/register' || to.path === '/forgetPsd' || to.path === '/forgetCode') {
+    if (to.path === '/register' || to.path === '/forgetpsw' || to.path === '/submitpsw') {
       next()
       NProgress.done()
     } else {
@@ -63,7 +65,7 @@ router.beforeEach(async (to, from, next) => {
         next()
       } else {
         // other pages that do not have permission to access are redirected to the login page.
-        next(`/login?redirect=${to.path}`)
+        next(`/login`)
         NProgress.done()
       }
     }

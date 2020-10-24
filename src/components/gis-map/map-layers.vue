@@ -1,5 +1,5 @@
 <template>
-  <div class="map-layers">
+  <div v-if="$route.path==='/collect/create'" class="map-layers">
     <li v-for="(item, index) in landData" :key="index">
       <el-checkbox v-model="item.checked" @change="layerChecked(item)">
         <span class="layer-legend" :style="{background: item.color}"></span>

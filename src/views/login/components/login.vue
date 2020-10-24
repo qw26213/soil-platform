@@ -29,6 +29,7 @@
         <div class="registered" @click="toPath('/register')">申请注册</div>
       </div>
     </el-card>
+    <div class="botomTxt">Copyright@2018 北京山水云图科技有限公司 All Rights Reserved  ——试用版2.0.1</div>
   </div>
 </template>
 <script>
@@ -90,13 +91,10 @@ export default {
           this.loading = true
           // 是否选择了记住密码
           this.loginForm.remember = this.checked
-          this.$store
-            .dispatch('user/login', this.loginForm)
-            .then(() => {
+          this.$store.dispatch('user/login', this.loginForm).then(() => {
               this.$router.replace('/')
               this.loading = false
-            })
-            .catch(err => {
+            }).catch(err => {
               console.log(err)
               this.loading = false
               this.$message.warning(err)
@@ -228,4 +226,7 @@ export default {
     cursor: pointer;
   }
 }
+</style>
+<style>
+  .botomTxt{font-size: 12px;color: #666;position: fixed;bottom: 5px;line-height: 24px;text-align: center; width: 100%;left: 0;}
 </style>
