@@ -406,14 +406,13 @@
                     }
                 }
                 const html = `
-        <div class="popup-title" style="width:350px">
-          <label style="max-width:300px">${'坐标：' + prop.code}</label>
-          <span class="popup-close" id="popupClose">×</span>
-        </div>
-        <div class="popup-content">
-            ${content}
-        </div>
-      `;
+                    <div class="popup-title" style="width:280px">
+                      <label style="max-width:220px">${'坐标：' + prop.code}</label>
+                      <span class="popup-close" id="popupClose">×</span>
+                    </div>
+                    <div class="popup-content">
+                        ${content}
+                    </div>`;
                 that.popup
                     .setLngLat(coord)
                     .setHTML(html)

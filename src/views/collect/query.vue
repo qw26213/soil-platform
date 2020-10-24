@@ -3,6 +3,7 @@
         <div class="contentDiv">
             <div class="col_656565 fon_16">采集结果列表</div>
             <el-table :data="tableData" v-loading="loading" style="width: 100%;margin-top:10px" :header-cell-style="headerCellStyle">
+                <el-table-column label="序号" type="index" width="50" align="center" />
                 <el-table-column prop="create_time" label="采集编号" align="left" min-width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.properties && row.properties.remark }}</span>
