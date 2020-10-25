@@ -192,6 +192,15 @@ export function batchResult(data) {
 	})
 }
 
+// 结果查询
+export function resultQuery(data) {
+	return request({
+		url: '/api/v1/soil/batch/result_query',
+		method: 'get',
+		data
+	})
+}
+
 
 // 采样点统计
 export function sampleCount(data) {
