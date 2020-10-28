@@ -213,14 +213,14 @@ export const asyncRoutes = [{
             icon: 'maintain'
         },
         children: [{
-        //     path: 'param',
-        //     component: () => import('@/views/system/param'),
-        //     name: 'param',
-        //     meta: {
-        //         title: '参数配置',
-        //         roles: ['100101']
-        //     }
-        // }, {
+            path: 'param',
+            component: () => import('@/views/system/param'),
+            name: 'param',
+            meta: {
+                title: '参数配置',
+                roles: ['100401']
+            }
+        }, {
             path: 'create',
             component: () => import('@/views/system/create'),
             name: 'create',

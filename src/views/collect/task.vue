@@ -18,12 +18,12 @@
                 <el-table-column prop="samplePoint_code" label="采集点ID" show-overflow-tooltip />
                 <el-table-column prop="collector" label="采集人" show-overflow-tooltip width="120">
                     <template slot-scope="{row}">
-                        <span>{{ row.collector || '————' }}</span>
+                        <span>{{ row.collector || '——' }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="bag_code" label="采土袋ID" align="center" show-overflow-tooltip>
                     <template slot-scope="{row}">
-                        <span>{{ row.bag_code || '————' }}</span>
+                        <span>{{ row.bag_code || '——' }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="task_attr" label="任务类型" align="center" width="120" />

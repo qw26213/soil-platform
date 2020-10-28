@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+import { getAdminInfo } from '@/api/user'
 export default {
   name: 'login',
   data() {
@@ -85,6 +86,18 @@ export default {
     }
   },
   methods: {
+    getFucs() {
+      getAdminInfo().then(res => {
+          const roles = res.data.menus
+          if(roles.length > 0) {
+              this.$router.replace('/')
+              this.loading = false
+          } else {
+            sessionStroge.removeItem('ACCESS_TOKEN')
+            this.$message.warning('您无权登录')
+          }
+      })
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -92,12 +105,10 @@ export default {
           // 是否选择了记住密码
           this.loginForm.remember = this.checked
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-              this.$router.replace('/')
-              this.loading = false
+              this.getFucs()
             }).catch(err => {
-              console.log(err)
               this.loading = false
-              this.$message.warning(err)
+              this.$message.warning(err.message)
             })
         } else {
           this.loading = false

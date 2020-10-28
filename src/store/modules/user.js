@@ -63,8 +63,8 @@ const actions = {
             getAdminInfo().then(res => {
                 const userName = res.data.username
                 commit('SET_NAME', userName)
-                const roles = fetchRoles(res.data.menus)
-                console.log(roles)
+                const roleArr = fetchRoles(res.data.menus)
+                const roles = roleArr.indexOf('100105') >= 0 ? roleArr : roleArr.concat(['100105'])
                 if (!roles || roles.length <= 0) {
                     reject('roles must be a non-null array!')
                 }

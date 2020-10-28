@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="inputPosition">
-      <el-form ref="passwordForm" :model="passwordForm" :rules="passwordRules" label-position="left" :label-width="'120px'">
+      <el-form ref="passwordForm" :model="passwordForm" :rules="passwordRules" label-position="left" :label-width="'106px'">
         <el-form-item label="输入新密码：" prop="pass">
           <el-input v-model="passwordForm.pass" type="password" />
         </el-form-item>
