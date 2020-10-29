@@ -71,12 +71,12 @@ export function checkCaptcha(data) {
 	})
 }
 
-//图片验证码效验
-export function userPassword(data) {
+//密码找回
+export function submitPassword(data) {
 	return request({
-		url: '/api/v1/admin',
-		method: 'put',
-		data
+		url: '/api/v1/admin/update/' + data.phone,
+		method: 'post',
+		data: { password: data.password }
 	})
 }
 

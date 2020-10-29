@@ -186,7 +186,7 @@ export function volunteerDetails(data) {
 // 结果展示
 export function batchResult(data) {
 	return request({
-		url: '/api/v1/soil/batch/batch_result',
+		url: '/api/v1/soil/batch/batch_result/v2',
 		method: 'get',
 		data
 	})

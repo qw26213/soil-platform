@@ -1,52 +1,52 @@
 <template>
-    <div id="map" class="map">
-        <div>
-            <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
-                <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
-                    <label>{{ item.label }}</label>
-                </li>
-            </ul>
-            <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
-                <el-checkbox v-model="isRoad">路网</el-checkbox>
-            </div>
-        </div>
-        <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
-        <map-nav ref="mapnav" :map="map"></map-nav>
-        <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
-        <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
-        <div class="init-location" @click="locate2Ip">
-            <span class="el-icon-location"></span>
-        </div>
+  <div id="map" class="map">
+    <div>
+      <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
+        <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
+          <label>{{ item.label }}</label>
+        </li>
+      </ul>
+      <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
+        <el-checkbox v-model="isRoad">路网</el-checkbox>
+      </div>
     </div>
+    <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
+    <map-nav ref="mapnav" :map="map"></map-nav>
+    <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
+    <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
+    <div class="init-location" @click="locate2Ip">
+        <span class="el-icon-location"></span>
+    </div>
+  </div>
 </template>
 <script>
 import MapNav from './map-nav';
 import MapLayer from './map-layers';
 import MapTool from './map-tool';
 import axios from 'axios';
-axios.jsonp = (url, data) => {
-    if (!url)
+axios.jsonp = (url,data) => {
+    if(!url)
         throw new Error('url is necessary')
-    const callback = 'CALLBACK' + Math.random().toString().substr(9, 18)
+    const callback = 'CALLBACK' + Math.random().toString().substr(9,18)
     const JSONP = document.createElement('script')
-    JSONP.setAttribute('type', 'text/javascript')
+          JSONP.setAttribute('type','text/javascript')
     const headEle = document.getElementsByTagName('head')[0]
     let ret = '';
-    if (data) {
-        if (typeof data === 'string')
+    if(data){
+        if(typeof data === 'string')
             ret = '&' + data;
-        else if (typeof data === 'object') {
-            for (let key in data)
+        else if(typeof data === 'object') {
+            for(let key in data)
                 ret += '&' + key + '=' + encodeURIComponent(data[key]);
         }
         ret += '&_time=' + Date.now();
     }
     JSONP.src = `${url}?callback=${callback}${ret}`;
-    return new Promise((resolve, reject) => {
+    return new Promise( (resolve,reject) => {
         window[callback] = r => {
-            resolve(r)
-            headEle.removeChild(JSONP)
-            delete window[callback]
+          resolve(r)
+          headEle.removeChild(JSONP)
+          delete window[callback]
         }
         headEle.appendChild(JSONP)
     })
@@ -130,7 +130,7 @@ export default {
             const params = {
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 const rectangle = res.rectangle.split(';');
                 const min = rectangle[0].split(',').map(Number);
                 const max = rectangle[1].split(',').map(Number);
@@ -376,7 +376,7 @@ export default {
                 extensions: 'all',
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 const district = res.districts[0];
                 const center = district.center.split(',').map(Number);
                 // const polyline = district.polyline;
@@ -428,7 +428,7 @@ export default {
                 key: AMAPKEY,
                 extensions: 'all'
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 let zoom = 13;
                 let center = [];
                 if (res.pois.length > 0) {
@@ -456,91 +456,6 @@ export default {
         removePolygons() {
             this.$refs.maptool.removePolygons();
         },
-        addDataCompare(data) {
-            if (map.getSource('data-compare-point')) {
-                map.removeLayer('data-compare-point');
-                map.removeLayer('data-compare-line');
-                map.removeSource('data-compare-point');
-                map.removeSource('data-compare-line');
-            }
-            // data = [{
-            //   posId: 1,
-            //   posReal: [116.4000,40.0310],
-            //   posGoal: [116.4100,40.0290]
-            // }, {
-            //   posId: 2,
-            //   posReal: [116.4153,40.0297],
-            //   posGoal: [116.4123,40.0291]
-            // }];
-            let fPoints = [];
-            const points = {
-                type: 'FeatureCollection',
-                features: fPoints
-            }
-            let fLines = [];
-            const lines = {
-                type: 'FeatureCollection',
-                features: fLines
-            };
-            for (let i = 0; i < data.length; i++) {
-                const d = data[i];
-                fPoints.push({
-                    type: 'Feature',
-                    geometry: {
-                        type: 'Point',
-                        coordinates: d.properties.related_geometry.coordinates
-                    },
-                    properties: {
-                        id: i
-                    }
-                });
-                fLines.push({
-                    type: 'Feature',
-                    geometry: {
-                        type: 'LineString',
-                        coordinates: [d.geometry.coordinates, d.properties.related_geometry.coordinates]
-                    },
-                    properties: {
-                        id: i
-                    }
-                });
-            }
-            map.addSource('data-compare-point', {
-                type: 'geojson',
-                data: points
-            });
-            map.addLayer({
-                id: 'data-compare-point',
-                type: 'circle',
-                source: 'data-compare-point',
-                paint: {
-                    'circle-color': [
-                        'match',
-                        ['get', 'id'],
-                        1, '#ffe500',
-                        2, '#f14feb',
-                        '#ffe500'
-                    ],
-                    'circle-radius': 6,
-                    'circle-stroke-width': 2,
-                    'circle-stroke-color': '#ffffff'
-                }
-            });
-            map.addSource('data-compare-line', {
-                type: 'geojson',
-                data: lines
-            });
-            map.addLayer({
-                id: 'data-compare-line',
-                type: 'line',
-                source: 'data-compare-line',
-                paint: {
-                    'line-color': '#0e95ef',
-                    'line-width': 2,
-                    'line-dasharray': [5, 2]
-                }
-            });
-        }
     }
 };
 </script>
@@ -688,7 +603,7 @@ li {
 
         label {
             display: inline-block;
-            max-width: 220px;
+            max-width: 260px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;

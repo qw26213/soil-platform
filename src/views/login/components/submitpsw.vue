@@ -1,12 +1,12 @@
 <template>
   <div class>
     <div class="inputPosition">
-      <el-form ref="passwordForm" :model="passwordForm" :rules="passwordRules" label-position="left" :label-width="'106px'">
+      <el-form ref="form" :model="form" :rules="passwordRules" label-position="left" :label-width="'106px'">
         <el-form-item label="输入新密码：" prop="pass">
-          <el-input v-model="passwordForm.pass" type="password" />
+          <el-input v-model="form.pass" type="password" />
         </el-form-item>
-        <el-form-item label="确认新密码：" prop="checkPass">
-          <el-input v-model="passwordForm.checkPass" type="password" />
+        <el-form-item label="确认新密码：" prop="repass">
+          <el-input v-model="form.repass" type="password" />
         </el-form-item>
       </el-form>
     </div>
@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { userPassword } from '@/api/user'
+import { submitPassword } from '@/api/user'
 export default {
   name: 'newPassword',
   data() {
@@ -22,8 +22,8 @@ export default {
       if (value.length < 6) {
         callback(new Error('请输入6位数以上的密码'))
       } else {
-        if (this.passwordForm.checkPass !== '') {
-          this.$refs.passwordForm.validateField('checkPass')
+        if (this.form.repass !== '') {
+          this.$refs.form.validateField('repass')
         }
         callback()
       }
@@ -31,16 +31,16 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.passwordForm.pass) {
+      } else if (value !== this.form.pass) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
       }
     }
     return {
-      passwordForm: {
+      form: {
         pass: '',
-        checkPass: ''
+        repass: ''
       },
       passwordRules: {
         pass: [
@@ -50,7 +50,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        checkPass: [
+        repass: [
           {
             required: true,
             validator: validatePass2,
@@ -62,27 +62,29 @@ export default {
   },
   methods: {
     submit() {
-      this.$refs.passwordForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
-          this.userPassword()
+          this.save()
         } else {
           return false
         }
       })
     },
-    async userPassword() {
-      let res = await userPassword({
-        user_method: this.$route.query.phone,
-        user_password: this.passwordForm.pass
-      })
-      if (res.code == 201) {
-        this.$message.success('密码修改成功!')
-        setTimeout(() => {
-          this.$router.replace('/login')
-        }, 1800)
-      } else {
-        this.$message.error(res.msg)
+    save() {
+      const obj = {
+        phone: this.$parent.phone,
+        password: this.form.pass
       }
+      submitPassword(obj).then(res => {
+        if (res.code == 201) {
+          this.$message.success('密码找回成功!')
+          setTimeout(() => {
+            this.$router.replace('/login')
+          }, 1800)
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
     }
   }
 }

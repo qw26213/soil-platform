@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex_dir_col ali_center">
-    <el-form ref="VerificationCodeFrom" :model="VerificationCodeFrom" :rules="codeRules" :label-position="labelPosition" :label-width="'80px'" class="phone-code-form">
+    <el-form ref="form" :model="form" :rules="codeRules" :label-position="labelPosition" :label-width="'80px'" class="phone-code-form">
       <el-form-item label="手机：" prop="user_phone">
-        <el-input v-model="VerificationCodeFrom.user_phone" placeholder="请输入找回手机号码" onkeyup="this.value = this.value.replace(/[^\d.]/g,'');" tabindex="2" :maxlength="11" auto-complete="new-password" />
+        <el-input v-model="form.user_phone" placeholder="请输入找回手机号码" onkeyup="this.value = this.value.replace(/[^\d.]/g,'');" tabindex="2" :maxlength="11" auto-complete="new-password" />
       </el-form-item>
       <el-form-item label="验证码：" prop="code" class="phone-code">
-        <el-input :maxlength="5" v-model="VerificationCodeFrom.code" placeholder="请输入验证码" />
+        <el-input :maxlength="5" v-model="form.code" placeholder="请输入验证码" />
         <el-button @click="getCode" type="primary" class="phone-code-button" :disabled="disabled">获取验证码</el-button>
       </el-form-item>
       <el-button @click="next" type="primary" class="nextButton">下一步</el-button>
@@ -38,7 +38,7 @@ export default {
       }, 200)
     }
     return {
-      VerificationCodeFrom: {
+      form: {
         user_phone: '',
         code: ''
       },
@@ -64,7 +64,7 @@ export default {
     //用户输入完手机失去焦点触发校验
     async handBlurPhone() {
       let phone = /^[1][3,4,5,7,8][0-9]{9}$/ //判断用户输入的是否为手机号
-      if (!phone.test(this.VerificationCodeFrom.user_phone)) {
+      if (!phone.test(this.form.user_phone)) {
         this.$message({
           message: '请输入有效的手机号码!',
           type: 'error'
@@ -72,7 +72,7 @@ export default {
         return
       }
       let data = await userCheck({
-        register: this.VerificationCodeFrom.user_phone,
+        register: this.form.user_phone,
         type: 3
       })
       if (data.code == 201) {
@@ -87,7 +87,7 @@ export default {
     },
     timeButton() {
       let phone = /^[1][3,4,5,7,8][0-9]{9}$/ //判断用户输入的是否为手机号
-      if (!phone.test(this.VerificationCodeFrom.user_phone)) {
+      if (!phone.test(this.form.user_phone)) {
         this.$message({
           message: '请输入有效的手机号码!',
           type: 'error'
@@ -118,12 +118,12 @@ export default {
     //获取验证码
     getVerify() {
       verify({
-        phone_number: this.VerificationCodeFrom.user_phone
+        phone_number: this.form.user_phone
       })
     },
     //用户输入完验证码触发校验
     next() {
-      this.$refs.VerificationCodeFrom.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.verifyCheck()
         } else {
@@ -134,14 +134,12 @@ export default {
     //验证码校验
     async verifyCheck() {
       let data = await verify_check({
-        phone_number: this.VerificationCodeFrom.user_phone,
-        code: this.VerificationCodeFrom.code
+        phone_number: this.form.user_phone,
+        code: this.form.code
       })
       if (data.code == 201) {
-        this.$router.replace(
-          '/submitpsw?phone=' + this.VerificationCodeFrom.user_phone
-        )
-        this.$parent.valueId = 1
+        this.$parent.phone = this.form.user_phone
+        this.$parent.activeIndex = 1
       } else {
         this.$message({
           message: data.msg,

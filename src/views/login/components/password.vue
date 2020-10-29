@@ -1,22 +1,27 @@
 <template>
   <div class="login_pos position_absolute flex flex_dir_col ali_center">
     <div class="login_pos-main">
-      <p class="return" @click="$router.replace('/login')">返回></p>
-      <el-steps :active="valueId" align-center class="steps" size="mini">
+      <p class="return" @click="$router.replace('/login')">返回</p>
+      <el-steps :active="activeIndex" align-center class="steps" size="mini">
         <el-step title="验证手机号"></el-step>
         <el-step title="设置新密码"></el-step>
         <!-- <el-step title="完成"></el-step> -->
       </el-steps>
-      <router-view></router-view>
+      <validate v-if="activeIndex == 0" />
+      <submitpsw v-if="activeIndex == 1" />
     </div>
   </div>
 </template>
 <script>
+import validate from './validate'
+import submitpsw from './submitpsw'
 export default {
   name: 'password',
+  components: { validate, submitpsw },
   data() {
     return {
-      valueId: 0
+      phone: '',
+      activeIndex: 0
     }
   },
   methods: {}
@@ -31,7 +36,7 @@ export default {
 }
 
 .login_pos-main {
-  width: 60%;
+  width: 600px;
   height: 530px;
   padding: 80px;
   transition: 0.3s;

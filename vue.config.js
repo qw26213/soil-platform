@@ -34,7 +34,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://39.106.209.216:5458/',
+        target: 'http://39.106.209.216:5408/',
         // target: 'http://192.168.0.105/',
         ws: true,
         changeOrigin: true,// 如果接口跨域，需要进行这个参数配置

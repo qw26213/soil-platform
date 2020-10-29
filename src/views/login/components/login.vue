@@ -1,20 +1,20 @@
 <template>
   <div class="login_pos position_absolute flex flex_dir_col ali_center">
     <div class="fon_24 col_ffffff">欢迎登录土壤采集管理系统</div>
-    <el-card shadow="hover" class="login-main" :body-style="{ padding: '30px' }">
+    <el-card shadow="hover" class="login-main" :body-style="{ padding: '10px 30px 20px' }">
       <p class="login-main-title">系统登入</p>
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
         <el-form-item label prop="username">
           <span class="svg-container">
             <svg-icon icon-class="user" />
           </span>
-          <el-input ref="username" v-model="loginForm.username" placeholder="登录手机号/邮箱" tabindex="1" autocomplete="on" />
+          <el-input ref="username" v-model="loginForm.username" placeholder="登录手机号/邮箱" tabindex="1" autocomplete="on" clearable />
         </el-form-item>
         <el-form-item label prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
-          <el-input ref="password" v-model="loginForm.password" type="password" placeholder="登录密码" tabindex="2" autocomplete="on" @keyup.enter.native="handleLogin" />
+          <el-input ref="password" v-model="loginForm.password" type="password" placeholder="登录密码" tabindex="2" autocomplete="on" @keyup.enter.native="handleLogin" clearable />
         </el-form-item>
       </el-form>
       <div class="login-main-remember-password flex">
@@ -63,7 +63,6 @@ export default {
         username: '',
         password: '',
         remember: ''
-        // type: '2' //用户登陆名称类型（2、手机号登录 ；3、邮箱登录）
       },
       loginRules: {
         username: [
@@ -144,12 +143,12 @@ export default {
 
 .login-main {
   font-size: 16px;
-  margin-top: 30px;
-  width: 480px;
+  margin-top: 50px;
+  width: 400px;
   .login-main-title {
     font-size: 18px;
     color: #a8a8a9;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 }
 /deep/.el-form-item {
@@ -215,7 +214,7 @@ export default {
 }
 
 /deep/ .el-button {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: 100%;
   height: 50px;
   background-color: #3c7fff;

@@ -153,7 +153,9 @@ export default {
       if (this.limit != 2 && this.limit != -1) {
         res.free.points.length = 0
       }
+      console.log('point==='+ point.length)
       this.$refs.gismap.showMarkers(point)
+      this.$refs.gismap.addDataCompare(point)
       this.$refs.gismap.showFreeMarkers(res.free.points)
       this.$refs.gismap.showPolygons(polygon)
     },
