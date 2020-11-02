@@ -111,7 +111,7 @@ export default {
       deport_code: '',
       collector: '',
       year: '',
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       batch_code: '',
       detected_org: '',
       checkAll: false,

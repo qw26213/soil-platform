@@ -34,16 +34,16 @@
           已认领：
           <span class="col_509bfc">{{batchInfo.required || 0}}</span>
         </div>
-        <!-- <div class="fon_16 col_333333 flex ali_center pad_top_8">
-          <img src="../../assets/requiredIcon.png" alt class="localIcon" />
+        <div class="fon_16 col_333333 flex ali_center pad_top_8">
+          <img src="../../assets/collectedICon.png" alt class="localIcon" />
           已采集：
-          <span class="col_509bfc">{{batchInfo.required || 0}}</span>
-        </div> -->
+          <span class="col_509bfc">0</span>
+        </div>
         <div class="fon_16 col_333333 mar_top_10">已发布：{{batchInfo.batch_number || 0}} 组</div>
         <div class="flex jus_between borderTop mar_top_10 mar_bot_0">
           <div class="lineHiegh10 fon_16 col_509bfc borderRight flex1 flex jus_center ali_center cursor" @click="getPointBindDetails()">认领详情</div>
-          <div v-if="batchInfo.unrequired != 0" class="lineHiegh10 fon_16 col_509bfc flex1 flex jus_center ali_center cursor" @click="dislogRestTask = true">再发布</div>
-          <div v-else class="lineHiegh10 fon_16 col_9B9B9B flex1 flex jus_center ali_center cursor">再发布</div>
+          <div v-if="batchInfo.unrequired != 0" class="lineHiegh10 fon_16 col_509bfc flex1 flex jus_center ali_center cursor" @click="dislogRestTask = true">再次发布</div>
+          <div v-else class="lineHiegh10 fon_16 col_9B9B9B flex1 flex jus_center ali_center cursor">再次发布</div>
         </div>
       </div>
     </template>
@@ -103,15 +103,7 @@
         </div>
         <!-- 分页 -->
         <div class="batchOpciatyBox">
-          <el-pagination
-            small
-            layout="total,prev, pager, next"
-            :page-size="batchVounteerPageSize"
-            :total="batchVounteerCount"
-            @prev-click="prevClick"
-            @next-click="nextClick"
-            @current-change="currentChange"
-          ></el-pagination>
+          <el-pagination small layout="total,prev, pager, next" :page-size="batchVounteerPageSize" :total="batchVounteerCount" @prev-click="prevClick" @next-click="nextClick" @current-change="currentChange" />
         </div>
       </div>
     </template>
@@ -184,6 +176,11 @@
         <el-table-column prop="counts" align="center" label="发布任务数" />
         <el-table-column prop="required" align="center" label="本组认领" />
         <el-table-column prop="unrequired" align="center" label="未认领" />
+        <el-table-column align="center" label="认领人数">
+          <template>
+            <span>0</span>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="block mar_top_10 mar_bot_0">
         <el-pagination layout="total" :total="parseInt(totalPage)"></el-pagination>

@@ -1,15 +1,7 @@
 <template>
   <div class="map-search">
-    <el-input 
-      v-model="keywords" 
-      placeholder="请输入内容" 
-      class="input-with-select"
-      clearable
-      @keyup.enter.native="search()">
-      <el-button 
-        slot="append" 
-        icon="el-icon-search"
-        @click="search()"/>
+    <el-input v-model="keywords" placeholder="请输入内容" class="input-with-select" clearable @keyup.enter.native="search()">
+      <el-button slot="append" icon="el-icon-search" @click="search()" />
     </el-input>
   </div>
 </template>

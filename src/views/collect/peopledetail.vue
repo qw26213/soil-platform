@@ -2,7 +2,7 @@
 	<div class="back_9b9b9b maxHigh pad_lef_30 pad_top_30">
 		<div v-if="info" class="back_ffffff bor_rad_8 pad_top_14 pad_lef_14 flex jus_between ali_center">
 			<div class="col_333333 fon_14">采样志愿者：<span class="col_656565">{{info.user_name}}</span> </div>
-			<div class="col_333333 fon_14">ID：<span class="col_656565">{{info.id}}</span> </div>
+			<div class="col_333333 fon_14">编号：<span class="col_656565">{{info.id}}</span> </div>
 			<div class="col_333333 fon_14">所属行政区：<span class="col_656565">{{info.user_address}}</span> </div>
 			<el-button type="primary" size="mini" class="gray" @click="$router.back()">返回</el-button>
 		</div>
@@ -43,18 +43,17 @@
 			</div>
 		</div>
 		<div class="block mar_top_10 mar_bot_0">
-			<el-pagination layout="total,prev, pager, next" :page-size="pageSize" :total="totalPage" @prev-click="prevClick"
-			 @next-click="nextClick" @current-change="currentChange">
-			</el-pagination>
+            <pagination v-if="totalPage>10" :total="totalPage" :page.sync="page" :limit.sync="pageSize" @pagination="getVolunteerDetails" />
 		</div>
 	</div>
 </template>
 
 <script>
-	import {
-		volunteerDetails
-	} from "../../api/collect.js"
+	import { volunteerDetails } from "../../api/collect.js"
 	export default {
+	    components: {
+	        Pagination
+	    },
 		data() {
 			return {
 				tableData: [],
@@ -78,24 +77,6 @@
 				})
 				this.tableData = res.data;
 				this.totalPage = res.count
-			},
-			// 上一页
-			prevClick() {
-				console.log('上一页')
-				this.page--;
-				this.getVolunteerDetails();
-			},
-			// 下一页
-			nextClick() {
-				console.log('下一页')
-				this.page++;
-				this.getVolunteerDetails();
-			},
-			// 当前页面被点击
-			currentChange(index) {
-				console.log('当前页面被点击')
-				this.page = --index;
-				this.getVolunteerDetails();
 			},
 			headerCellStyle() {
 				return "color:#333333;"

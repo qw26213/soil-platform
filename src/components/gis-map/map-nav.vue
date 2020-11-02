@@ -1,5 +1,5 @@
 <template>
-  <div class="map-nav"/>
+  <div class="map-nav" />
 </template>
 
 <script>

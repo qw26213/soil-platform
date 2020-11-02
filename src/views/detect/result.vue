@@ -40,7 +40,6 @@
       <el-select filterable v-model="collector" size="small" class="provinceSelectWidth">
         <el-option v-for="e in collector_list" :key="e.id" :label="e.user_name" :value="e.id" />
       </el-select>
-    </div>
     <div class="legend">
       <div class="item">
         <img src="../../assets/incomedIcon.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
@@ -54,6 +53,7 @@
         <img src="../../assets/detected.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
         <span class="fon_14">已检测</span>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -266,17 +266,12 @@ export default {
   }
 }
 </script>
-<style scoped>
-.legend {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 12px;
-  background-color: #fff;
-  z-index: 99;
-}
-</style>
 <style lang="scss" scoped>
+
+.legend {
+  padding: 12px 0;
+}
+
 .mapBox {
   width: 100%;
   height: calc(100%);

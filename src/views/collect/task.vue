@@ -14,14 +14,14 @@
         </div>
         <div class="contentDiv">
             <el-table :data="tableData" style="width: 100%;margin-top:5px" :header-cell-style="headerCellStyle">
-                <el-table-column prop="task_code" label="任务ID" show-overflow-tooltip />
-                <el-table-column prop="samplePoint_code" label="采集点ID" show-overflow-tooltip />
+                <el-table-column prop="task_code" label="任务编号" show-overflow-tooltip />
+                <el-table-column prop="samplePoint_code" label="采集点编号" show-overflow-tooltip />
                 <el-table-column prop="collector" label="采集人" show-overflow-tooltip width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.collector || '——' }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="bag_code" label="采土袋ID" align="center" show-overflow-tooltip>
+                <el-table-column prop="bag_code" label="样本编号" align="center" show-overflow-tooltip>
                     <template slot-scope="{row}">
                         <span>{{ row.bag_code || '——' }}</span>
                     </template>

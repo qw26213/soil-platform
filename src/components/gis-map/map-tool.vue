@@ -173,9 +173,7 @@
                 const pos0 = that.points[that.points.length - 2];
                 const pos1 = that.points[that.points.length - 1];
                 const pos = [(pos0[0] + pos1[0]) / 2, (pos0[1] + pos1[1]) / 2];
-                const lenMarker = new mapboxgl.Marker(option)
-                    .setLngLat(pos)
-                    .addTo(map);
+                const lenMarker = new mapboxgl.Marker(option).setLngLat(pos).addTo(map);
                 that.lenResults.push(lenMarker);
             },
             getLength(pt1, pt2) {

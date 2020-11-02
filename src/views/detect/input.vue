@@ -7,6 +7,10 @@
       <el-select v-model="dected_org" filterable size="mini" class="phoneWidth" placeholder="全部">
         <el-option v-for="item in org_list" :key="item.code" :label="item.name" :value="item.code" />
       </el-select>
+      <span class="label" style="margin-left:12px">检测日期：</span>
+      <el-select v-model="dected_org" filterable size="mini" class="phoneWidth" placeholder="全部">
+        <el-option v-for="item in org_list" :key="item.code" :label="item.name" :value="item.code" />
+      </el-select>
       <el-button type="primary" style="float:right" size="small" @click="save">保存</el-button>
     </div>
     <div class="contentDiv">
