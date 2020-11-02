@@ -1,19 +1,14 @@
-# lanscape
 
-## Project setup
-```
-npm install
-```
+## 运行项目
+ npm start （运行）
+ 
+## 打包项目
+ npm run build （发布）
 
-### Compiles and hot-reloads for development
-```
-npm run dev
-```
+## 说明
+山水云图土壤采集管理平台
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 版本更新
+
+

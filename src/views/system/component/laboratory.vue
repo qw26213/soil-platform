@@ -19,8 +19,8 @@
           <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
         </el-select>
         <br />
-        <span class="warehouse">实验室选择：</span>
-        <el-select v-model="village" size="mini" filterable class="phoneWidth" @change="changeVillage()" placeholder="实验室选择：">
+        <span class="warehouse">实验室：</span>
+        <el-select v-model="village" size="mini" filterable class="phoneWidth" @change="changeVillage()" placeholder="选择实验室：">
           <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
         </el-select>
         <span class="warehouse">实验室：{{ deport_name }}</span>

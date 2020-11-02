@@ -3,12 +3,12 @@
         <div class="contentDiv">
             <div class="col_656565 fon_16">
                 批次列表
-                <span class="col_a9a9a9 fon_14" style="margin-top:5px">(批次列表信息实时更新)</span>
+                <span class="col_a9a9a9 fon_14" style="margin-top:5px">(批次列表实时更新)</span>
             </div>
             <el-table :data="tableData" style="width: 100%;margin-top:10px" :default-sort="{prop: this.order_prop, order: this.order=='desc'?'descending': 'ascending'}" :header-cell-style="headerCellStyle" @sort-change="sortChange">
                 <el-table-column prop="code" label="批次编号" show-overflow-tooltip width="200" />
-                <el-table-column prop="area_name" label="地块信息" show-overflow-tooltip min-width="260" />
-                <el-table-column prop="plot_code" label="地块ID" align="center" show-overflow-tooltip width="200" />
+                <el-table-column prop="area_name" label="所在区域" show-overflow-tooltip min-width="260" />
+                <el-table-column prop="plot_code" label="地块编号" align="center" show-overflow-tooltip width="200" />
                 <el-table-column prop="create_time" label="生成日期" sortable align="center" width="160" />
                 <el-table-column prop="end_time" label="截止日期" sortable align="center" width="120" />
                 <el-table-column prop="creater" label="创建人" align="center" width="100" />

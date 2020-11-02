@@ -9,18 +9,12 @@
 		<div class="back_ffffff bor_rad_8 pad_top_14 pad_lef_14 mar_top_10">
 			<div class="pad_top_8">
 				<el-table :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
-					<el-table-column prop="batch_code" label="批次ID" min-width="120" show-overflow-tooltip>
-					</el-table-column>
-					<el-table-column prop="code" label="任务ID" show-overflow-tooltip>
-					</el-table-column>
-					<el-table-column prop="plot_code" label="地块ID" show-overflow-tooltip>
-					</el-table-column>
-					<el-table-column prop="samplePoint.bag_code" label="采土袋ID" show-overflow-tooltip>
-					</el-table-column>
-					<el-table-column prop="samplePoint.code" label="采集点ID" show-overflow-tooltip>
-					</el-table-column>
-					<el-table-column prop="task_attr" label="任务属性">
-					</el-table-column>
+					<el-table-column prop="batch_code" label="批次编号" min-width="120" show-overflow-tooltip />
+					<el-table-column prop="code" label="任务编号" show-overflow-tooltip />
+					<el-table-column prop="plot_code" label="地块编号" show-overflow-tooltip />
+					<el-table-column prop="samplePoint.bag_code" label="采土袋ID" show-overflow-tooltip />
+					<el-table-column prop="samplePoint.code" label="采集点编号" show-overflow-tooltip />
+					<el-table-column prop="task_attr" label="任务属性" />
 					<el-table-column prop="mining_time" label="采土日期" show-overflow-tooltip>
 						<template slot-scope="scope">
 							<div v-if="scope.row.mining_time">{{scope.row.mining_time}}</div>

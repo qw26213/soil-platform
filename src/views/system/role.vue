@@ -3,15 +3,21 @@
     <div class="filterDiv" style="padding-top:20px">
       <span class>角色搜索：</span>
       <el-input v-model="roleTxt" size="small" style="width:200px" label="角色名称" />
-      <el-button type="primary" style="margin-left:20px" size="small" @click="handleSearch">查询</el-button>
+      <el-button type="primary" style="margin-left:20px" size="small" @click="getList">查询</el-button>
       <el-button type="primary" style="margin-left:20px" size="small" @click="handleAdd">新增角色</el-button>
     </div>
     <div class="contentDiv">
       <el-table :data="tableData" resize>
-        <el-table-column prop="user_code" label="角色编号" align="left" />
-        <el-table-column prop="user_role" label="角色名称" align="left" />
-        <el-table-column prop="user_code" label="角色描述(小程序)" align="left" />
-        <el-table-column prop="user_addr" label="角色描述(PC)" align="left" />
+        <el-table-column prop="id" label="角色编号" align="left" />
+        <el-table-column prop="name" label="角色名称" align="left" />
+        <el-table-column prop="adminCount" label="创建用户数量" align="left" />
+        <el-table-column prop="createTime" label="创建时间" align="left" />
+        <el-table-column prop="description" label="描述" align="left" />
+        <el-table-column prop="status" label="状态" align="center">
+          <template slot-scope="{row}">
+            <span>{{ row.status ? '启用' : '禁用' }}</span>
+          </template>
+        </el-table-column>
         <el-table-column width="120" label="操作" align="center">
           <template slot-scope="{row}">
             <el-button type="text" size="small" @click="handleCompile(row)">编辑</el-button>
@@ -23,55 +29,32 @@
   </div>
 </template>
 <script>
+import { getRoles } from '@/api/system'
 export default {
   data() {
     return {
       roleTxt: '',
-      tableData: [
-        {
-          user_role: '系统管理员',
-          user_code: '150115322730',
-          user_time: '2020-09-26',
-          user_addr: '北京市朝阳区',
-          task_count: 1000
-        },
-        {
-          user_role: '系统管理员',
-          user_code: '150115322730',
-          user_time: '2020-09-26',
-          user_addr: '北京市朝阳区',
-          task_count: 1000
-        },
-        {
-          user_role: '系统管理员',
-          user_code: '150115322730',
-          user_time: '2020-09-26',
-          user_addr: '北京市朝阳区',
-          task_count: 1000
-        },
-        {
-          user_role: '系统管理员',
-          user_code: '150115322730',
-          user_time: '2020-09-26',
-          user_addr: '北京市朝阳区',
-          task_count: 1000
-        },
-        {
-          user_role: '系统管理员',
-          user_code: '150115322730',
-          user_time: '2020-09-26',
-          user_addr: '北京市朝阳区',
-          task_count: 1000
-        }
-      ]
+      tableData: []
     }
   },
-  mounted() {},
+  created() {
+    this.getList()
+  },
   methods: {
-    handleSearch() {},
-    handleAdd() {},
-    handleCompile() {},
-    handleDel() {}
+    getList() {
+      getRoles().then(res => {
+        this.tableData = res.data || []
+      })
+    },
+    handleAdd() {
+
+    },
+    handleCompile() {
+
+    },
+    handleDel() {
+      
+    }
   }
 }
 </script>

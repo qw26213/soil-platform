@@ -217,7 +217,7 @@ export const asyncRoutes = [{
             component: () => import('@/views/system/param'),
             name: 'param',
             meta: {
-                title: '参数配置',
+                title: '采集变量',
                 roles: ['100401']
             }
         }, {

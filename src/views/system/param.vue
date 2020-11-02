@@ -30,10 +30,10 @@
                         <el-form-item label="飘移阈值(m)" prop="drift_value">
                             <el-input size="small" v-model="form.drift_value" />
                         </el-form-item>
-                        <el-form-item label="初次发布半径(m)" prop="publish">
+                        <el-form-item label="初次发布半径(公里)" prop="publish">
                             <el-input size="small" v-model="form.publish" />
                         </el-form-item>
-                        <el-form-item label="再次发布半径(m)" prop="publish_increa">
+                        <el-form-item label="再次发布半径(公里)" prop="publish_increa">
                             <el-input size="small" v-model="form.publish_increa" />
                         </el-form-item>
                         <div style="text-align:center">
@@ -44,6 +44,7 @@
             </el-col>
             <el-col :span="20">
                 <div class="contentDiv">
+                    <div class="col_656565 fon_16" style="margin-bottom: 10px">已修改地区变量</div>
                     <el-table :data="tableData" resize :header-cell-style="{color:'#333'}">
                         <el-table-column prop="area_code" label="地区" align="left" />
                         <el-table-column prop="plan_rang" label="规划采集半径" align="center" />
@@ -52,7 +53,7 @@
                         <el-table-column prop="publish" label="初次发布半径" align="center" />
                         <el-table-column prop="publish_increa" label="再次发布半径" align="center" />
                         <el-table-column prop="creater" label="修改人" align="center" />
-                        <el-table-column prop="user_date" label="修改日期" align="center" />
+                        <el-table-column prop="user_date" label="修改时间" align="center" />
                     </el-table>
                     <pagination v-if="totalPage>10" :total="totalPage" :page.sync="page" :limit.sync="pageSize" @pagination="getList" />
                 </div>

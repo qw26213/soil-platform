@@ -1,52 +1,52 @@
 <template>
-    <div id="map" class="map">
-        <div>
-            <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
-                <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
-                    <label>{{ item.label }}</label>
-                </li>
-            </ul>
-            <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
-                <el-checkbox v-model="isRoad">路网</el-checkbox>
-            </div>
-        </div>
-        <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
-        <map-nav ref="mapnav" :map="map"></map-nav>
-        <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
-        <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
-        <div class="init-location" @click="locate2Ip">
-            <span class="el-icon-location"></span>
-        </div>
+  <div id="map" class="map">
+    <div>
+      <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
+        <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
+          <label>{{ item.label }}</label>
+        </li>
+      </ul>
+      <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
+        <el-checkbox v-model="isRoad">路网</el-checkbox>
+      </div>
     </div>
+    <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
+    <map-nav ref="mapnav" :map="map"></map-nav>
+    <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
+    <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
+    <div class="init-location" @click="locate2Ip">
+        <span class="el-icon-location"></span>
+    </div>
+  </div>
 </template>
 <script>
 import MapNav from './map-nav';
 import MapLayer from './map-layers';
 import MapTool from './map-tool';
 import axios from 'axios';
-axios.jsonp = (url, data) => {
-    if (!url)
+axios.jsonp = (url,data) => {
+    if(!url)
         throw new Error('url is necessary')
-    const callback = 'CALLBACK' + Math.random().toString().substr(9, 18)
+    const callback = 'CALLBACK' + Math.random().toString().substr(9,18)
     const JSONP = document.createElement('script')
-    JSONP.setAttribute('type', 'text/javascript')
+          JSONP.setAttribute('type','text/javascript')
     const headEle = document.getElementsByTagName('head')[0]
     let ret = '';
-    if (data) {
-        if (typeof data === 'string')
+    if(data){
+        if(typeof data === 'string')
             ret = '&' + data;
-        else if (typeof data === 'object') {
-            for (let key in data)
+        else if(typeof data === 'object') {
+            for(let key in data)
                 ret += '&' + key + '=' + encodeURIComponent(data[key]);
         }
         ret += '&_time=' + Date.now();
     }
     JSONP.src = `${url}?callback=${callback}${ret}`;
-    return new Promise((resolve, reject) => {
+    return new Promise( (resolve,reject) => {
         window[callback] = r => {
-            resolve(r)
-            headEle.removeChild(JSONP)
-            delete window[callback]
+          resolve(r)
+          headEle.removeChild(JSONP)
+          delete window[callback]
         }
         headEle.appendChild(JSONP)
     })
@@ -130,7 +130,7 @@ export default {
             const params = {
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 const rectangle = res.rectangle.split(';');
                 const min = rectangle[0].split(',').map(Number);
                 const max = rectangle[1].split(',').map(Number);
@@ -148,10 +148,7 @@ export default {
         },
         initMap() {
             const that = this;
-            // const tileBase =
-            //   '.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&';
-            const tileBase =
-                '.tianditu.gov.cn/DataServer?T=';
+            const tileBase = '.tianditu.gov.cn/DataServer?T=';
             const tileXyz = `&tk=${TDTKEY}&x={x}&y={y}&l={z}`;
             const vec_w = 'vec_w';
             const cva_w = 'cva_w';
@@ -161,36 +158,6 @@ export default {
                 version: 8,
                 name: 'Dark',
                 sources: {
-                    // GaoDeVector: {
-                    //   type: 'raster',
-                    //   tiles: [
-                    //     `http://webrd01${tileBase}style=8`,
-                    //     `http://webrd02${tileBase}style=8`,
-                    //     `http://webrd03${tileBase}style=8`,
-                    //     `http://webrd04${tileBase}style=8`
-                    //   ],
-                    //   tileSize: 256
-                    // },
-                    // GaoDeImage: {
-                    //   type: 'raster',
-                    //   tiles: [
-                    //     `http://wprd01${tileBase}style=6`,
-                    //     `http://wprd02${tileBase}style=6`,
-                    //     `http://wprd03${tileBase}style=6`,
-                    //     `http://wprd04${tileBase}style=6`
-                    //   ],
-                    //   tileSize: 256
-                    // },
-                    // GaoDeLabel: {
-                    //   type: 'raster',
-                    //   tiles: [
-                    //     `http://wprd01${tileBase}style=8`,
-                    //     `http://wprd02${tileBase}style=8`,
-                    //     `http://wprd03${tileBase}style=8`,
-                    //     `http://wprd04${tileBase}style=8`
-                    //   ],
-                    //   tileSize: 256
-                    // }
                     TdtVector: {
                         type: 'raster',
                         tiles: [
@@ -250,32 +217,7 @@ export default {
                 },
                 "glyphs": WEBURL + "fonts/{fontstack}/{range}.pbf",
                 "sprite": WEBURL + "sprite",
-                layers: [
-                    // {
-                    //   id: 'GaoDeVector',
-                    //   type: 'raster',
-                    //   source: 'GaoDeVector',
-                    //   minzoom: 3,
-                    //   maxzoom: 18,
-                    //   layout: {
-                    //     visibility: 'none'
-                    //   }
-                    // },
-                    // {
-                    //   id: 'GaoDeImage',
-                    //   type: 'raster',
-                    //   source: 'GaoDeImage',
-                    //   minzoom: 3,
-                    //   maxzoom: 18
-                    // },
-                    // {
-                    //   id: 'GaoDeLabel',
-                    //   type: 'raster',
-                    //   source: 'GaoDeLabel',
-                    //   minzoom: 3,
-                    //   maxzoom: 18
-                    // }
-                    {
+                layers: [{
                         id: 'TdtVector',
                         type: 'raster',
                         source: 'TdtVector',
@@ -284,8 +226,7 @@ export default {
                         layout: {
                             visibility: 'none'
                         }
-                    },
-                    {
+                    }, {
                         id: 'TdtVecLabel',
                         type: 'raster',
                         source: 'TdtVecLabel',
@@ -294,22 +235,19 @@ export default {
                         layout: {
                             visibility: 'none'
                         }
-                    },
-                    {
+                    }, {
                         id: 'TdtImage',
                         type: 'raster',
                         source: 'TdtImage',
                         minzoom: 3,
                         maxzoom: 18
-                    },
-                    {
+                    }, {
                         id: 'TdtImgLabel',
                         type: 'raster',
                         source: 'TdtImgLabel',
                         minzoom: 3,
                         maxzoom: 18
-                    },
-                    {
+                    }, {
                         "id": "background",
                         "type": "background",
                         "paint": {
@@ -376,7 +314,7 @@ export default {
                 extensions: 'all',
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 const district = res.districts[0];
                 const center = district.center.split(',').map(Number);
                 // const polyline = district.polyline;
@@ -428,7 +366,7 @@ export default {
                 key: AMAPKEY,
                 extensions: 'all'
             };
-            axios.jsonp(url, params).then(function(res) {
+            axios.jsonp(url, params).then(function (res) {
                 let zoom = 13;
                 let center = [];
                 if (res.pois.length > 0) {
@@ -463,15 +401,6 @@ export default {
                 map.removeSource('data-compare-point');
                 map.removeSource('data-compare-line');
             }
-            // data = [{
-            //   posId: 1,
-            //   posReal: [116.4000,40.0310],
-            //   posGoal: [116.4100,40.0290]
-            // }, {
-            //   posId: 2,
-            //   posReal: [116.4153,40.0297],
-            //   posGoal: [116.4123,40.0291]
-            // }];
             let fPoints = [];
             const points = {
                 type: 'FeatureCollection',
@@ -688,7 +617,7 @@ li {
 
         label {
             display: inline-block;
-            max-width: 220px;
+            max-width: 260px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;

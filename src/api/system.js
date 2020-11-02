@@ -70,3 +70,29 @@ export function updateParam(data) {
 		data
 	})
 }
+
+// 获取用户
+export function getUsers(data) {
+	return request({
+		url: '/api/v1/admin/list_v2',
+		method: 'get',
+		data
+	})
+}
+
+// 给用户分配角色
+export function updateUser(data) {
+	return request({
+		url: '/api/v1/admin/role/update',
+		method: 'post',
+		data
+	})
+}
+
+// 获取角色列表
+export function getRoles() {
+	return request({
+		url: '/api/v1/role/listAll',
+		method: 'get'
+	})
+}

@@ -9,35 +9,35 @@
       </div>
       <!-- 选择省市 -->
       <div class="pad_top_8">省(直辖市)：</div>
-      <el-select filterable v-model="province" size="medium" class="provinceSelectWidth" @change="changeProvince()">
+      <el-select filterable v-model="province" size="small" class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">市 ：</div>
-      <el-select filterable v-model="city" size="medium" class="provinceSelectWidth" @change="changeCity()">
+      <el-select filterable v-model="city" size="small" class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">县(区)：</div>
-      <el-select filterable v-model="county" size="medium" class="provinceSelectWidth" @change="changeCounty()">
+      <el-select filterable v-model="county" size="small" class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">镇(乡)：</div>
-      <el-select filterable v-model="town" size="medium" class="provinceSelectWidth" @change="changeTown()">
+      <el-select filterable v-model="town" size="small" class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">仓库：</div>
-      <el-select filterable v-model="deport_code" size="medium" class="provinceSelectWidth" @change="getBatch1">
+      <el-select filterable v-model="deport_code" size="small" class="provinceSelectWidth" @change="getBatch1">
         <el-option v-for="e in deport_list" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <div class="pad_top_8">批次：</div>
-      <el-select filterable v-model="batch_code" size="medium" class="provinceSelectWidth">
+      <el-select filterable v-model="batch_code" size="small" class="provinceSelectWidth">
         <el-option v-for="e in batch_list" :key="e" :label="e" :value="e" />
       </el-select>
       <div class="pad_top_8">采土年份：</div>
-      <el-select filterable v-model="year" size="medium" class="provinceSelectWidth">
+      <el-select filterable v-model="year" size="small" class="provinceSelectWidth">
         <el-option v-for="e in [2018,2019,2020,2021,2022]" :key="e" :label="e" :value="e" />
       </el-select>
       <div class="pad_top_8">采集人 ：</div>
-      <el-select filterable v-model="collector" size="medium" class="provinceSelectWidth">
+      <el-select filterable v-model="collector" size="small" class="provinceSelectWidth">
         <el-option v-for="e in collector_list" :key="e.id" :label="e.user_name" :value="e.id" />
       </el-select>
     </div>
@@ -282,13 +282,13 @@ export default {
   height: calc(100%);
   background-color: #eeeeee;
 }
-
+.label{padding:10px 0 3px; font-size: 12px;}
 .left {
   top: 0px;
-  left: 200px;
+  left: 0px;
   width: 200px !important;
   height: 100%;
-  padding: 20px 30px;
+  padding: 1px 20px 20px;
   background-color: rgba($color: #000000, $alpha: 0.5);
   box-sizing: border-box;
   transition: left 0.5s;

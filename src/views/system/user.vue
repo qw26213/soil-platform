@@ -20,12 +20,20 @@
       <div class="pad_top_8">
         <el-table :data="tableData" resize :header-cell-style="headerCellStyle">
           <el-table-column type="index" label="序号" align="center" />
-          <el-table-column prop="user_name" label="用户名" align="center" />
-          <el-table-column prop="user_phone" label="手机号" align="center" />
-          <el-table-column prop="user_name" label="注册地" align="center" />
-          <el-table-column prop="user_role" label="角色" align="center" />
-          <el-table-column prop="task_count" label="任务完成数" align="center" />
-          <el-table-column prop="user_date" label="注册日期" align="center" />
+          <el-table-column prop="username" label="用户名" align="center" />
+          <el-table-column prop="phone" label="手机号" align="center" />
+          <el-table-column prop="address" label="常驻地" align="center" />
+          <el-table-column prop="roles" label="角色" align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.roles.join(',') }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="status" label="当前状态" align="center">
+            <template slot-scope="{row}">
+              <span>{{ row.status ? '启用' : '禁用' }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="createTime" label="注册日期" align="center" />
         </el-table>
       </div>
     </div>
@@ -44,46 +52,19 @@
 </template>
 <script>
 import { get_city } from '@/api/collect.js'
+import { getUsers, updateUser } from '@/api/system.js'
 export default {
   data() {
     return {
-      tableData: [
-        {
-          user_name: '张三',
-          user_role: '系统管理员',
-          user_phone: 15011532730,
-          user_date: '2020-09-26',
-          task_count: 1000
-        },
-        {
-          user_name: '李四',
-          user_role: '系统管理员',
-          user_phone: 15011532730,
-          user_date: '2020-09-26',
-          task_count: 1000
-        },
-        {
-          user_name: '李四',
-          user_role: '系统管理员',
-          user_phone: 15011532730,
-          user_date: '2020-09-26',
-          task_count: 1000
-        },
-        {
-          user_name: '张三',
-          user_role: '系统管理员',
-          user_phone: 15011532730,
-          user_date: '2020-09-26',
-          task_count: 1000
-        },
-        {
-          user_name: '张三',
-          user_role: '系统管理员',
-          user_phone: 15011532730,
-          user_date: '2020-09-26',
-          task_count: 1000
-        }
-      ],
+      listQuery: {
+        area_code: '',
+        pageNum: 1,
+        pageSize: 20,
+        phone: '',
+        role_code: '',
+        status: ''
+      },
+      tableData: [],
       // 分页
       page: 1,
       pageSize: 10,
@@ -105,6 +86,7 @@ export default {
   },
   mounted() {
     this.getProvince()
+    this.getUserData()
   },
   methods: {
     getList() {
@@ -151,6 +133,12 @@ export default {
         parent_id: this.town
       })
       this.villageList = res.data
+    },
+    getUserData() {
+      const obj = this.listQuery
+      getUsers(obj).then(res => {
+        this.tableData = res.data.list || []
+      })
     },
     headerCellStyle() {
       return 'color:#333333;'

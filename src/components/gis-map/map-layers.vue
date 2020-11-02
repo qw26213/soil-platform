@@ -1,9 +1,11 @@
 <template>
-  <div v-if="$route.path==='/collect/create'" class="map-layers">
-    <li v-for="(item, index) in landData" :key="index">
+  <div class="map-layers">
+    <li
+      v-for="(item, index) in landData"
+      :key="index">
       <el-checkbox v-model="item.checked" @change="layerChecked(item)">
         <span class="layer-legend" :style="{background: item.color}"></span>
-        <span style="color:#fff">{{ item.name }}</span>
+        {{ item.name }}
       </el-checkbox>
     </li>
   </div>
@@ -22,34 +24,62 @@
         data() {
             return {
                 landData: [
+                  {
+                    code: 'base-boundry',
+                    name: '范围线',
+                    url: 'mock/boundry.geojson',
+                    color: '#ff0000',
+                    checked: false,
+                    opacity: 0
+                  },
                     {
                         code: 'wet-dry',
                         name: '水田旱地',
                         url: 'mock/wet-dry.geojson',
                         color: '#c7f5cb',
-                        checked: false
+                        checked: false,
+                      opacity: 0.5
                     },
                     {
                         code: 'new-land',
                         name: '新增耕地',
                         url: 'mock/new-land.geojson',
                         color: '#eacefe',
-                        checked: false
+                        checked: false,
+                      opacity: 0.5
                     },
                     {
                         code: 'dry-wet',
                         name: '旱地变水田',
                         url: 'mock/dry-wet.geojson',
-                        color: '#f90c1c',
-                        checked: false
+                        color: '#eca0a5',
+                        checked: false,
+                      opacity: 0.5
                     },
                     {
                         code: 'base-land',
                         name: '基本农田',
                         url: 'mock/base-land.geojson',
                         color: '#bdf5fd',
-                        checked: false
-                    }
+                        checked: false,
+                      opacity: 0.5
+                    },
+                  {
+                    code: 'base-farm',
+                    name: '基本农田(仪征)',
+                    url: 'mock/base-farm.geojson',
+                    color: '#bdf5fd',
+                    checked: false,
+                    opacity: 0.5
+                  },
+                  {
+                    code: 'change-farm',
+                    name: '变更耕地',
+                    url: 'mock/change-farm.geojson',
+                    color: '#eacefe',
+                    checked: false,
+                    opacity: 0.5
+                  }
                 ]
             };
         },
@@ -73,7 +103,7 @@
                         source: layer.code,
                         paint: {
                             'fill-color': layer.color,
-                            'fill-opacity': 0.5
+                            'fill-opacity': layer.opacity
                         }
                     }, 'background');
                 } else {
@@ -101,20 +131,21 @@
 </script>
 
 <style scoped lang="scss">
-  .map-layers {
+.map-layers {
     position: absolute;
     left: 10px;
     bottom: 10px;
     padding: 10px;
     z-index: 9999;
     border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0;
+
     .layer-legend {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 5px;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
     }
-  }
+}
 </style>
