@@ -8,13 +8,13 @@
                 </el-select>
                 <span class="label" style="margin-left:20px">查询选择：</span>
                 <el-radio-group v-model="queryType" size="small" @change="changeType">
-                    <el-radio-button label="1">样本入库</el-radio-button>
+                    <el-radio-button label="1">样本接收</el-radio-button>
                     <el-radio-button label="2">样本装盒</el-radio-button>
                     <el-radio-button label="3">样本上架</el-radio-button>
                 </el-radio-group>
             </div>
         </div>
-        <!-- 采土袋 -->
+        <!-- 采样袋 -->
         <div v-show="queryType == '1'" class="contentDiv">
             <el-table :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
                 <el-table-column prop="operator" label="接收人员" align="center" />
@@ -24,8 +24,8 @@
                         <span v-if="row && row.operate_time">{{ row.operate_time | parseTime }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="batch_numbers" label="批次数" align="center" />
-                <el-table-column prop="collectors" label="采集人数" align="center" />
+                <el-table-column prop="batch_numbers" label="批次数量" align="center" />
+                <el-table-column prop="collectors" label="采样人数量" align="center" />
                 <el-table-column prop="areas" label="行政村数量" align="center" />
                 <el-table-column label="操作" width="100" align="center">
                     <template slot-scope="{row}">
@@ -39,7 +39,7 @@
         <div v-show="queryType == '2'" class="contentDiv">
             <el-table :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
                 <el-table-column prop="bager" label="装盒人员" />
-                <el-table-column prop="count" label="土袋装盒数量" align="center" />
+                <el-table-column prop="count" label="样本装盒数量" align="center" />
                 <el-table-column prop="bag_time" label="装盒日期" align="center" />
                 <el-table-column label="操作" width="100" align="center">
                     <template slot-scope="{row}">

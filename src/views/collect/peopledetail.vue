@@ -1,21 +1,21 @@
 <template>
 	<div class="back_9b9b9b maxHigh pad_lef_30 pad_top_30">
 		<div v-if="info" class="back_ffffff bor_rad_8 pad_top_14 pad_lef_14 flex jus_between ali_center">
-			<div class="col_333333 fon_14">采样志愿者：<span class="col_656565">{{info.user_name}}</span> </div>
-			<div class="col_333333 fon_14">编号：<span class="col_656565">{{info.id}}</span> </div>
+			<div class="col_333333 fon_14">志愿者：<span class="col_656565">{{info.user_name}}</span> </div>
+			<div class="col_333333 fon_14">编码：<span class="col_656565">{{info.id}}</span> </div>
 			<div class="col_333333 fon_14">所属行政区：<span class="col_656565">{{info.user_address}}</span> </div>
 			<el-button type="primary" size="mini" class="gray" @click="$router.back()">返回</el-button>
 		</div>
 		<div class="back_ffffff bor_rad_8 pad_top_14 pad_lef_14 mar_top_10">
 			<div class="pad_top_8">
 				<el-table :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
-					<el-table-column prop="batch_code" label="批次编号" min-width="120" show-overflow-tooltip />
-					<el-table-column prop="code" label="任务编号" show-overflow-tooltip />
-					<el-table-column prop="plot_code" label="地块编号" show-overflow-tooltip />
-					<el-table-column prop="samplePoint.bag_code" label="采土袋ID" show-overflow-tooltip />
-					<el-table-column prop="samplePoint.code" label="采集点编号" show-overflow-tooltip />
+					<el-table-column prop="batch_code" label="批次编码" min-width="120" show-overflow-tooltip />
+					<el-table-column prop="code" label="任务编码" show-overflow-tooltip />
+					<el-table-column prop="plot_code" label="地块编码" show-overflow-tooltip />
+					<el-table-column prop="samplePoint.bag_code" label="采样袋ID" show-overflow-tooltip />
+					<el-table-column prop="samplePoint.code" label="采集点编码" show-overflow-tooltip />
 					<el-table-column prop="task_attr" label="任务属性" />
-					<el-table-column prop="mining_time" label="采土日期" show-overflow-tooltip>
+					<el-table-column prop="mining_time" label="采样日期" show-overflow-tooltip>
 						<template slot-scope="scope">
 							<div v-if="scope.row.mining_time">{{scope.row.mining_time}}</div>
 							<el-tag v-else size="medium" type="danger">未完成</el-tag>

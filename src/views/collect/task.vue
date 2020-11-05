@@ -5,7 +5,7 @@
             <el-select v-model="selectedBatch" size="mini" class="inputWidth" @change="changeVal()">
                 <el-option v-for="item in taskInfo.batches" :key="item" :label="item" :value="item" />
             </el-select>
-            <span style="margin-left:10px;">采集人:</span>
+            <span style="margin-left:10px;">采样人:</span>
             <el-select v-model="selectedUser" size="mini" class="inputWidth" @change="changeVal()">
                 <el-option label="全部" value="" />
                 <el-option v-for="item in taskInfo.users" :key="item[0]" :label="item[1]" :value="item[0]" />
@@ -14,9 +14,9 @@
         </div>
         <div class="contentDiv">
             <el-table :data="tableData" style="width: 100%;margin-top:5px" :header-cell-style="headerCellStyle">
-                <el-table-column prop="task_code" label="任务编号" show-overflow-tooltip />
-                <el-table-column prop="samplePoint_code" label="采集点编号" show-overflow-tooltip />
-                <el-table-column prop="collector" label="采集人" show-overflow-tooltip width="120">
+                <el-table-column prop="task_code" label="任务编码" show-overflow-tooltip />
+                <el-table-column prop="samplePoint_code" label="采集点编码" show-overflow-tooltip />
+                <el-table-column prop="collector" label="采样人" show-overflow-tooltip width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.collector || '——' }}</span>
                     </template>
@@ -27,7 +27,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="task_attr" label="任务类型" align="center" width="120" />
-                <el-table-column prop="mining_time" label="采土日期" align="center" width="120">
+                <el-table-column prop="mining_time" label="采样日期" align="center" width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.mining_time || '未进行' }}</span>
                     </template>

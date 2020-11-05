@@ -11,7 +11,7 @@
         <span class="iconTxt">已检</span>
       </div>
     </div>
-    <!-- 采土袋 -->
+    <!-- 采样袋 -->
     <div class="contentDiv">
       <!-- 行 -->
       <div v-for="(row, index) in tableData" :key="index" class="flex jus_between mar_bot_24">

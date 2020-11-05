@@ -10,23 +10,23 @@
       </div>
       <!-- 选择省市 -->
       <div class="label">省(直辖市)：</div>
-      <el-select v-model="province" size="small" class="provinceSelectWidth" @change="changeProvince()">
+      <el-select v-model="province" filterable size="small" class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <div class="label">市 ：</div>
-      <el-select v-model="city" size="small" class="provinceSelectWidth" @change="changeCity()">
+      <el-select v-model="city" filterable size="small" class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <div class="label">区(县)：</div>
-      <el-select v-model="county" size="small" class="provinceSelectWidth" @change="changeCounty()">
+      <el-select v-model="county" filterable size="small" class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <div class="label">镇(乡) ：</div>
-      <el-select v-model="town" size="small" class="provinceSelectWidth" @change="changeTown()">
+      <el-select v-model="town" filterable size="small" class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <div class="label">村 ：</div>
-      <el-select v-model="village" size="small" class="provinceSelectWidth" @change="changeVillage()">
+      <el-select v-model="village" filterable size="small" class="provinceSelectWidth" @change="changeVillage()">
         <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
       <!-- 田亩大小 -->
@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import { batchResult, get_city, sampleCount } from '../../api/collect.js'
+import { batchResult, get_city, sampleCount } from '@/api/collect.js'
 import GisMap from '@/components/gis-map'
 export default {
   components: {
@@ -153,10 +153,28 @@ export default {
       if (this.limit != 2 && this.limit != -1) {
         res.free.points.length = 0
       }
-      console.log('point==='+ point.length)
       this.$refs.gismap.showMarkers(point)
-      this.$refs.gismap.addDataCompare(point)
-      this.$refs.gismap.showFreeMarkers(res.free.points)
+      let points = res.free.points
+      const curTime = new Date().getTime()
+      let submit_time_first = new Date().getTime()
+      if (points.length > 0 && points[0].properties.results && points[0].properties.results.submit_time) {
+        submit_time_first = new Date(points[0].properties.results.submit_time).getTime()
+        if (Math.abs(curTime - submit_time_first) < 3600000) {
+          points[0].properties.status = 'LATEST'
+        }
+      }
+      if (points.length > 0 && points[0].properties.status === 'LATEST') {
+        for (let i = 1; i < points.length; i++) {
+          if (points[i].properties.results && points[i].properties.results.submit_time) {
+            const submit_time = new Date(points[i].properties.results.submit_time).getTime()
+            if (Math.abs(submit_time_first - submit_time) < 60000) {
+              points[i].properties.status = 'LATEST'
+            }
+          }
+        }
+      }
+      this.$refs.gismap.addDataCompare(points)
+      this.$refs.gismap.showFreeMarkers(points)
       this.$refs.gismap.showPolygons(polygon)
     },
     // 获取省市级

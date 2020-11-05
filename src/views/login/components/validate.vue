@@ -43,14 +43,8 @@ export default {
         code: ''
       },
       codeRules: {
-        user_phone: [
-          {
-            required: true,
-            trigger: 'blur',
-            validator: validateUsername
-          }
-        ],
-        code: [{ required: true, trigger: 'blur', validator: validateCode }]
+        user_phone: [{ required: true, trigger: 'change', validator: validateUsername }],
+        code: [{ required: true, trigger: 'change', validator: validateCode }]
       },
       labelPosition: 'left',
       time: 0,

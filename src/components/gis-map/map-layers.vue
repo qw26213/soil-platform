@@ -85,8 +85,8 @@ export default {
             }
             if (layer.checked) {
                 const bbox = [
-                    [119.2123, 32.4279],
-                    [119.2309, 32.4432]
+                    [119.01, 32.62],
+                    [119.39, 32.41]
                 ];
                 const padding = 80;
                 map.fitBounds(bbox, {
@@ -120,4 +120,5 @@ export default {
         margin-right: 5px;
     }
 }
+>>> .el-checkbox__label{color: #f1f1f1; font-size: 12px;}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top:-30px">
     <div class="filterDiv" style="padding-top:0px">
-      <span class>采土袋数量：</span>
+      <span class>采样袋数量：</span>
       <el-input-number v-model="count" size="mini" :min="0" :max="1000" label="数量"></el-input-number>
       <span style="color:#666;font-size:12px;margin-left:3px">(可输入)</span>
       <el-button type="primary" style="margin-left:20px" size="small" @click="save">确定创建</el-button>
@@ -50,10 +50,10 @@ export default {
     },
     save() {
       if (this.count === '') {
-        this.$message.warning('请输入采土袋数量')
+        this.$message.warning('请输入采样袋数量')
       }
       if (this.count === 0) {
-        this.$message.warning('采土袋数量必须大于0')
+        this.$message.warning('采样袋数量必须大于0')
       }
       const count = this.count
       create_bag(count).then(res => {

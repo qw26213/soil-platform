@@ -2,13 +2,13 @@
     <div class="mainPage">
         <div class="contentDiv">
             <div class="col_656565 fon_16">采集结果列表</div>
-            <el-table :data="tableData" v-loading="loading" style="width: 100%;margin-top:10px" :header-cell-style="headerCellStyle">
-                <el-table-column prop="create_time" label="采集编号" align="left" min-width="120">
+            <el-table :data="tableData" v-loading="loading" style="width: 100%;margin-top:10px" :header-cell-style="{color:'#333'}">
+                <el-table-column prop="create_time" label="采集编码" align="left" min-width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.remark }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="area_name" label="采集人" min-width="120">
+                <el-table-column prop="area_name" label="采样人" min-width="120">
                     <template slot-scope="{row}">
                         <span>{{ row.collector }}</span>
                     </template>
@@ -28,7 +28,7 @@
                         <span>{{ Fixed(row.latitude) }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="create_time" label="采土地址" align="left" min-width="160">
+                <el-table-column prop="create_time" label="采样地址" align="left" min-width="160">
                     <template slot-scope="{row}">
                         <span>{{ row.detail_address }}</span>
                     </template>
@@ -86,7 +86,7 @@ export default {
             return val ? parseFloat(val).toFixed(6) : ''
         },
         headerCellStyle() {
-            return 'color:#333333;'
+            return 
         },
         showImgView(row) {
             this.itemInfo = row

@@ -215,8 +215,8 @@ export default {
                         tileSize: 256
                     }
                 },
-                "glyphs": WEBURL + "fonts/{fontstack}/{range}.pbf",
-                "sprite": WEBURL + "sprite",
+                glyphs: WEBURL + "fonts/{fontstack}/{range}.pbf",
+                sprite: WEBURL + "sprite_icons",
                 layers: [{
                         id: 'TdtVector',
                         type: 'raster',
@@ -248,9 +248,9 @@ export default {
                         minzoom: 3,
                         maxzoom: 18
                     }, {
-                        "id": "background",
-                        "type": "background",
-                        "paint": {
+                        id: "background",
+                        type: "background",
+                        paint: {
                             "background-color": "rgba(0, 0, 0, 0)"
                         }
                     }
@@ -317,19 +317,6 @@ export default {
             axios.jsonp(url, params).then(function (res) {
                 const district = res.districts[0];
                 const center = district.center.split(',').map(Number);
-                // const polyline = district.polyline;
-                // let coords = [];
-                // const points = polyline.split(';');
-                // for (let i = 0; i < points.length; i++) {
-                //   const point = points[i].split(',').map(Number);
-                //   if(point.join().indexOf('NaN') === -1) {
-                //     coords.push(point);
-                //   }
-                // }
-                // const line = {
-                //   "type": "LineString",
-                //   "coordinates": coords
-                // };
                 let zoom = map.getZoom();
                 switch (district.level) {
                     case 'province':
@@ -411,8 +398,8 @@ export default {
                 type: 'FeatureCollection',
                 features: fLines
             };
-            for (let i = 0; i < data.length; i++) {
-                const d = data[i];
+            const arr = data.filter(it => it.properties && it.properties.related_geometry && it.properties.related_geometry.coordinates && it.geometry && it.geometry.coordinates)
+            arr.forEach((d,i) => {
                 fPoints.push({
                     type: 'Feature',
                     geometry: {
@@ -433,7 +420,7 @@ export default {
                         id: i
                     }
                 });
-            }
+            })
             map.addSource('data-compare-point', {
                 type: 'geojson',
                 data: points
@@ -447,7 +434,7 @@ export default {
                         'match',
                         ['get', 'id'],
                         1, '#ffe500',
-                        2, '#f14feb',
+                        -1, '#f14feb',
                         '#ffe500'
                     ],
                     'circle-radius': 6,

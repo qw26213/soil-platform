@@ -47,14 +47,14 @@ export default {
           {
             required: true,
             validator: validatePass,
-            trigger: 'blur'
+            trigger: 'change'
           }
         ],
         repass: [
           {
             required: true,
             validator: validatePass2,
-            trigger: 'blur'
+            trigger: 'change'
           }
         ]
       }

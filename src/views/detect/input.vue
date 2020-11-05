@@ -1,16 +1,16 @@
 <template>
   <div class="mainPage">
     <div class="filterDiv clearfix">
-      <span class="label">土壤密封袋：</span>
-      <el-input v-model.trim="sample_code" size="mini" style="width:240px" placeholder="土壤密封袋ID" />
+      <span class="label">样本密封袋：</span>
+      <el-input v-model.trim="sample_code" size="small" class="phoneWidth" placeholder="样本密封袋" />
       <span class="label" style="margin-left:12px">实验室：</span>
-      <el-select v-model="dected_org" filterable size="mini" class="phoneWidth" placeholder="全部">
+      <el-select v-model="dected_org" filterable size="small" class="phoneWidth" placeholder="全部">
         <el-option v-for="item in org_list" :key="item.code" :label="item.name" :value="item.code" />
       </el-select>
+      <span class="label" style="margin-left:10px">报告编码：</span>
+      <el-input v-model.trim="sample_code" size="small" class="phoneWidth" placeholder="报告编码" />
       <span class="label" style="margin-left:12px">检测日期：</span>
-      <el-select v-model="dected_org" filterable size="mini" class="phoneWidth" placeholder="全部">
-        <el-option v-for="item in org_list" :key="item.code" :label="item.name" :value="item.code" />
-      </el-select>
+      <el-date-picker size="small" v-model="detect_date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" class="phoneWidth" />
       <el-button type="primary" style="float:right" size="small" @click="save">保存</el-button>
     </div>
     <div class="contentDiv">
@@ -185,6 +185,7 @@ export default {
       org_list: [],
       sample_code: '',
       dected_org: '',
+      detect_date: '',
       form: {
         TN: '',
         CEC: '',
@@ -278,10 +279,12 @@ export default {
 table tr td {
   padding: 5px 0;
 }
-
+.phoneWidth{width: 140px;}
 .maxHigh {
   min-height: calc(100vh - 120px);
 }
+
+td{font-size: 14px;}
 
 .inputcell {
   display: block;

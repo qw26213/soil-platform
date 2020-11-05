@@ -68,14 +68,14 @@ export default {
         username: [
           {
             required: true,
-            trigger: 'blur',
+            trigger: 'change',
             validator: validateUser
           }
         ],
         password: [
           {
             required: true,
-            trigger: 'blur',
+            trigger: 'change',
             validator: validatePassword
           }
         ]

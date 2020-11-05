@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top:-30px">
     <div class="filterDiv" style="padding-top:0px">
-      <span>仓库选择：</span>
+      <span>仓库：</span>
       <el-select v-model="selectedVal" size="mini" class="phoneWidth" placeholder="请选择仓库" @change="changeVal">
         <el-option v-for="e in depotList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
@@ -52,13 +52,13 @@ export default {
       page: 1,
       pageSize: 10,
       totalPage: 0,
-      // 采土年份
+      // 采样年份
       yearList: [],
       yearCurrent: '',
       // 批次列表
       batchList: [],
       batchCurrent: '',
-      // 采土地址
+      // 采样地址
       areaList: [],
       areaCurrent: '',
       // 采集人
@@ -166,7 +166,7 @@ export default {
       this.tableData = res.data
       this.totalPage = res.count
     },
-    //  采土年份
+    //  采样年份
     async getBatch_years() {
       let res = await batch_years({
         deport_code: this.depotCurrent,
@@ -182,7 +182,7 @@ export default {
       })
       this.batchList = res.data
     },
-    //  采土地址
+    //  采样地址
     async getArea_query() {
       let res = await area_query({
         deport_code: this.depotCurrent,

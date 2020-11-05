@@ -4,7 +4,7 @@
       <el-tabs v-model="activeTab">
         <el-tab-pane label="创建实验室" name="2" />
         <el-tab-pane label="创建仓库" name="0" />
-        <el-tab-pane label="创建采土袋" name="1" />
+        <el-tab-pane label="创建采样袋" name="1" />
       </el-tabs>
     </div>
 
@@ -13,7 +13,7 @@
       <warehouse />
     </div>
 
-    <!-- 创建采土袋 -->
+    <!-- 创建采样袋 -->
     <div v-show="activeTab == 1">
       <bag />
     </div>

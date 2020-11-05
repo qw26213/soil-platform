@@ -27,9 +27,9 @@
             <el-table :cell-style="cellStyle" :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
                 <el-table-column prop="user_name" label="姓名" width="150" />
                 <el-table-column prop="user_phone" label="联系电话" align="center" />
-                <el-table-column prop="id" label="编号" align="center" />
+                <el-table-column prop="id" label="编码" align="center" />
                 <el-table-column prop="user_address" label="所在区域" show-overflow-tooltip />
-                <el-table-column prop="task_count" label="任务总数" align="center" />
+                <el-table-column prop="task_count" label="任务数量" align="center" />
                 <el-table-column prop="task_perform_count" label="完成数量" align="center" />
                 <el-table-column label="操作" align="center" width="120">
                     <template slot-scope="{row}">

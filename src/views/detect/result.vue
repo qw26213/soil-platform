@@ -8,52 +8,52 @@
         <i class="col_ffffff" :class="leftShow?'el-icon-d-arrow-left':'el-icon-d-arrow-right'"></i>
       </div>
       <!-- 选择省市 -->
-      <div class="pad_top_8">省(直辖市)：</div>
+      <div class="label">省(直辖市)：</div>
       <el-select filterable v-model="province" size="small" class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">市 ：</div>
+      <div class="label">市：</div>
       <el-select filterable v-model="city" size="small" class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">县(区)：</div>
+      <div class="label">县(区)：</div>
       <el-select filterable v-model="county" size="small" class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">镇(乡)：</div>
+      <div class="label">镇(乡)：</div>
       <el-select filterable v-model="town" size="small" class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">仓库：</div>
+      <div class="label">仓库：</div>
       <el-select filterable v-model="deport_code" size="small" class="provinceSelectWidth" @change="getBatch1">
         <el-option v-for="e in deport_list" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <div class="pad_top_8">批次：</div>
+      <div class="label">批次编码：</div>
       <el-select filterable v-model="batch_code" size="small" class="provinceSelectWidth">
         <el-option v-for="e in batch_list" :key="e" :label="e" :value="e" />
       </el-select>
-      <div class="pad_top_8">采土年份：</div>
+      <div class="label">采样年份：</div>
       <el-select filterable v-model="year" size="small" class="provinceSelectWidth">
         <el-option v-for="e in [2018,2019,2020,2021,2022]" :key="e" :label="e" :value="e" />
       </el-select>
-      <div class="pad_top_8">采集人 ：</div>
+      <div class="label">采样人 ：</div>
       <el-select filterable v-model="collector" size="small" class="provinceSelectWidth">
         <el-option v-for="e in collector_list" :key="e.id" :label="e.user_name" :value="e.id" />
       </el-select>
-    <div class="legend">
-      <div class="item">
-        <img src="../../assets/incomedIcon.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
-        <span class="fon_14">已入库</span>
+      <div class="legend">
+        <div class="item">
+          <img src="../../assets/incomedIcon.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
+          <span class="fon_12">已入库</span>
+        </div>
+        <div class="item" style="margin-top:10px">
+          <img src="../../assets/detecting.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
+          <span class="fon_12">送检中</span>
+        </div>
+        <div class="item" style="margin-top:10px">
+          <img src="../../assets/detected.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
+          <span class="fon_12">已检测</span>
+        </div>
       </div>
-      <div class="item" style="margin-top:10px">
-        <img src="../../assets/detecting.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
-        <span class="fon_14">送检中</span>
-      </div>
-      <div class="item" style="margin-top:10px">
-        <img src="../../assets/detected.png" class="localIcon" style="display:inline-block;vertical-align:middle" />
-        <span class="fon_14">已检测</span>
-      </div>
-    </div>
     </div>
   </div>
 </template>
@@ -270,6 +270,7 @@ export default {
 
 .legend {
   padding: 12px 0;
+  margin-top: 10px;
 }
 
 .mapBox {

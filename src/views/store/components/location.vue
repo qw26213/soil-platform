@@ -2,19 +2,19 @@
   <div>
     <div class="col_333333 fon_14 flex jus_between ali_center mar_top_10 mar_bot_0">
       <span class>所在区域：</span>
-      <el-select v-model="province" size="mini" class="phoneWidth" @change="changeProvince()" placeholder="省（直辖市）：">
+      <el-select v-model="province" size="mini" class="phoneWidth" @change="changeProvince()" placeholder="省(直辖市)：">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <el-select v-model="city" size="mini" class="phoneWidth" @change="changeCity()" placeholder="市 ：">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <el-select v-model="county" size="mini" class="phoneWidth" @change="changeCounty()" placeholder="城区（县）：">
+      <el-select v-model="county" size="mini" class="phoneWidth" @change="changeCounty()" placeholder="城区(县)：">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <el-select v-model="town" size="mini" class="phoneWidth" @change="changeTown()" placeholder="镇乡 ：">
+      <el-select v-model="town" size="mini" class="phoneWidth" @change="changeTown()" placeholder="镇乡：">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <el-select v-model="village" size="mini" class="phoneWidth" @change="changeVillage()" placeholder="村 ：">
+      <el-select v-model="village" size="mini" class="phoneWidth" @change="changeVillage()" placeholder="村：">
         <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
       <el-button type="primary" size="mini" class="yellow" @click="clickSearch">查询</el-button>

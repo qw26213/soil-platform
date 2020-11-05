@@ -1,23 +1,23 @@
 <template>
   <div style="margin-top:-30px">
     <div class="filterDiv" style="padding-top:0px">
-      <span class="label">仓库选择：</span>
+      <span class="label">仓库：</span>
       <el-select v-model="deportCurrent" size="mini" class="phoneWidth" placeholder="请选择仓库" @change="changeVal">
         <el-option v-for="e in depotList" :key="e.code" :label="e.name" :value="e.code" />
       </el-select>
-      <span class="label">批次：</span>
-      <el-select v-model="batchCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="全部时间">
+      <span class="label" style="margin-left:5px">批次编码：</span>
+      <el-select v-model="batchCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="批次编码">
         <el-option v-for="e in batchList" :key="e" :label="e" :value="e" />
       </el-select>
-      <span class="label">采土年份：</span>
-      <el-select v-model="yearCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="全部类型">
+      <span class="label" style="margin-left:5px">采样年份：</span>
+      <el-select v-model="yearCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="采样年份">
         <el-option v-for="e in yearList" :key="e" :label="e" :value="e" />
       </el-select>
-      <span class="label">采土地址：</span>
-      <el-select v-model="areaCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="全部人员">
+      <span class="label" style="margin-left:5px">采样地址：</span>
+      <el-select v-model="areaCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="采样地址">
         <el-option v-for="e in areaList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <span class="label">采集人：</span>
+      <span class="label" style="margin-left:5px">采样人：</span>
       <el-select v-model="collectorCurrent" size="mini" class="phoneWidth" @change="changeFilterKey()" placeholder="全部人员">
         <el-option v-for="e in collectorList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
@@ -29,16 +29,16 @@
     <div class="contentDiv">
       <div class="pad_top_8">
         <el-table :data="tableData" style="width: 100%" :header-cell-style="headerCellStyle">
-          <el-table-column prop="user_name" label="采集人" />
-          <el-table-column prop="bag_code" label="采土袋编码" show-overflow-tooltip />
-          <el-table-column prop="batch_code" label="批次ID" show-overflow-tooltip />
+          <el-table-column prop="user_name" label="采样人" />
+          <el-table-column prop="bag_code" label="采样袋编码" show-overflow-tooltip />
+          <el-table-column prop="batch_code" label="批次编码" show-overflow-tooltip />
           <el-table-column prop="shelf_code" label="货架" />
           <el-table-column prop="place_code" label="架位" />
           <el-table-column prop="box_code" label="盒(格子)" />
           <el-table-column prop="task_count" label="送检" />
           <el-table-column prop="user_address" label="已检" />
-          <el-table-column prop="area_name" label="采土地址" show-overflow-tooltip />
-          <el-table-column prop="task_count" label="采土年份" />
+          <el-table-column prop="area_name" label="采样地址" show-overflow-tooltip />
+          <el-table-column prop="task_count" label="采样年份" />
         </el-table>
         <pagination v-if="totalPage>10" :total="totalPage" :page.sync="page" :limit.sync="pageSize" @pagination="getSearchSample" />
       </div>
@@ -73,13 +73,13 @@ export default {
       page: 1,
       pageSize: 10,
       totalPage: 0,
-      // 采土年份
+      // 采样年份
       yearList: [2019, 2020, 2021, 2022],
       yearCurrent: '',
       // 批次列表
       batchList: [],
       batchCurrent: '',
-      // 采土地址
+      // 采样地址
       areaList: [],
       areaCurrent: '',
       // 采集人
@@ -141,10 +141,10 @@ export default {
       this.deportCurrent = this.depotList[0].code
       this.getSearchSample() //获取仓库查询table
       this.getBatch_query() //批次列表
-      this.getArea_query() //采土地址
+      this.getArea_query() //采样地址
       this.getCollector_query() //  采集人
       this.getSampleUseDetails() // 样本使用情况
-      // this.getBatch_years() //采土年份
+      // this.getBatch_years() //采样年份
     },
     // 样本查询
     async getSearchSample() {
@@ -162,7 +162,7 @@ export default {
       this.tableData = res.data
       this.totalPage = res.count
     },
-    //  采土年份
+    //  采样年份
     async getBatch_years() {
       let res = await batch_years({
         deport_code: this.deportCurrent,
@@ -178,7 +178,7 @@ export default {
       })
       this.batchList = res.data
     },
-    //  采土地址
+    //  采样地址
     async getArea_query() {
       let res = await area_query({
         deport_code: this.deportCurrent,
@@ -213,7 +213,7 @@ export default {
   min-height: calc(100vh - 120px);
 }
 .phoneWidth {
-  width: 140px;
+  width: 120px;
 }
 
 .el-tabs--border-card {

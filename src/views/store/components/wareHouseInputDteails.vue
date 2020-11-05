@@ -8,7 +8,7 @@
       </div>
       <el-table :data="tableData" style="width: 100%;margin-top:10px" border resize size="mini">
         <el-table-column type="index" align="center" label="#" width="50" />
-        <el-table-column prop="code" align="center" label="采土袋" width="160" />
+        <el-table-column prop="code" align="center" label="采样袋" width="160" />
         <el-table-column align="center" label="接收时间" width>
           <template slot-scope="scope">
             <span>{{scope.row.value}}</span>
@@ -24,7 +24,7 @@
       </div>
       <el-table :data="tableData" style="width: 100%;margin-top:10px" border resize size="mini">
         <el-table-column type="index" align="center" label="#" width="50" />
-        <el-table-column prop="bag_code" align="center" label="采土袋" width="160" />
+        <el-table-column prop="bag_code" align="center" label="采样袋" width="160" />
         <el-table-column prop="box_code" align="center" label="盒子编码" width />
         <el-table-column prop="box_place" align="center" label="格子编码" width />
         <el-table-column align="center" label="接收时间" width>
@@ -42,7 +42,7 @@
       </div>
       <el-table :data="tableData" style="width: 100%;margin-top:10px" border resize size="mini">
         <el-table-column type="index" align="center" label="#" width="50" />
-        <el-table-column prop="bag_code" align="center" label="采土袋" width="160" />
+        <el-table-column prop="bag_code" align="center" label="采样袋" width="160" />
         <el-table-column prop="shelf_code" align="center" label="架子编码" width />
         <el-table-column prop="shelf_place" align="center" label="架位编码" width />
         <el-table-column prop="box_code" align="center" label="盒子编码" width />

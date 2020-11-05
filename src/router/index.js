@@ -252,6 +252,14 @@ export const asyncRoutes = [{
                 title: '权限管理',
                 roles: ['100404']
             }
+        }, {
+            path: 'menu',
+            component: () => import('@/views/system/menu'),
+            name: 'menu',
+            meta: {
+                title: '菜单管理',
+                roles: ['100404']
+            }
         }]
     }, {
         path: '*',

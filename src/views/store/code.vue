@@ -1,45 +1,47 @@
 <template>
   <div class="mainPage">
-    <div class="filterDiv">
-      <span class>仓库选择：</span>
-      <el-select v-model="depotCurrent" size="mini" class="phoneWidth" @change="changeFilter()" placeholder="请选择仓库">
-        <el-option v-for="e in depotList" :key="e.code" :label="e.name" :value="e.code" />
-      </el-select>
-      <span class>类型：</span>
-      <el-select v-model="depotTypeCurrent" size="mini" class="phoneWidth" @change="changeFilter()" placeholder="全部类型">
-        <el-option v-for="e in depotTypeList" :key="e.code" :label="e.value" :value="e.code" />
-      </el-select>
-      <span class>生成时间：</span>
-      <el-date-picker size="mini" v-model="createTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" class="phoneWidth" @change="changeFilter()" />
-      <span class>创建人：</span>
-      <el-select v-model="depotCreaterCurrent" size="mini" class="phoneWidth" @change="changeFilter()" placeholder="全部人员">
-        <el-option v-for="e in depotCreaterList" :key="e.code" :label="e.value" :value="e.code" />
-      </el-select>
-      <!-- <el-button type="normal" size="mini" @click="clearSelect()">重置</el-button> -->
-      <div @click="disCreateShelf = true" class="btnStyle btn1">
-        <span class="img"></span>
-        <span>创建货架</span>
+    <div class="filterDiv clearfix">
+      <div>
+        <span class>仓库：</span>
+        <el-select v-model="depotCurrent" size="mini" class="phoneWidth" @change="changeFilter()" placeholder="选择仓库">
+          <el-option v-for="e in depotList" :key="e.code" :label="e.name" :value="e.code" />
+        </el-select>
+        <div @click="disCreateShelf = true" class="btnStyle btn1">
+          <span class="img"></span>
+          <span>创建货架</span>
+        </div>
+        <div @click="disCreateBox = true" class="btnStyle btn2">
+          <span class="img"></span>
+          <span>创建盒子</span>
+        </div>
+        <div @click="disCreateContain = true" class="btnStyle btn3">
+          <span class="img"></span>
+          <span>创建容器</span>
+        </div>
+        <el-button type="info" :disabled="!canExcel" style="margin-left:10px" size="mini" @click="toExportExcel">导出EXCEL</el-button>
       </div>
-      <div @click="disCreateBox = true" class="btnStyle btn2">
-        <span class="img"></span>
-        <span>创建盒子</span>
+      <div style="margin-top:10px">
+        <span>类型：</span>
+        <el-select v-model="depotTypeCurrent" size="mini" class="phoneWidth" @change="changeFilter()" placeholder="全部类型">
+          <el-option v-for="e in depotTypeList" :key="e.code" :label="e.value" :value="e.code" />
+        </el-select>
+        <span style="margin-left:15px">生成日期：</span>
+        <el-date-picker size="mini" v-model="createTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" class="phoneWidth" style="width:130px" @change="changeFilter()" />
+        <span style="margin-left:15px">创建人员：</span>
+        <el-select v-model="depotCreaterCurrent" size="mini" class="phoneWidth" style="width:130px" @change="changeFilter()" placeholder="全部人员">
+          <el-option v-for="e in depotCreaterList" :key="e.code" :label="e.value" :value="e.code" />
+        </el-select>
       </div>
-      <div @click="disCreateContain = true" class="btnStyle btn3">
-        <span class="img"></span>
-        <span>创建容器</span>
-      </div>
-      <el-button type="primary" :disabled="!canExcel" style="float:right" size="mini" plain @click="toExportExcel">导出EXCEL</el-button>
     </div>
     <div class="contentDiv">
       <el-table :cell-style="cellStyle" :data="tableData" style="width: 100%;" :header-cell-style="headerCellStyle" @selection-change="handleSelectionChange">
-        >
         <el-table-column type="selection" :selectable="checkSelectable" width="55" />
         <el-table-column prop="name" label="赋码类型" />
         <el-table-column prop="numbers" label="赋码数量" />
-        <el-table-column prop="rows" label="行" />
-        <el-table-column prop="columns" label="列" />
-        <el-table-column prop="creater" label="创建人" />
-        <el-table-column prop="update_time" label="生成时间" />
+        <el-table-column prop="rows" label="行数" />
+        <el-table-column prop="columns" label="列数" />
+        <el-table-column prop="creater" label="创建人员" />
+        <el-table-column prop="update_time" label="生成日期" />
         <el-table-column width="80">
           <template slot-scope="{row}">
             <el-button type="text" @click="toPage(`/warehouse/codedetail?id=${row.code}&type=${row.type}&name=${row.name}`)">查看详情</el-button>
@@ -51,16 +53,16 @@
     <!-- 创建货架 -->
     <el-dialog :visible.sync="disCreateShelf" top="18vh" width="600px" :center="true">
       <!-- 创建货架组件 仓库code name 关闭弹窗close方法 -->
-      <addShelf :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateShelf = false"></addShelf>
+      <addShelf :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateShelf = false" />
     </el-dialog>
     <!-- 创建容器 -->
     <el-dialog :visible.sync="disCreateContain" top="18vh" width="600px" :center="true">
-      <addContainer :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateContain = false"></addContainer>
+      <addContainer :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateContain = false" />
     </el-dialog>
     <!-- 创建盒子 -->
     <el-dialog :visible.sync="disCreateBox" top="18vh" width="600px" :center="true">
       <!-- 创建盒子组件 仓库code name 关闭弹窗close方法 -->
-      <addBox :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateBox = false"></addBox>
+      <addBox :depotCurrent="depotCurrent" :depotName="depotName" @close="disCreateBox = false" />
     </el-dialog>
   </div>
 </template>
@@ -224,7 +226,7 @@ export default {
   min-height: calc(100vh - 60px);
 }
 .phoneWidth {
-  width: 140px;
+  width: 125px;
 }
 .yellow {
   background-color: #ffca00;
@@ -264,7 +266,7 @@ export default {
 .btnStyle {
   width: 100px;
   height: 28px;
-  line-height: 28px;
+  line-height: 26px;
   border-radius: 4px;
   padding: 0 10px;
   color: #fff;
@@ -276,7 +278,7 @@ export default {
   background: #ecf5ff;
   border-color: #b3d8ff;
   border: 1px solid #409eff;
-  margin-left: 10px;
+  margin-left: 6px;
 }
 
 .btnStyle:hover {
