@@ -13,7 +13,7 @@
       <el-select v-model="province" filterable size="small" class="provinceSelectWidth" @change="changeProvince()">
         <el-option v-for="e in provinceList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="label">市 ：</div>
+      <div class="label">市：</div>
       <el-select v-model="city" filterable size="small" class="provinceSelectWidth" @change="changeCity()">
         <el-option v-for="e in cityList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
@@ -21,11 +21,11 @@
       <el-select v-model="county" filterable size="small" class="provinceSelectWidth" @change="changeCounty()">
         <el-option v-for="e in countyList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="label">镇(乡) ：</div>
+      <div class="label">镇(乡)：</div>
       <el-select v-model="town" filterable size="small" class="provinceSelectWidth" @change="changeTown()">
         <el-option v-for="e in townList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>
-      <div class="label">村 ：</div>
+      <div class="label">村：</div>
       <el-select v-model="village" filterable size="small" class="provinceSelectWidth" @change="changeVillage()">
         <el-option v-for="e in villageList" :key="e.code" :label="e.name" :value="e.code"></el-option>
       </el-select>

@@ -1,52 +1,56 @@
 <template>
-  <div id="map" class="map">
-    <div>
-      <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
-        <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
-          <label>{{ item.label }}</label>
-        </li>
-      </ul>
-      <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
-        <el-checkbox v-model="isRoad">路网</el-checkbox>
-      </div>
+    <div id="map" class="map">
+        <div>
+            <ul class="base-map" :style="{right: tool ? '175px' : '20px'}">
+                <li v-for="(item, index) in baseMaps" :key="index" :class="item.id === baseMap ? 'active' : ''" @click="baseMap = item.id">
+                    <label>{{ item.label }}</label>
+                </li>
+            </ul>
+            <div v-show="baseMap === 'img'" :style="{right: tool ? '298px'  : '145px'}" class="road-control">
+                <el-checkbox v-model="isRoad">路网</el-checkbox>
+            </div>
+        </div>
+        <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
+        <map-nav ref="mapnav" :map="map"></map-nav>
+        <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
+        <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
+        <div class="init-location" @click="locate2Ip">
+            <span class="el-icon-location"></span>
+        </div>
+        <el-dialog :close-on-click-modal="false" title="查看趋势图" :visible.sync="dialogVisible" width="800px">
+            <div id="lineGraph" style="min-width:600px;height:400px"></div>
+        </el-dialog>
     </div>
-    <map-tool v-show="tool" ref="maptool" :map="map" @set-info="setInfo" @marker-click="markerClick" :dist="dist" />
-    <map-nav ref="mapnav" :map="map"></map-nav>
-    <map-layer ref="maplyr" :map="map" v-if="layer"></map-layer>
-    <div class="info-box" v-show="infoContent !== ''" v-html="infoContent"></div>
-    <div class="init-location" @click="locate2Ip">
-        <span class="el-icon-location"></span>
-    </div>
-  </div>
 </template>
 <script>
 import MapNav from './map-nav';
 import MapLayer from './map-layers';
 import MapTool from './map-tool';
 import axios from 'axios';
-axios.jsonp = (url,data) => {
-    if(!url)
+import Highcharts from "highcharts";
+axios.jsonp = (url, data) => {
+    if (!url)
         throw new Error('url is necessary')
-    const callback = 'CALLBACK' + Math.random().toString().substr(9,18)
+    const callback = 'CALLBACK' + Math.random().toString().substr(9, 18)
     const JSONP = document.createElement('script')
-          JSONP.setAttribute('type','text/javascript')
+    JSONP.setAttribute('type', 'text/javascript')
     const headEle = document.getElementsByTagName('head')[0]
     let ret = '';
-    if(data){
-        if(typeof data === 'string')
+    if (data) {
+        if (typeof data === 'string')
             ret = '&' + data;
-        else if(typeof data === 'object') {
-            for(let key in data)
+        else if (typeof data === 'object') {
+            for (let key in data)
                 ret += '&' + key + '=' + encodeURIComponent(data[key]);
         }
         ret += '&_time=' + Date.now();
     }
     JSONP.src = `${url}?callback=${callback}${ret}`;
-    return new Promise( (resolve,reject) => {
+    return new Promise((resolve, reject) => {
         window[callback] = r => {
-          resolve(r)
-          headEle.removeChild(JSONP)
-          delete window[callback]
+            resolve(r)
+            headEle.removeChild(JSONP)
+            delete window[callback]
         }
         headEle.appendChild(JSONP)
     })
@@ -92,6 +96,7 @@ export default {
     },
     data() {
         return {
+            dialogVisible: false,
             baseMaps: [{ id: 'img', label: '影像' }, { id: 'vec', label: '矢量' }],
             baseMap: 'img',
             isRoad: true,
@@ -130,7 +135,7 @@ export default {
             const params = {
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function (res) {
+            axios.jsonp(url, params).then(function(res) {
                 const rectangle = res.rectangle.split(';');
                 const min = rectangle[0].split(',').map(Number);
                 const max = rectangle[1].split(',').map(Number);
@@ -218,43 +223,42 @@ export default {
                 glyphs: WEBURL + "fonts/{fontstack}/{range}.pbf",
                 sprite: WEBURL + "sprite_icons",
                 layers: [{
-                        id: 'TdtVector',
-                        type: 'raster',
-                        source: 'TdtVector',
-                        minzoom: 3,
-                        maxzoom: 18,
-                        layout: {
-                            visibility: 'none'
-                        }
-                    }, {
-                        id: 'TdtVecLabel',
-                        type: 'raster',
-                        source: 'TdtVecLabel',
-                        minzoom: 3,
-                        maxzoom: 18,
-                        layout: {
-                            visibility: 'none'
-                        }
-                    }, {
-                        id: 'TdtImage',
-                        type: 'raster',
-                        source: 'TdtImage',
-                        minzoom: 3,
-                        maxzoom: 18
-                    }, {
-                        id: 'TdtImgLabel',
-                        type: 'raster',
-                        source: 'TdtImgLabel',
-                        minzoom: 3,
-                        maxzoom: 18
-                    }, {
-                        id: "background",
-                        type: "background",
-                        paint: {
-                            "background-color": "rgba(0, 0, 0, 0)"
-                        }
+                    id: 'TdtVector',
+                    type: 'raster',
+                    source: 'TdtVector',
+                    minzoom: 3,
+                    maxzoom: 18,
+                    layout: {
+                        visibility: 'none'
                     }
-                ]
+                }, {
+                    id: 'TdtVecLabel',
+                    type: 'raster',
+                    source: 'TdtVecLabel',
+                    minzoom: 3,
+                    maxzoom: 18,
+                    layout: {
+                        visibility: 'none'
+                    }
+                }, {
+                    id: 'TdtImage',
+                    type: 'raster',
+                    source: 'TdtImage',
+                    minzoom: 3,
+                    maxzoom: 18
+                }, {
+                    id: 'TdtImgLabel',
+                    type: 'raster',
+                    source: 'TdtImgLabel',
+                    minzoom: 3,
+                    maxzoom: 18
+                }, {
+                    id: "background",
+                    type: "background",
+                    paint: {
+                        "background-color": "rgba(0, 0, 0, 0)"
+                    }
+                }]
             };
             window.map = new mapboxgl.Map({
                 container: 'map',
@@ -314,7 +318,7 @@ export default {
                 extensions: 'all',
                 key: AMAPKEY
             };
-            axios.jsonp(url, params).then(function (res) {
+            axios.jsonp(url, params).then(function(res) {
                 const district = res.districts[0];
                 const center = district.center.split(',').map(Number);
                 let zoom = map.getZoom();
@@ -353,7 +357,7 @@ export default {
                 key: AMAPKEY,
                 extensions: 'all'
             };
-            axios.jsonp(url, params).then(function (res) {
+            axios.jsonp(url, params).then(function(res) {
                 let zoom = 13;
                 let center = [];
                 if (res.pois.length > 0) {
@@ -399,7 +403,7 @@ export default {
                 features: fLines
             };
             const arr = data.filter(it => it.properties && it.properties.related_geometry && it.properties.related_geometry.coordinates && it.geometry && it.geometry.coordinates)
-            arr.forEach((d,i) => {
+            arr.forEach((d, i) => {
                 fPoints.push({
                     type: 'Feature',
                     geometry: {
@@ -455,6 +459,52 @@ export default {
                     'line-width': 2,
                     'line-dasharray': [5, 2]
                 }
+            });
+        },
+        initChart(xData, yData1, yData2, yData3, yData4) {
+            var chart = Highcharts.chart('lineGraph', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '栖霞市土壤数据变化'
+                },
+                xAxis: {
+                    categories: xData,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '降雨量 (mm)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: '改良前',
+                    data: yData1
+                }, {
+                    name: '改良后',
+                    data: yData2
+                }, {
+                    name: '改良前',
+                    data: yData3
+                }, {
+                    name: '改良后',
+                    data: yData4
+                }]
             });
         }
     }

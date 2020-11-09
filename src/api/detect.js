@@ -80,3 +80,11 @@ export function get_samples(data) {
 		data
 	})
 }
+
+//  采集结果分析
+export function get_point_result(id, eles) {
+	return request({
+		url: '/api/v1/soil/detect/dected_resultv2/' + id + '?eles=' + eles,
+		method: 'get'
+	})
+}
