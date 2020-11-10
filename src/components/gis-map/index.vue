@@ -17,17 +17,17 @@
         <div class="init-location" @click="locate2Ip">
             <span class="el-icon-location"></span>
         </div>
-        <el-dialog :close-on-click-modal="false" title="查看趋势图" :visible.sync="dialogVisible" width="800px">
-            <div id="lineGraph" style="min-width:600px;height:400px"></div>
-        </el-dialog>
+        <div v-if="$route.path === '/detect/result' && dialogVisible" class="dialogDiv">
+            <chart v-for="(item,index) in eles" :key="index" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+        </div>
     </div>
 </template>
 <script>
-import MapNav from './map-nav';
-import MapLayer from './map-layers';
-import MapTool from './map-tool';
-import axios from 'axios';
-import Highcharts from "highcharts";
+import MapNav from './map-nav'
+import MapLayer from './map-layers'
+import MapTool from './map-tool'
+import axios from 'axios'
+import Chart from '@/components/HighChart/index'
 axios.jsonp = (url, data) => {
     if (!url)
         throw new Error('url is necessary')
@@ -60,6 +60,7 @@ const AMAPKEY = '9b35a675e309f3a8b78464527e975b99'; //'2c47919476d302b7eab0e363e
 const TDTKEY = 'c6a74bc1b752d5cfa699dbd386cafcf7';
 const WEBURL = window.origin + '/lib/mapbox/';
 export default {
+    name: 'GisMap',
     props: {
         center: {
             type: Array,
@@ -89,7 +90,7 @@ export default {
         }
     },
     components: {
-        // MapSearch,
+        Chart,
         MapNav,
         MapTool,
         MapLayer
@@ -97,6 +98,9 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            chartData: [],
+            xData: [],
+            eles: [],
             baseMaps: [{ id: 'img', label: '影像' }, { id: 'vec', label: '矢量' }],
             baseMap: 'img',
             isRoad: true,
@@ -461,55 +465,35 @@ export default {
                 }
             });
         },
-        initChart(xData, yData1, yData2, yData3, yData4) {
-            var chart = Highcharts.chart('lineGraph', {
-                chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: '栖霞市土壤数据变化'
-                },
-                xAxis: {
-                    categories: xData,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: '降雨量 (mm)'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: '改良前',
-                    data: yData1
-                }, {
-                    name: '改良后',
-                    data: yData2
-                }, {
-                    name: '改良前',
-                    data: yData3
-                }, {
-                    name: '改良后',
-                    data: yData4
-                }]
-            });
+        initCharts(eles, xData, yData) {
+            console.log(eles)
+            this.eles = eles
+            this.xData = xData
+            let arr = []
+            this.eles.forEach(item => {
+                arr.push([])
+            })
+            console.log(arr)
+            arr.forEach((item, index) => {
+                yData.forEach(it => {
+                    const yItem = it.split(',')[index]
+                    arr[index].push(yItem)
+                }) 
+            })
+            console.log(arr)
+            this.chartData = arr
+            setTimeout(() => {
+                this.dialogVisible = true
+            })
+
         }
     }
+    // 采样次数，采样周期，采样地址，
 };
 </script>
+<style scoped>
+.dialogDiv{width: 500px;height: 100%;overflow: auto;background-color: rgba(0,0,0,0.5);position: absolute;top: 0px;right: 0;z-index: 99;padding: 10px 15px;}
+</style>
 <style scoped lang="scss">
 $main-color: #409eff;
 $padding: 20px;

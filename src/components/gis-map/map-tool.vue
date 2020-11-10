@@ -350,17 +350,17 @@ export default {
                 map.getSource('highlight-marker').setData(feature);
                 that.$emit('marker-click', feature.properties);
             });
-            map.on('mouseenter', 'show-markers', function(e) {
+            map.on('click', 'show-markers', function(e) {
                 map.getCanvas().style.cursor = 'pointer';
                 const feature = e.features[0];
                 const prop = feature.properties;
                 const coord = feature.geometry.coordinates;
                 that.showPopupInfo(prop, coord);
             });
-            map.on('mouseleave', 'show-markers', function(e) {
-                map.getCanvas().style.cursor = '';
-                that.popup.setLngLat([0, 0])
-            });
+            // map.on('mouseleave', 'show-markers', function(e) {
+            //     map.getCanvas().style.cursor = '';
+            //     that.popup.setLngLat([0, 0])
+            // });
             // 添加点击事件
             map.on('click', 'free-markers', function(e) {
                 const feature = e.features[0];
@@ -420,7 +420,7 @@ export default {
                     </div>
                     <div class="popup-content">
                         ${content}
-                        <li><b>走势分析：</b> <button id="showBtn">查看</button></li> 
+                        <li><b>详请：</b><button id="showBtn1">数据查看</button><button id="showBtn2" style="margin-right:15px">走势查看</button></li> 
                     </div>`;
 
             that.popup.setLngLat(coord).setHTML(html).addTo(map)
@@ -429,41 +429,33 @@ export default {
                 if (that.popup) that.popup.remove()
                 map.getSource('highlight-marker').setData(that.getGeojson([]))
             }
-            document.getElementById('showBtn').onclick = () => {
+            document.getElementById('showBtn1').onclick = () => {
+                this.showGraph(prop.bag_code)
+            }
+            document.getElementById('showBtn2').onclick = () => {
                 this.showGraph(prop.bag_code)
             }
         },
         showGraph(code) {
-            const eles = 'ph,tn'
+            const eles = 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg'//,Tporo,Cporo,Unporo,ben_rong,rong'
             get_point_result(code, eles).then(res => {
-                console.log(res)
-                this.$parent.dialogVisible = true
                 let xData = []
-                let yData1 = []
-                let yData2 = []
-                let yData3 = []
-                let yData4 = []
-                res.forEach(it => {
+                let yData = []
+                res.data.forEach(it => {
                     xData.push(it.comment)
-                    if (it.value) {
-                        yData1.push(Number(it.value.split(',')[0].split(' ')[0]))
-                        yData2.push(Number(it.value.split(',')[0].split(' ')[1]))
-                        yData3.push(Number(it.value.split(',')[1].split(' ')[0]))
-                        yData4.push(Number(it.value.split(',')[1].split(' ')[1]))
-                    }
+                    yData.push(it.value)
                 })
-                setTimeout(() => {
-                    this.$parent.initChart(xData, yData1, yData2, yData3, yData4)
-                })
+                const elements = eles.split(',')
+                this.$parent.initCharts(elements, xData, yData)
             })
         },
         addPolygonLayer() {
             const that = this;
             if (!map) return;
             if (map.getSource('show-polygons')) {
-                map.removeLayer('show-polygons');
-                map.removeLayer('show-line');
-                map.removeSource('show-polygons');
+                map.removeLayer('show-polygons')
+                map.removeLayer('show-line')
+                map.removeSource('show-polygons')
             }
             // 添加面的回显
             map.addSource('show-polygons', {

@@ -203,6 +203,16 @@ export const asyncRoutes = [{
             }
         }]
     }, {
+        path: '/analysis',
+        component: Layout,
+        redirect: '/analysis/index',
+        name: 'analysis',
+        meta: {
+            title: '数据分析',
+            roles: ['1003','100301','100302','100303'],
+            icon: 'excel'
+        }
+    }, {
         path: '/system',
         component: Layout,
         redirect: '/system/param',
