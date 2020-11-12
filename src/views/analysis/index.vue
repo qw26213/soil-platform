@@ -1,361 +1,81 @@
 <template>
-  <div class="mainPage" style="min-width: 1200px;">
-    <div class="filterDiv">
-      <div class="flex ali_center">
-        <span>所在区域：</span>
-        <el-select v-model="province" size="small" class="phoneWidth1" @change="changeProvince()" placeholder="省/直辖市">
-          <el-option v-for="item in provinceList" :key="item.code" :label="item.name" :value="item.code" />
-        </el-select>
-        <el-select v-model="city" size="small" class="phoneWidth1" @change="changeCity()" placeholder="市">
-          <el-option v-for="item in cityList" :key="item.code" :label="item.name" :value="item.code" />
-        </el-select>
-        <el-select v-model="county" size="small" class="phoneWidth1" @change="changeCounty()" placeholder="县">
-          <el-option v-for="item in countyList" :key="item.code" :label="item.name" :value="item.code" />
-        </el-select>
-        <el-select v-model="town" size="small" class="phoneWidth1" @change="changeTown()" placeholder="镇/乡">
-          <el-option v-for="item in townList" :key="item.code" :label="item.name" :value="item.code" />
-        </el-select>
-        <!-- <el-select v-model="village" size="small" class="phoneWidth" @change="changeVillage()" placeholder="村 ：">
-                    <el-option v-for="e in villageList" :key="item.code" :label="item.name" :value="item.code" />
-        </el-select>-->
-        <span>仓库：</span>
-        <div>
-          <el-select v-model="deport_code" size="small" class="phoneWidth" placeholder="请选择仓库" @change="getBatch">
-            <el-option v-for="item in deport_list" :key="item.code" :label="item.name" :value="item.code" />
-          </el-select>
+    <div class="mainPage">
+        <div class="contentDiv">
+            <div class="col_656565 fon_16">
+                栖霞市土壤检测结果分析
+            </div>
+            <el-row>
+                <el-col :span="6" v-for="(item,index) in eles" :key="index">
+                    <chart :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="6" v-for="(item,index) in eles" :key="index">
+                    <boxplot :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+                </el-col>
+            </el-row>
         </div>
-      </div>
-      <div class="flex ali_center" style="margin-top:10px">
-        <span>批次编码：</span>
-        <el-select v-model="batch_code" filterable size="small" class="phoneWidth" style="width:190px" placeholder="批次编码">
-          <el-option v-for="(item,index) in batch_list" :key="index" :label="item" :value="item" />
-        </el-select>
-        <div>
-          <span>采样年份：</span>
-          <el-date-picker size="small" v-model="year" type="year" placeholder="采样年份" value-format="yyyy" class="phoneWidth" />
-        </div>
-        <span>采样人员：</span>
-        <el-select v-model="collector" filterable size="small" class="phoneWidth" placeholder="采样人员">
-          <el-option v-for="item in collector_list" :key="item.id" :label="item.user_name" :value="item.id" />
-        </el-select>
-        <el-button type="primary" size="mini" @click="getData()">查询</el-button>
-      </div>
     </div>
-    <!-- 穿梭框 -->
-    <div v-if="activeStep==1" class="mar_top_10 autoHeight">
-      <el-transfer v-model="value" :props="{ key: 'bag_code', label: 'bag_code' }" :data="bag_codes" :titles="['选择样本', '待检样本']" @change="handleBagChange" />
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>选择实验室</span>
-        </div>
-        <div>
-          <el-radio-group v-model="detected_org" @change="getEle">
-            <el-radio v-for="item in orglist" :label="item.code" :key="item.code">{{ item.name }}</el-radio>
-          </el-radio-group>
-        </div>
-      </el-card>
-      <el-button type="primary" style="margin-left:20px" @click="nextStep()">下一步</el-button>
-    </div>
-    <div v-if="activeStep==2" class="mar_top_10 autoHeight">
-      <el-transfer v-model="checkedEles" :props="{ key: 'code', label: 'name' }" :data="elelist" :titles="['选择元素', '已选元素']" @change="handleBagChange" />
-      <el-button type="primary" style="margin-left:20px" @click="creatData()">生成</el-button>
-    </div>
-    <el-dialog :close-on-click-modal="false" title="送检确认" :visible.sync="dialogFormVisible" width="600px">
-      <div style="margin-bottom: 10px">检测元素:
-        <el-tag size="mini">标签一</el-tag>
-        <el-tag size="mini">标签一</el-tag>
-        <el-tag size="mini">标签一</el-tag>
-        <el-tag size="mini">标签一</el-tag>
-        <el-tag size="mini">标签一</el-tag>
-      </div>
-      <div class="clearfix" style="width:100%">
-        <div style="float:left;width:48%;border:1px #e1e1e1 solid;">
-          <p style="color:#666;font-size:12px;padding-left:10px">创建时间：{{ curTime }}</p>
-          <p style="color:#666;font-size:12px;padding-left:10px">创建人：{{ $store.state.user.name }}</p>
-          <p style="color:#666;font-size:12px;padding-left:10px">送检样本总数：200</p>
-          <p style="color:#666;font-size:12px;padding-left:10px">选择实验室：实验室1</p>
-        </div>
-        <div style="float:right;width:48%;border:1px #e1e1e1 solid;">
-            <el-table :data="tableData" size="mini" style="width: 100%;" height="300px">
-                <el-table-column type="index" label="#" align="left" width="30" />
-                <el-table-column prop="bag" label="检测样本" align="left" min-width="100" />
-                <el-table-column prop="name" label="仓库编码" align="left" min-width="100" />
-            </el-table>
-        </div>
-      </div>
-      <div slot="footer" class="dialog-footer" align="center">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleCreate()">确定</el-button>
-      </div>
-    </el-dialog>
-  </div>
 </template>
 <script>
-import { parseTime } from '@/utils/index'
-import { get_city, depotList, batch_query, volunteerList } from '@/api/collect'
-import { get_samples, detect_org, detect_ele, create_detect_record } from '@/api/detect'
+import { batchList } from '@/api/collect.js'
+import Pagination from '@/components/Pagination'
+import Chart from '@/components/HighChart/bar'
+import boxplot from '@/components/HighChart/boxplot'
 export default {
-  data() {
-    return {
-      deport_list: [],
-      batch_list: [],
-      activeStep: 1,
-      collector_list: [],
-      // 穿梭框
-      selected_bag_codes: [],
-      bag_codes: [],
-      orglist: [],
-      value: [],
-      selectedEles: [],
-      // 多级联动的参数
-      // 省市级选择
-      provinceList: [],
-      province: '',
-      // 市级
-      cityList: [],
-      city: '',
-      // 县级
-      countyList: [],
-      county: '',
-      // 镇
-      townList: [],
-      town: '',
-      // 村
-      villageList: [],
-      village: '',
-      area_code: '',
-      deport_code: '',
-      collector: '',
-      year: '',
-      curTime: '',
-      dialogFormVisible: false,
-      batch_code: '',
-      detected_org: '',
-      checkAll: false,
-      checkedEles: [],
-      elelist: [],
-      isIndeterminate: true,
-      tableData: [{
-        name: '仓库01',
-        bag: 'TGB88668'
-      },{
-        name: '仓库02',
-        bag: 'TGB88668'
-      },{
-        name: 'dfdsfs',
-        bag: 'TGB88668'
-      },{
-        name: '仓库03',
-        bag: 'TGB88668'
-      }]
-    }
-  },
-  mounted() {
-    this.getDepotList()
-    this.getProvince()
-    detect_org().then(res => {
-      this.orglist = res.data
-    })
-  },
-  methods: {
-    nextStep() {
-      if (this.selected_bag_codes.length === 0) {
-        this.$message.warning('请选择土样！')
-        return
-      }
-      if (this.detected_org === '') {
-        this.$message.warning('请选择实验室！')
-        return
-      }
-      this.activeStep = 2
+    components: {
+        Pagination, Chart, boxplot
     },
-    //生成穿梭数据
-    getData() {
-      const obj = {
-        deport_code: this.deport_code,
-        area_code: this.area_code,
-        year: this.year,
-        batch_code: this.batch_code,
-        collector: this.collector
-      }
-      get_samples(obj).then(res => {
-        this.bag_codes = res.data
-      })
-    },
-    getEle(val) {
-      detect_ele({ detect_id: val }).then(res => {
-        this.elelist = res.data[0].values.map(item => {
-          return {
-            code: item.split('_')[0],
-            name: item.split('_')[1]
-          }
-        })
-      })
-    },
-    creatData() {
-      this.dialogFormVisible = true
-      this.isIndeterminate = false
-      this.checkAll = false
-      this.checkedEles = []
-
-      this.curTime = parseTime(new Date())
-      console.log(this.curTime)
-    },
-    handleCreate() {
-      if (this.checkedEles.length === 0) {
-        this.$message.warning('请选择检测元素')
-        return
-      }
-      const obj = {
-        bag_codes: this.selected_bag_codes,
-        deport_code: this.deport_code,
-        detected_org: this.detected_org,
-        elements: this.checkedEles.join(',')
-      }
-      create_detect_record(obj).then(res => {
-        if (res.code === 201) {
-          this.dialogFormVisible = false
-          this.$message.success('生成检测记录成功')
-        } else {
-          this.$mesage.warning(res.msg)
+    data() {
+        return {
+            order_prop: '',
+            order: '',
+            eles: 'organic,ph,tn,tn'.split(','), //,ep,rk,efe,emn,ezn,ecu'.split(','),
+            chartData: [["13.860000 22.290000","13.970000 22.080000","13.840000 21.520000","13.730000 22.100000","13.590000 21.550000","13.600000 21.580000"],["5.750000 6.110000","5.660000 6.110000","4.700000 5.860000","5.000000 6.290000","5.290000 6.290000","4.920000 6.110000"],["1.100000 1.220000","1.030000 1.150000","1.000000 1.100000","0.980000 1.120000","0.860000 1.020000","0.800000 1.070000"],["36.900000 43.500000","35.750000 40.900000","21.950000 30.110000","23.950000 32.700000","23.070000 26.000000","13.100000 17.590000"],["80.330000 120.670000","73.500000 108.000000","65.330000 98.670000","54.330000 79.000000","35.500000 49.330000","27.190000 42.890000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","22.000000 31.730000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","37.170000 42.170000"],["0.000000 0","0.000000 0","0.000000 0","0.000000 0","0.000000 0","0.410000 1"],["0.000000 0","0.000000 0","0.000000 0","0.000000 0","0.000000 0","1.750000 2"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","5.130000 5.030000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.090000 0.100000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","4.210000 5.370000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","29.830000 31.100000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","4.010000 4.330000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.330000 0.390000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","42.810000 45.820000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","30.040000 36.020000"],["0.000000 0","0.000000 0","0.000000 0","0.000000 0","0.000000 0","12.770000 10"],["0.000000","0.000000","0.000000","0.000000","0.000000","1.410000"],["0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","0.000000 0.000000","1.420000 1.340000"]],
+            xData: ["2019-05","2019-06","2019-07","2019-08","2019-09","2019-10"],
+            tableData: [],
+            page: 1,
+            pageSize: 10,
+            totalPage: 0
         }
-      })
     },
-    getBatch(val) {
-      if (val) {
-        batch_query({ deport_code: val }).then(res => {
-          this.batch_list = res.data
-        })
-      }
+    mounted() {
+        this.getBatchList()
     },
-    getDepotList() {
-      depotList({}).then(res => {
-        this.deport_list = res.data
-      })
-      volunteerList({}).then(res => {
-        this.collector_list = res.data
-      })
-    },
-    handleCheckAllChange(val) {
-      const arr = this.elelist.map(item => {
-        return item.code
-      })
-      this.checkedEles = val ? arr : []
-      this.isIndeterminate = false
-    },
-    handleCheckedElesChange(value) {
-      console.log(value)
-      this.checkedEles = value
-      let checkedCount = value.length
-      this.checkAll = checkedCount === this.elelist.length
-      this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.elelist.length
-    }, //穿梭框有改变
-    handleBagChange(value) {
-      this.selected_bag_codes = value
-    },
-    // 获取省市级
-    async getProvince() {
-      console.log('获取省市级')
-      let res = await get_city({})
-      this.provinceList = res.data
-    },
-    // 改变了省级
-    async changeProvince() {
-      this.cityList = this.countyList = this.townList = this.villageList = []
-      this.city = this.county = this.town = this.village = ''
-      let res = await get_city({
-        parent_id: this.province
-      })
-      this.cityList = res.data
-    },
-    // 改变了市级
-    async changeCity() {
-      this.countyList = this.townList = this.villageList = []
-      this.county = this.town = this.village = ''
-      let res = await get_city({
-        parent_id: this.city
-      })
-      this.countyList = res.data
-    },
-    // 改变了县级
-    async changeCounty() {
-      this.townList = this.villageList = []
-      this.town = this.village = ''
-      let res = await get_city({
-        parent_id: this.county
-      })
-      this.townList = res.data
-    },
-    // 改变了镇级
-    async changeTown() {
-      this.villageList = []
-      this.village = ''
-      let res = await get_city({
-        parent_id: this.town
-      })
-      this.villageList = res.data
-    },
-    // 改变了村级
-    async changeVillage() {
-      // 确认了村级 可以进行地图飞行了
+    methods: {
+        // 排序监听  实现排序功能
+        sortChange(e) {
+            this.order_prop = e.prop
+            this.order = e.order === 'ascending' ? 'asc' : 'desc'
+            this.getBatchList()
+        },
+        // 获取批次列表
+        async getBatchList() {
+            let res = await batchList({
+                start: this.page - 1,
+                page_rows: this.pageSize,
+                order_prop: this.order_prop,
+                order: this.order
+            })
+            this.tableData = res.data
+            this.totalPage = res.count
+        },
+        headerCellStyle() {
+            return 'color:#333333;'
+        },
+        toPage(url) {
+            this.$router.push(url)
+        }
     }
-  }
 }
 </script>
 <style lang="scss" scoped>
->>> .el-dialog__body{padding: 5px 20px;}
 .maxHigh {
-  min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 60px);
 }
 
-.phoneWidth {
-  width: 120px;
-  margin-right: 10px;
-}
-.phoneWidth1 {
-  width: 120px;
-  margin-right: 5px;
-}
-
-.autoHeight {
-  height: 100%;
-}
-
-.el-card {
-  width: 300px;
-  height: 650px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.el-transfer {
-  width: 750px;
-  display: inline-block;
-  vertical-align: middle;
-}
->>> .el-transfer-panel__empty {
-  padding-top: 200px;
-}
-
-/deep/ .el-transfer-panel {
-  width: 300px;
-}
-
-/deep/ .el-transfer-panel__body {
-  height: 610px;
-
-  .el-transfer-panel__list {
-    height: 610px;
-  }
-}
-
->>> .el-radio-group label {
-  display: block;
-  width: 100%;
-  height: 30px;
-}
->>> .el-checkbox__label {
-  width: 50px;
+.item {
+    margin-top: 10px;
+    margin-right: 10px;
 }
 </style>

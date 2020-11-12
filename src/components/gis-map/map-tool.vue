@@ -391,62 +391,71 @@ export default {
             // INCOMED：已入库
             // SEND_DETECTING：送检中
             // DETECTED：已检
+            that.$parent.dialogVisible = false
+            that.$parent.chartData = []
             prop.results = JSON.parse(prop.results);
             prop = Object.assign(prop, prop.results);
+            if (prop.district_code === '370686000000') {
+                prop.status = 'XIXIA'
+            }
             const fieldLabel = {
                 'UNREQUIRED': '所属批次,完成日期,所在行政区'.split(','),
                 'FINISHED': '所属批次,提交日期,所在行政区,采集人,采集编号,农户姓名,目标地址,逆向编码,采集形式'.split(','),
                 'REQUIRED': '所属批次,截止日期,所在行政区,采集人'.split(','),
-                'INCOMED': '所属批次,采土袋ID,入库日期,所属仓库,仓库所在地,采集人,采集形式'.split(',')
+                'INCOMED': '所属批次,采土袋ID,入库日期,所属仓库,仓库所在地,采集人,采集形式'.split(','),
+                'XIXIA': '检测地址,检测周期,仓库所在地,检测次数'.split(',')
             }
             const fieldCode = {
                 'UNREQUIRED': 'batch_code,end_time,sample_area'.split(','),
                 'FINISHED': 'batch_code,submit_time,sample_area,collector,remark,farmer,detail_address,gaode_address,task_attr'.split(','),
                 'REQUIRED': 'batch_code,end_time,sample_area,collector'.split(','),
-                'INCOMED': 'batch_code,bag_code,income_time,deport_name,deport_area,collector,task_attr'.split(',')
+                'INCOMED': 'batch_code,bag_code,income_time,deport_name,deport_area,collector,task_attr'.split(','),
+                'XIXIA': 'detail_address,detected_period,deport_area,detected_count'.split(',')
             }
             const fields = fieldCode[prop.status]
             for (let i = 0; i < fields.length; i++) {
                 const f = fields[i]
                 const l = fieldLabel[prop.status][i]
                 if (prop[f]) {
-                    content += `<li><b>${l}：</b> ${prop[f] ? prop[f] : '-'}</li>`
+                    content += `<li style="line-height:24px"><b>${l}：</b> ${prop[f] ? prop[f] : '-'}</li>`
                 }
             }
-            const html = `
-                    <div class="popup-title" style="width:280px">
+            const btnHtml = this.$route.path === '/detect/result' ?  `<li style="line-height:24px"><b>检测项：</b>20</li><li><b>点位数据：</b><span id="showBtn" class="showGraphBtn">查看详情</span></li>` : ''
+            const html = `<div class="popup-title" style="width:280px">
                       <label style="max-width:220px">${'坐标：' + prop.code}</label>
                       <span class="popup-close" id="popupClose">×</span>
                     </div>
                     <div class="popup-content">
-                        ${content}
-                        <li><b>详请：</b><button id="showBtn1">数据查看</button><button id="showBtn2" style="margin-right:15px">走势查看</button></li> 
+                        ${content}${btnHtml}
                     </div>`;
-
             that.popup.setLngLat(coord).setHTML(html).addTo(map)
             const popupClose = document.getElementById('popupClose')
             popupClose.onclick = function() {
                 if (that.popup) that.popup.remove()
                 map.getSource('highlight-marker').setData(that.getGeojson([]))
+                that.$parent.dialogVisible = false
             }
-            document.getElementById('showBtn1').onclick = () => {
-                this.showGraph(prop.bag_code)
-            }
-            document.getElementById('showBtn2').onclick = () => {
-                this.showGraph(prop.bag_code)
+            if (this.$route.path === '/detect/result') {
+                document.getElementById('showBtn').onclick = () => {
+                    this.showGraph(prop.bag_code)
+                }
             }
         },
         showGraph(code) {
-            const eles = 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg'//,Tporo,Cporo,Unporo,ben_rong,rong'
+            const eles = 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg,Tporo,Cporo,Unporo,ben_rong,rong'
             get_point_result(code, eles).then(res => {
                 let xData = []
                 let yData = []
-                res.data.forEach(it => {
-                    xData.push(it.comment)
-                    yData.push(it.value)
-                })
-                const elements = eles.split(',')
-                this.$parent.initCharts(elements, xData, yData)
+                if (res.data && res.data.length > 0) {
+                    res.data.forEach(it => {
+                        xData.push(it.comment)
+                        yData.push(it.value)
+                    })
+                    const elements = eles.split(',')
+                    this.$parent.initCharts(elements, xData, yData)
+                } else {
+                    this.$message.warning('无检测项数据！')
+                }
             })
         },
         addPolygonLayer() {

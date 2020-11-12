@@ -27,7 +27,7 @@ import MapNav from './map-nav'
 import MapLayer from './map-layers'
 import MapTool from './map-tool'
 import axios from 'axios'
-import Chart from '@/components/HighChart/index'
+import Chart from '@/components/HighChart/line'
 axios.jsonp = (url, data) => {
     if (!url)
         throw new Error('url is necessary')
@@ -466,21 +466,20 @@ export default {
             });
         },
         initCharts(eles, xData, yData) {
-            console.log(eles)
             this.eles = eles
+            console.log(JSON.stringify(xData))
             this.xData = xData
             let arr = []
             this.eles.forEach(item => {
                 arr.push([])
             })
-            console.log(arr)
             arr.forEach((item, index) => {
                 yData.forEach(it => {
                     const yItem = it.split(',')[index]
                     arr[index].push(yItem)
                 }) 
             })
-            console.log(arr)
+            console.log(JSON.stringify(arr))
             this.chartData = arr
             setTimeout(() => {
                 this.dialogVisible = true
@@ -488,11 +487,10 @@ export default {
 
         }
     }
-    // 采样次数，采样周期，采样地址，
 };
 </script>
 <style scoped>
-.dialogDiv{width: 500px;height: 100%;overflow: auto;background-color: rgba(0,0,0,0.5);position: absolute;top: 0px;right: 0;z-index: 99;padding: 10px 15px;}
+.dialogDiv{width: 420px;height: 100%;overflow: auto;background-color: rgba(0,0,0,0.5);position: absolute;top: 0px;right: 0;z-index: 99;padding: 10px 15px;}
 </style>
 <style scoped lang="scss">
 $main-color: #409eff;

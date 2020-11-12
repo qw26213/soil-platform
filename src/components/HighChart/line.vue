@@ -4,26 +4,26 @@
 <script>
 import Highcharts from "highcharts"
 const eleJson = {
-    "organic": "有机质",
-    "ph": "ph",
-    "tn": "全氮",
-    "ep": "有效磷",
-    "rk": "速效钾",
-    "efe": "有效态铁",
-    "emn": "有效态锰",
-    "ezn": "有效态锌",
-    "ecu": "有效态铜",
-    "pb": "铅",
-    "cd": "镉",
-    "cr": "铬",
-    "cu": "铜",
-    "ca": "交换性钙",
-    "mg": "交换性镁",
-    "Tporo": "总孔隙度",
-    "Cporo": "毛管孔隙度",
-    "Unporo": "非毛管孔隙度",
-    "ben_rong": "本地容重",
-    "rong": "容重"
+    "organic": "有机质,g/kg",
+    "ph": "ph,",
+    "tn": "全氮,g/kg",
+    "ep": "有效磷,mg/kg",
+    "rk": "速效钾,mg/kg",
+    "efe": "有效态铁,ug/g",
+    "emn": "有效态锰,ug/g",
+    "ezn": "有效态锌,ug/g",
+    "ecu": "有效态铜,ug/g",
+    "pb": "铅,mg/g",
+    "cd": "镉,mg/g",
+    "cr": "铬,mg/g",
+    "cu": "铜,mg/g",
+    "ca": "交换性钙,g/kg",
+    "mg": "交换性镁,g/kg",
+    "Tporo": "总孔隙度,%",
+    "Cporo": "毛管孔隙度,%",
+    "Unporo": "非毛管孔隙度,%",
+    "ben_rong": "本地容重,g/cm3",
+    "rong": "容重,g/cm3"
 }
 export default {
     name: 'HighChart',
@@ -57,7 +57,7 @@ export default {
                     backgroundColor: 'rgba(0,0,0,0.0)'
                 },
                 title: {
-                    text: '土壤' + eleJson[ele] + '变化',
+                    text: '土壤' + eleJson[ele].split(',')[0] + '变化',
                     style: {
                         color: '#fff',
                         fontSize: '14px'
@@ -101,7 +101,7 @@ export default {
                 },
                 tooltip: {
                     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f} '+ eleJson[ele].split(',')[1] +'</b></td></tr>',
                     footerFormat: '</table>',
                     shared: true,
                     useHTML: true
@@ -123,7 +123,8 @@ export default {
                 }, {
                     name: '改良后',
                     data: curData
-                }]
+                }],
+                credits: { enabled: false }
             });
         }
     }
@@ -134,7 +135,6 @@ export default {
     display: inline-block;
     cursor: pointer;
     fill: #5a5e66;
-    ;
     width: 20px;
     height: 20px;
     vertical-align: 10px;

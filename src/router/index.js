@@ -205,13 +205,23 @@ export const asyncRoutes = [{
     }, {
         path: '/analysis',
         component: Layout,
-        redirect: '/analysis/index',
+        redirect: '/analysis/data',
         name: 'analysis',
+        alwaysShow: true, //一直显示根路由
         meta: {
             title: '数据分析',
             roles: ['1003','100301','100302','100303'],
-            icon: 'excel'
-        }
+            icon: 'chart'
+        },
+        children: [{
+            path: 'data',
+            component: () => import('@/views/analysis/index.vue'),
+            name: 'analysisData',
+            meta: {
+                title: '山东栖霞',
+                roles: ['100301']
+            }
+        }]
     }, {
         path: '/system',
         component: Layout,
