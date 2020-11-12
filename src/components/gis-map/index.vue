@@ -18,7 +18,7 @@
             <span class="el-icon-location"></span>
         </div>
         <div v-if="$route.path === '/detect/result' && dialogVisible" class="dialogDiv">
-            <chart v-for="(item,index) in eles" :key="index" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+            <chart v-for="(item, index) in eles" :key="index" :chart-data="chartData[index]" :x-data="xData" :ele="item" :ben="benData" />
         </div>
     </div>
 </template>
@@ -97,10 +97,11 @@ export default {
     },
     data() {
         return {
+            eles: 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg,Tporo,Cporo,Unporo,rong'.split(','),
+            benData: [],
             dialogVisible: false,
             chartData: [],
             xData: [],
-            eles: [],
             baseMaps: [{ id: 'img', label: '影像' }, { id: 'vec', label: '矢量' }],
             baseMap: 'img',
             isRoad: true,
@@ -466,11 +467,10 @@ export default {
             });
         },
         initCharts(eles, xData, yData) {
-            this.eles = eles
-            console.log(JSON.stringify(xData))
             this.xData = xData
+            console.log(JSON.stringify(xData))
             let arr = []
-            this.eles.forEach(item => {
+            eles.forEach(item => {
                 arr.push([])
             })
             arr.forEach((item, index) => {
@@ -479,8 +479,8 @@ export default {
                     arr[index].push(yItem)
                 }) 
             })
-            console.log(JSON.stringify(arr))
             this.chartData = arr
+            this.benData = this.chartData[19]
             setTimeout(() => {
                 this.dialogVisible = true
             })

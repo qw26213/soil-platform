@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%;height:300px" />
+    <div style="width:100%;height:450px" />
 </template>
 <script>
 import Highcharts from 'highcharts'
@@ -47,31 +47,34 @@ export default {
     methods: {
         initChart() {
             this.chart = Highcharts.chart(this.$el, {
+                colors: ['#44f0ff', '#409eff', '#409eff', '#DDDF00', '#24CBE5', '#64E572', '#FF9655'],
                 chart: {
-                    type: 'columnrange', // columnrange 依赖 highcharts-more.js
-                    inverted: true
+                    inverted: false
                 },
                 title: {
                     text: '土壤元素变化范围'
                 },
                 xAxis: {
-                    categories: ['2018-05', '2018-07', '2018-09', '2018-11', '2019-01', '2019-03', '2019-05', '2019-07', '2019-09', '2019-11', '2020-01', '2020-03']
+                    categories: ["2018-05","2018-06","2018-07","2018-08","2018-09","2019-05","2019-06","2019-07","2019-08","2019-09","2019-10"],
                 },
                 yAxis: {
                     title: {
-                        text: '含量 ( g/kg )'
+                        text: '含量 (g/kg)'
                     }
-                },
-                tooltip: {
-                    valueSuffix: '°C'
                 },
                 plotOptions: {
                     columnrange: {
                         dataLabels: {
                             enabled: true,
                             formatter: function() {
-                                return this.y + '°C';
+                                return this.y
                             }
+                        }
+                    },
+                    series: {
+                        dataLabels: {
+                            align: 'center',
+                            enabled: true
                         }
                     }
                 },
@@ -79,21 +82,25 @@ export default {
                     enabled: false
                 },
                 series: [{
-                    name: '温度',
+                    name: '有机质',
+                    type: 'columnrange', // columnrange 依赖 highcharts-more.js
                     data: [
-                        [-9.7, 9.4],
-                        [-8.7, 6.5],
-                        [-3.5, 9.4],
-                        [-1.4, 19.9],
-                        [0.0, 22.6],
-                        [2.9, 29.5],
-                        [9.2, 30.7],
-                        [7.3, 26.5],
-                        [4.4, 18.0],
-                        [-3.1, 11.4],
-                        [-5.2, 10.4],
-                        [-13.5, 9.8]
+                        [6.08, 19.27],
+                        [11.52, 24.19],
+                        [6.02, 17.41],
+                        [11.23, 24.03],
+                        [5.93, 17.28],
+                        [10.75, 23.18],
+                        [5.89, 17.45],
+                        [11.02, 23.10],
+                        [5.96, 18.85],
+                        [10.64, 28.07],
+                        [6.11, 18.49]
                     ]
+                }, {
+                    name: '平均值',
+                    type: 'line', // columnrange 依赖 highcharts-more.js
+                    data: [11.44,19.82,11.18,19.31,11.10,18.98,11.03,18.89,11.67,20.83,11.57]
                 }]
             })
         }

@@ -22,12 +22,12 @@ const eleJson = {
     "Tporo": "总孔隙度,%",
     "Cporo": "毛管孔隙度,%",
     "Unporo": "非毛管孔隙度,%",
-    "ben_rong": "本地容重,g/cm3",
+    "ben_rong": "本底容重,g/cm3",
     "rong": "容重,g/cm3"
 }
 export default {
     name: 'HighChart',
-    props: ['chartData', 'xData', 'ele'],
+    props: ['chartData', 'xData', 'ele', 'ben'],
     data() {
         return {
             isFullscreen: false,
@@ -50,10 +50,18 @@ export default {
                 prevData.push(Number(it.split(' ')[0]))
                 curData.push(Number(it.split(' ')[1]))
             })
+            var series = [{
+                    type: curData[0] == 0 && curData[curData.length - 1] > 0 ? 'column' : 'line',
+                    name: '改良前',
+                    data: prevData
+                }, {
+                    type: curData[0] == 0 && curData[curData.length - 1] > 0 ? 'column' : 'line',
+                    name: '改良后',
+                    data: curData
+                }]
             this.chart = Highcharts.chart(this.$el, {
-                colors: ['#44f0ff', '#fd377d', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655'],
+                colors: ['#44f0ff', '#fd377d', '#409eff', '#DDDF00', '#24CBE5', '#64E572', '#FF9655'],
                 chart: {
-                    type: 'line',
                     backgroundColor: 'rgba(0,0,0,0.0)'
                 },
                 title: {
@@ -117,13 +125,7 @@ export default {
                         borderWidth: 0
                     }
                 },
-                series: [{
-                    name: '改良前',
-                    data: prevData
-                }, {
-                    name: '改良后',
-                    data: curData
-                }],
+                series: series,
                 credits: { enabled: false }
             });
         }

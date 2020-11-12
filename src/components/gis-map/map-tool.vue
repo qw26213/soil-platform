@@ -442,7 +442,7 @@ export default {
             }
         },
         showGraph(code) {
-            const eles = 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg,Tporo,Cporo,Unporo,ben_rong,rong'
+            const eles = 'organic,ph,tn,ep,rk,efe,emn,ezn,ecu,pb,cd,cr,cu,ca,mg,Tporo,Cporo,Unporo,rong,ben_rong'
             get_point_result(code, eles).then(res => {
                 let xData = []
                 let yData = []

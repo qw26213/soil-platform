@@ -137,7 +137,7 @@ export default {
       })
     },
     getBatch(code) {
-      if (val) {
+      if (code) {
         batch_query({ area_code: code, deport_code: this.deport_code }).then(
           res => {
             this.batch_list = res.data
