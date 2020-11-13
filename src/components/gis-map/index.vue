@@ -27,7 +27,7 @@ import MapNav from './map-nav'
 import MapLayer from './map-layers'
 import MapTool from './map-tool'
 import axios from 'axios'
-import Chart from '@/components/HighChart/line'
+import Chart from '@/components/HighChart/chart'
 axios.jsonp = (url, data) => {
     if (!url)
         throw new Error('url is necessary')

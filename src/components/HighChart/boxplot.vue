@@ -4,35 +4,16 @@
 <script>
 import Highcharts from 'highcharts'
 import highchartsMore from 'highcharts/highcharts-more';
-highchartsMore(Highcharts);
-const eleJson = {
-    "organic": "有机质,g/kg",
-    "ph": "ph,",
-    "tn": "全氮,g/kg",
-    "ep": "有效磷,mg/kg",
-    "rk": "速效钾,mg/kg",
-    "efe": "有效态铁,ug/g",
-    "emn": "有效态锰,ug/g",
-    "ezn": "有效态锌,ug/g",
-    "ecu": "有效态铜,ug/g",
-    "pb": "铅,mg/g",
-    "cd": "镉,mg/g",
-    "cr": "铬,mg/g",
-    "cu": "铜,mg/g",
-    "ca": "交换性钙,g/kg",
-    "mg": "交换性镁,g/kg",
-    "Tporo": "总孔隙度,%",
-    "Cporo": "毛管孔隙度,%",
-    "Unporo": "非毛管孔隙度,%",
-    "ben_rong": "本地容重,g/cm3",
-    "rong": "容重,g/cm3"
-}
+import dumbbell from 'highcharts/modules/dumbbell'
+highchartsMore(Highcharts)
+dumbbell(Highcharts)
 export default {
     name: 'HighChart',
-    props: ['chartData', 'xData', 'ele'],
+    props: ['type'],
     data() {
         return {
-            isFullscreen: false,
+            area1: ['臧家庄1区', '观里2区', '观里3区', '蛇窝泊4区', '蛇窝泊5区', '官道6区', '官道7区', '官道8区', '杨础9区', '杨础10区', '杨础1区', '松山12区'],
+            area2: ['臧家庄1区', '臧家庄2区', '臧家庄3区', '观里4区', '观里5区', '观里6区', '蛇窝泊7区', '蛇窝泊8区', '蛇窝泊9区', '官道10区', '官道11区', '官道12区', '杨础13区', '杨础14区', '杨础15区', '松山16区', '松山17区', '松山18区', '苏家店19区', '苏家店20区', '寺口21区', '寺口22区', '唐家坡23区', '唐家坡24区'],
             chart: null
         }
     },
@@ -47,7 +28,7 @@ export default {
     methods: {
         initChart() {
             this.chart = Highcharts.chart(this.$el, {
-                colors: ['#44f0ff', '#409eff', '#409eff', '#DDDF00', '#24CBE5', '#64E572', '#FF9655'],
+                colors: ['#bee3db', '#409eff', '#409eff', '#DDDF00', '#24CBE5', '#64E572', '#FF9655'],
                 chart: {
                     inverted: false
                 },

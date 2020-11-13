@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%;height:460px" />
+    <div style="width:1000px;height:720px;margin:0 auto" />
 </template>
 <script>
 import Highcharts from 'highcharts'

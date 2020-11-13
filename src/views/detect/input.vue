@@ -38,7 +38,7 @@
           <td>
             <input class="inputcell" v-model="form.ALN" />
           </td>
-          <td>PH(mg/kg)</td>
+          <td>PH</td>
           <td>
             <input class="inputcell" v-model="form.PH" />
           </td>
