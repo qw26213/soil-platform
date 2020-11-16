@@ -13,6 +13,11 @@
           <el-table-column prop="create_time" label="创建时间" align="center" />
           <el-table-column prop="counts" label="创建数量" align="center" />
           <el-table-column prop="creater" label="创建人" align="center" />
+          <el-table-column label="操作" align="center">
+            <template slot-scope="{row}">
+              <el-button type="text" size="small" @click="handleExport(row)">导出Excel</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -20,7 +25,7 @@
 </template>
 <script>
 import { get_city } from '@/api/collect.js'
-import { create_bag, bag_list } from '@/api/system'
+import { create_bag, bag_list, bag_export } from '@/api/system'
 export default {
   data() {
     return {
@@ -69,6 +74,13 @@ export default {
     },
     headerCellStyle() {
       return 'color:#333333;'
+    },
+    handleExport(row) {
+      bag_export({batch_numbers: row.batch_number}).then(res => {
+        let a = document.createElement('a')
+        a.href = res.data
+        a.click()
+      })
     },
     toPage(url) {
       this.$router.push(url)

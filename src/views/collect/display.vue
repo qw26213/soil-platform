@@ -4,9 +4,9 @@
     <gis-map ref="gismap" :tool="false" @map-loaded="mapLoaded" @marker-click="markerClick"></gis-map>
 
     <!-- 左侧菜单 -->
-    <div class="left position_absolute col_ffffff fon_14" :class="leftShow?'leftOpen':'leftNavClose'">
-      <div class="flex jus_end showBox pad_top_10 pad_lef_14 back_ffffff cursor" @click="leftShow = !leftShow">
-        <i class="col_ffffff" :class="leftShow?'el-icon-d-arrow-left':'el-icon-d-arrow-right'"></i>
+    <div class="leftDiv" :class="leftShow?'leftOpen':'leftNavClose'">
+      <div class="arrowDiv" @click="leftShow = !leftShow">
+        <i class="icon_arrow" :class="leftShow?'el-icon-d-arrow-left':'el-icon-d-arrow-right'"></i>
       </div>
       <!-- 选择省市 -->
       <div class="label">省(直辖市)：</div>
@@ -294,7 +294,10 @@ export default {
   }
 }
 </script>
-
+<style scoped>
+.arrowDiv{position: absolute;left:100%;top:0;background: rgba(0,0,0,0.5);padding: 5px 5px 5px 2px;border-radius: 0 4px 4px 0;}
+.icon_arrow{color: #fff}
+</style>
 <style lang="scss" scoped>
 .mapBox {
   width: 100%;
@@ -302,16 +305,18 @@ export default {
   background-color: #eeeeee;
 }
 .label{padding:10px 0 3px; font-size: 12px;}
-.left {
+.leftDiv {
   top: 0px;
   left: 0px;
   width: 200px !important;
   height: 100%;
+  color:#fff;
   padding: 1px 20px 20px;
   background-color: rgba($color: #000000, $alpha: 0.5);
   box-sizing: border-box;
   transition: left 0.5s;
   z-index: 3;
+  position: absolute;
 }
 
 .leftOpen {

@@ -1,7 +1,7 @@
 <template>
   <div class="seeWidth flex jus_between position_relate">
     <!-- map -->
-    <gis-map ref="gismap" :tool="true"></gis-map>
+    <gis-map ref="gismap" :tool="true" />
 
     <!-- 左侧菜单 -->
     <div class="left position_absolute fon_14 col_ffffff back_000000" :class="leftShow?'leftOpen':'leftNavClose'">
@@ -96,7 +96,7 @@
     <!-- 确定截止日期弹窗 -->
     <el-dialog title="请确定本批次完成最后截止日期？" :visible.sync="dislogDataShow" top="24vh" width="400px" :center="true">
       <div class="flex jus_center">
-        <el-date-picker v-model="endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd" class="dataPicker"></el-date-picker>
+        <el-date-picker v-model="endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd" class="dataPicker" />
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dislogDataShow = false">取 消</el-button>

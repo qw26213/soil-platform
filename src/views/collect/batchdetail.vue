@@ -8,7 +8,7 @@
         <span class="col_ffffff">请先在地图上选择采集点位，然后点击人员进行分配</span>
       </div>
       <!-- map -->
-      <gis-map ref="gismap" :tool="false" @map-loaded="mapLoaded" @marker-click="markerClick"></gis-map>
+      <gis-map ref="gismap" :tool="false" @map-loaded="mapLoaded" @marker-click="markerClick" />
     </div>
 
     <!-- 左侧菜单 -->
@@ -62,16 +62,16 @@
     <template v-if="pageStatus == 'changePublishReward'">
       <div class="flex wrap position_absolute rightUpPos jus_end">
         <div>
-          <el-date-picker v-model="changeEndTime" type="date" placeholder="延长截止日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd" class="selectWidth" clearable></el-date-picker>
+          <el-date-picker v-model="changeEndTime" type="date" placeholder="延长截止日期" :picker-options="pickerOptions" value-format="yyyy-MM-dd" class="selectWidth" clearable />
         </div>
         <div class="selectWidth">
           <el-select v-model="rangeCurrent" clearable placeholder="扩大人员范围">
-            <el-option v-for="item in RangeList" :key="item.value" :label="item.name" :value="item.code"></el-option>
+            <el-option v-for="item in RangeList" :key="item.value" :label="item.name" :value="item.code" />
           </el-select>
         </div>
         <div class="selectWidth">
           <el-select v-model="integralCurrent" clearable placeholder="增加奖励积分">
-            <el-option v-for="item in integralSelectList" :key="item.value" :label="item.value" :value="item.value"></el-option>
+            <el-option v-for="item in integralSelectList" :key="item.value" :label="item.value" :value="item.value" />
           </el-select>
         </div>
       </div>
@@ -82,18 +82,9 @@
       <div class="position_absolute rightUpPos">
         <div class="fon_16 col_656565 batchOpciatyBox">批次：{{batchCode}}</div>
         <div class="fon_16 col_333333 batchOpciatyBox flex mar_top_10 mar_bot_0 text_center">
-          <div class="flex1">
-            地块附
-            <br />近人员
-          </div>
-          <div class="felx1">
-            本批次
-            <br />认领数
-          </div>
-          <div class="flex1">
-            历史采
-            <br />集点数
-          </div>
+          <div class="flex1">地块附<br />近人员</div>
+          <div class="felx1">本批次<br />认领数</div>
+          <div class="flex1">历史采<br />集点数</div>
         </div>
         <!-- 数据 -->
         <div class="fon_14 col_333333 batchOpciatyBox flex text_center" v-for="(e,k) of bactchVolunteerList[batchVounteerPage]" :key="K">

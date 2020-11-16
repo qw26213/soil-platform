@@ -59,7 +59,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .navbar {
-    height: 60px;
+    height: 52px;
     width: 100%;
     z-index: 11;
     overflow: hidden;
@@ -88,7 +88,7 @@ export default {
     .right-menu {
         float: right;
         height: 100%;
-        line-height: 60px;
+        line-height: 52px;
 
         &:focus {
             outline: none;

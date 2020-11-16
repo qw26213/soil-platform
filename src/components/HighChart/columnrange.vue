@@ -62,9 +62,7 @@ export default {
                     }]
                 },
                 tooltip: {
-                    pointFormat: '最大值: {point.high}<br/>' +
-                        '最小值: {point.low}<br/>' +
-                        '平均数: {point.median}<br/>'
+                    pointFormat: '最大值: {point.high}<br/>最小值: {point.low}<br/>平均数: {point.median}'
                 },
                 series: [{
                     name: '观测值',

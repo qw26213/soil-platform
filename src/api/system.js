@@ -17,6 +17,15 @@ export function bag_list(data) {
 	})
 }
 
+// 采土袋导出 
+export function bag_export(data) {
+	return request({
+		url: '/api/v1/soil/system/export',
+		method: 'get',
+		data
+	})
+}
+
 // 创建仓库
 export function create_deport(data) {
 	return request({

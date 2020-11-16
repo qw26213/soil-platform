@@ -1,7 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <navbar />
-    <sidebar class="sidebar-container" />
+    <sidebar v-if="device==='desktop'" class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <tags-view v-if="needTagsView" />
@@ -15,7 +15,6 @@
 import { AppMain, Navbar, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
-
 export default {
   name: 'Layout',
   components: {
