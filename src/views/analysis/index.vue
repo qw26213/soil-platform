@@ -1,35 +1,42 @@
 <template>
     <div class="mainPage">
         <div class="contentDiv">
-            <div style="font-weight:bold;font-size:16px;margin-bottom: 10px">山东栖霞土壤检测元素数据分析</div>
-            <el-tabs v-model="activeTab">
-                <el-tab-pane label="有机质" name="a" />
-                <el-tab-pane label="PH值" name="b" />
-                <el-tab-pane label="氮/磷/钾" name="c" />
-                <el-tab-pane label="微/中量元素" name="d" />
-                <el-tab-pane label="孔隙度/容重" name="e" />
-                <el-tab-pane label="重金属" name="f" />
-            </el-tabs>
-            <div v-show="activeTab=='a'">
-                <bar v-for="(item,index) in eles" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
-            </div>
-            <div v-show="activeTab=='b'">
-                <dumbbell />
-            </div>
-            <div v-show="activeTab=='c'">
-                <chartline :type="12" />
-                <chartline :type="24" />
-            </div>
-            <div v-show="activeTab=='d'">
-                <boxplot :type="12" />
-                <boxplot :type="24" />
-            </div>
-            <div v-show="activeTab=='e'">
-                <column :type="12" />
-                <column :type="24" />
-            </div>
-            <div v-show="activeTab=='f'">
-                <tilemap v-for="(item,index) in eles" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+            <!-- <div style="font-weight:bold;font-size:16px;margin-bottom: 10px">栖霞土壤检测元素数据分析</div> -->
+            <div class="chartView">
+                <div class="tabselect">
+                    <el-tabs v-model="activeTab" tab-position="left">
+                        <el-tab-pane label="有机质" name="a" />
+                        <el-tab-pane label="PH值" name="b" />
+                        <el-tab-pane label="氮/磷/钾" name="c" />
+                        <el-tab-pane label="中/微量元素" name="d" />
+                        <el-tab-pane label="孔隙度/容重" name="e" />
+                        <el-tab-pane label="重金属" name="f" />
+                    </el-tabs>
+                </div>
+                <div v-show="activeTab=='a'">
+                    <bar v-for="(item,index) in eles" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
+                </div>
+                <div v-show="activeTab=='b'">
+                    <dumbbell />
+                </div>
+                <div v-show="activeTab=='c'">
+                    <chartline type="N" />
+                    <chartline type="P" />
+                    <chartline type="K" />
+                </div>
+                <div v-show="activeTab=='d'">
+                    <boxplot type="a" />
+                    <boxplot type="b" />
+                    <boxplot type="c" />
+                    <boxplot type="d" />
+                    <boxplot type="e" />
+                </div>
+                <div v-show="activeTab=='e'">
+                    <column />
+                </div>
+                <div v-show="activeTab=='f'">
+                    <metal />
+                </div>
             </div>
         </div>
     </div>
@@ -38,8 +45,8 @@
 import { batchList } from '@/api/collect.js'
 import bar from '@/components/HighChart/bar'
 import chartline from '@/components/HighChart/line'
-import boxplot from '@/components/HighChart/columnrange'
-import tilemap from '@/components/HighChart/tilemap'
+import boxplot from '@/components/HighChart/boxplot'
+import metal from '@/components/HighChart/metal'
 import dumbbell from '@/components/HighChart/dumbbell'
 import column from '@/components/HighChart/column'
 export default {
@@ -47,7 +54,7 @@ export default {
         bar,
         chartline,
         boxplot,
-        tilemap,
+        metal,
         dumbbell,
         column,
     },
@@ -95,13 +102,15 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.chartView{padding-left: 120px;}
 .maxHigh {
     min-height: calc(100vh - 60px);
 }
-
+.mainPage{position: relative;}
 .item {
     margin-top: 10px;
     margin-right: 10px;
 }
+.tabselect{position: absolute;width: 120px;height:240px;top:40px;left: 20px }
 </style>

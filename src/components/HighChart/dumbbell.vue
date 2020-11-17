@@ -3,48 +3,27 @@
 </template>
 <script>
 import Highcharts from "highcharts"
-const eleJson = {
-    "organic": "有机质,g/kg",
-    "ph": "ph,",
-    "tn": "全氮,g/kg",
-    "ep": "有效磷,mg/kg",
-    "rk": "速效钾,mg/kg",
-    "efe": "有效态铁,ug/g",
-    "emn": "有效态锰,ug/g",
-    "ezn": "有效态锌,ug/g",
-    "ecu": "有效态铜,ug/g",
-    "pb": "铅,mg/g",
-    "cd": "镉,mg/g",
-    "cr": "铬,mg/g",
-    "cu": "铜,mg/g",
-    "ca": "交换性钙,g/kg",
-    "mg": "交换性镁,g/kg",
-    "Tporo": "总孔隙度,%",
-    "Cporo": "毛管孔隙度,%",
-    "Unporo": "非毛管孔隙度,%",
-    "ben_rong": "本地容重,g/cm3",
-    "rong": "容重,g/cm3"
-}
 export default {
     name: 'HighChart',
-    props: ['chartData', 'xData', 'ele'],
     data() {
         return {
-            isFullscreen: false,
+            area1: ['A1区', 'A2区', 'A3区', 'A4区', 'A5区', 'A6区', 'A7区', 'A8区', 'A9区', 'A10区', 'A11区', 'A12区', 'A13区', 'A14区', 'A15区', 'A16区', 'A17区', 'A18区', 'A19区', 'A20区', 'A1区', 'A22区', 'A23区', 'A24区'],
+            area2: ['B1区', 'B2区', 'B3区', 'B4区', 'B5区', 'B6区', 'B7区', 'B8区', 'B9区', 'B10区', 'B1区', 'B12区'],
             chart: null
         }
     },
     watch: {
         chartData() {
-            this.initChart(this.chartData, this.xData, this.ele)
+            this.initChart()
         }
     },
     mounted() {
-        this.initChart(this.chartData, this.xData, this.ele)
+        this.initChart()
     },
     methods: {
-        initChart(chartData, xData, ele) {
-            var data = [{
+        initChart() {
+            const xData = this.area1.concat(this.area2)
+            const arr = [{
                 name: '1',
                 low: 69,
                 high: 82
@@ -156,7 +135,46 @@ export default {
                 name: '28',
                 low: 71,
                 high: 81
+            }, {
+                name: '25',
+                low: 73,
+                high: 82
+            }, {
+                name: '26',
+                low: 68,
+                high: 76
+            }, {
+                name: '27',
+                low: 69,
+                high: 83
+            }, {
+                name: '28',
+                low: 71,
+                high: 81
+            }, {
+                name: '25',
+                low: 73,
+                high: 82
+            }, {
+                name: '26',
+                low: 68,
+                high: 76
+            }, {
+                name: '27',
+                low: 69,
+                high: 83
+            }, {
+                name: '28',
+                low: 71,
+                high: 81
             }];
+            const data = arr.map((item,index) => {
+                return {
+                    name: xData[index],
+                    low: item.low,
+                    high: item.high
+                }
+            })
             this.chart = Highcharts.chart(this.$el, {
                 colors: ['#17c3b2', '#fe6d73', 'rgba(0,0,0,1)'],
                 chart: {
@@ -187,10 +205,6 @@ export default {
                     name: 'ph改良后',
                     type: 'dumbbell',
                     data: data
-                }, {
-                    name: '平均值',
-                    type: 'line',
-                    data: [60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60,60]
                 }]
             });
         }
