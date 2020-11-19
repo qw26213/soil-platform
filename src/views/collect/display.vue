@@ -1,5 +1,5 @@
 <template>
-  <div class="mapBox position_relate">
+  <div class="mapBox">
     <!-- map -->
     <gis-map ref="gismap" :tool="false" @map-loaded="mapLoaded" @marker-click="markerClick"></gis-map>
 
@@ -167,12 +167,21 @@ export default {
         for (let i = 1; i < points.length; i++) {
           if (points[i].properties.results && points[i].properties.results.submit_time) {
             const submit_time = new Date(points[i].properties.results.submit_time).getTime()
-            if (Math.abs(submit_time_first - submit_time) < 60000) {
+            if (Math.abs(submit_time_first - submit_time) < 600000) {
               points[i].properties.status = 'LATEST'
             }
           }
         }
       }
+      let arr = []
+      points.forEach(item => {
+        if (item.properties.district_code === '321081000000_1') {
+          item.properties.status = 'YZ400'
+        }
+        if (item.properties.results.submit_time && (item.properties.results.submit_time.indexOf('2020-11-18') === 0||item.properties.results.submit_time.indexOf('2020-11-19') === 0)) {
+          item.properties.status = 'LATEST'
+        }
+      })
       this.$refs.gismap.addDataCompare(points)
       this.$refs.gismap.showFreeMarkers(points)
       this.$refs.gismap.showPolygons(polygon)
@@ -301,8 +310,9 @@ export default {
 <style lang="scss" scoped>
 .mapBox {
   width: 100%;
-  height: calc(100%);
+  height: 100%;
   background-color: #eeeeee;
+  position:relative;
 }
 .label{padding:10px 0 3px; font-size: 12px;}
 .leftDiv {

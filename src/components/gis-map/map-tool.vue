@@ -299,6 +299,7 @@ export default {
                         'INCOMED', 'marker-yellow', //#ffe25e
                         'REQUIRED', 'marker-blue', //#67a4ff
                         'LATEST', 'marker-latest',
+                        'YZ400', 'marker-yz',
                         'marker-red' // 无匹配值颜色#ff524f UNREQUIRED
                     ],
                     'icon-ignore-placement': true,
@@ -327,6 +328,7 @@ export default {
                         'INCOMED', 'marker-yellow1', //#ffe25e
                         'REQUIRED', 'marker-blue1', //#67a4ff
                         'LATEST', 'marker-latest',
+                        'YZ400', 'marker-yz',
                         'marker-red1' // 无匹配值颜色#ff524f UNREQUIRED
                     ],
                     'icon-ignore-placement': true,
@@ -403,14 +405,18 @@ export default {
                 'FINISHED': '所属批次,提交日期,所在行政区,采集人,采集编号,农户姓名,目标地址,逆向编码,采集形式'.split(','),
                 'REQUIRED': '所属批次,截止日期,所在行政区,采集人'.split(','),
                 'INCOMED': '所属批次,采土袋ID,入库日期,所属仓库,仓库所在地,采集人,采集形式'.split(','),
-                'XIXIA': '检测地址,检测周期,仓库所在地,检测次数'.split(',')
+                'XIXIA': '检测地址,检测周期,仓库所在地,检测次数'.split(','),
+                'LATEST': '所属批次,提交日期,所在行政区,采集人,采集编号,农户姓名,目标地址,逆向编码,采集形式'.split(','),
+                'YZ400': '所属批次,提交日期,所在行政区,采集人,采集编号,农户姓名,目标地址,逆向编码,采集形式'.split(',')
             }
             const fieldCode = {
                 'UNREQUIRED': 'batch_code,end_time,sample_area'.split(','),
                 'FINISHED': 'batch_code,submit_time,sample_area,collector,remark,farmer,detail_address,gaode_address,task_attr'.split(','),
                 'REQUIRED': 'batch_code,end_time,sample_area,collector'.split(','),
                 'INCOMED': 'batch_code,bag_code,income_time,deport_name,deport_area,collector,task_attr'.split(','),
-                'XIXIA': 'detail_address,detected_period,deport_area,detected_count'.split(',')
+                'XIXIA': 'detail_address,detected_period,deport_area,detected_count'.split(','),
+                'LATEST': 'batch_code,submit_time,sample_area,collector,remark,farmer,detail_address,gaode_address,task_attr'.split(','),
+                'YZ400': 'batch_code,submit_time,sample_area,collector,remark,farmer,detail_address,gaode_address,task_attr'.split(',')
             }
             const fields = fieldCode[prop.status]
             for (let i = 0; i < fields.length; i++) {
@@ -618,11 +624,9 @@ export default {
                 anchor: 'left',
                 offset: [12, 0]
             };
-            that.tempLength = new mapboxgl.Marker(option)
-                .setLngLat([0, 0])
-                .addTo(map);
-            const delElement = document.createElement('div');
-            delElement.setAttribute('class', 'delete-button');
+            that.tempLength = new mapboxgl.Marker(option).setLngLat([0, 0]).addTo(map);
+            const delElement = document.createElement('div')
+            delElement.setAttribute('class', 'delete-button')
             delElement.innerHTML = "删除";
             const delOption = {
                 element: delElement,

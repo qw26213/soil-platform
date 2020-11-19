@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <div class="tit">栖霞各区有机质含量对比</div>
+        <div class="tit">改良前后土壤有机质提高值(‰)</div>
         <div class="mapDiv">
             <img src="../../assets/map.jpg" class="map">
         </div>

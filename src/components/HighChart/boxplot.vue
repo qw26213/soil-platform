@@ -41,7 +41,7 @@ export default {
                     type: 'boxplot'
                 },
                 title: {
-                    text: eleJson[this.type] + '改良前后微量元素对比（mg/kg）'
+                    text: '改良前后'+ eleJson[this.type] +'元素对比'
                 },
                 legend: {
                     enabled: false

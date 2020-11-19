@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%;height:450px" />
+    <div style="width:100%;height:450px;margin-bottom:10px;" />
 </template>
 <script>
 import Highcharts from "highcharts"
@@ -29,7 +29,10 @@ export default {
                     backgroundColor: 'rgba(0,0,0,0.0)'
                 },
                 title: {
-                    text: '栖霞各区'+dataJson[this.type]+'改良平均提高值(%)'
+                    text: '改良前后'+dataJson[this.type]+'含量平均提高值(%)'
+                },
+                legend: {
+                    enabled: false
                 },
                 xAxis: {
                     categories: xData,
@@ -42,7 +45,7 @@ export default {
                     title: {
                         text: null
                     },
-                    gridLineColor: '#999',
+                    gridLineColor: '#ddd',
                     lineColor: '#999',
                     lineWidth: 1,
                     labels: {
@@ -74,7 +77,8 @@ export default {
                     name: '元素',
                     type: 'line',
                     data: this.type==='N' ? nData : this.type==='P' ? pData : kData
-                }]
+                }],
+                credits: { enabled: false }
             });
         }
     }

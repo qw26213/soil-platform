@@ -1,14 +1,15 @@
 <template>
-  <div class="position_relate">
-    <img src="../../assets/backImg.jpg" class="fill_w" />
-    <img src="../../assets/loginlogo.png" class="position_absolute logo" />
+  <div class="main">
+    <img src="../../assets/loginlogo.png" class="logo" />
     <transition>
       <router-view></router-view>
     </transition>
   </div>
 </template>
-<style lang="scss" scoped>
+<style scoped>
+.main{width: 100%;min-height: 700px;background:url(../../assets/backImg.jpg);background-size: cover;position: relative;}
 .logo {
+  position: absolute;
   top: 25px;
   left: 36px;
 }

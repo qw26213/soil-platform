@@ -12,12 +12,17 @@
                         <el-tab-pane label="孔隙度/容重" name="e" />
                         <el-tab-pane label="重金属" name="f" />
                     </el-tabs>
+                    <img v-show="activeTab=='b'" src="../../assets/legend.png" class="legend">
                 </div>
                 <div v-show="activeTab=='a'">
                     <bar v-for="(item,index) in eles" :chart-data="chartData[index]" :x-data="xData" :ele="item" />
                 </div>
-                <div v-show="activeTab=='b'">
+                <div v-show="activeTab=='b'" style="position:relative;padding-bottom:20px">
                     <dumbbell />
+                    <div style="text-align:center;font-size:12px;">
+                        <span style="display:inline-block;width:32px;height:12px;background:#b8e4e5;vertical-align:middle;margin-right:5px;border-radius:2px"></span>改良前
+                        <span style="display:inline-block;width:32px;height:12px;background:#68b4b4;vertical-align:middle;margin-right:5px;border-radius:2px;margin-left:10px"></span>改良后
+                    </div>
                 </div>
                 <div v-show="activeTab=='c'">
                     <chartline type="N" />
@@ -47,7 +52,7 @@ import bar from '@/components/HighChart/bar'
 import chartline from '@/components/HighChart/line'
 import boxplot from '@/components/HighChart/boxplot'
 import metal from '@/components/HighChart/metal'
-import dumbbell from '@/components/HighChart/dumbbell'
+import dumbbell from '@/components/HighChart/ph'
 import column from '@/components/HighChart/column'
 export default {
     components: {
@@ -60,7 +65,7 @@ export default {
     },
     data() {
         return {
-            activeTab: 'a',
+            activeTab: 'b',
             order_prop: '',
             order: '',
             eles: 'organic'.split(','), //,ep,rk,efe,emn,ezn,ecu'.split(','),
@@ -103,6 +108,7 @@ export default {
 }
 </script>
 <style scoped>
+.legend{margin-top: 320px;margin-left: 60px}
 .chartView{padding-left: 120px;}
 .maxHigh {
     min-height: calc(100vh - 60px);

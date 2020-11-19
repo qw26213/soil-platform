@@ -184,7 +184,7 @@ export default {
                     enabled: true
                 },
                 title: {
-                    text: '土壤ph变化情况'
+                    text: '土壤PH范围变化'
                 },
                 tooltip: {
                     shared: true

@@ -129,12 +129,9 @@ export default {
         }
     },
     mounted() {
-        this.init();
+        this.initMap();
     },
     methods: {
-        init() {
-            this.initMap();
-        },
         locate2Ip() {
             const url = AMAPURL + 'ip';
             const params = {
@@ -145,6 +142,7 @@ export default {
                 const min = rectangle[0].split(',').map(Number);
                 const max = rectangle[1].split(',').map(Number);
                 const bbox = [min, max];
+                console.log(bbox)
                 const padding = 80;
                 map.fitBounds(bbox, {
                     padding: {
@@ -408,7 +406,9 @@ export default {
                 features: fLines
             };
             const arr = data.filter(it => it.properties && it.properties.related_geometry && it.properties.related_geometry.coordinates && it.geometry && it.geometry.coordinates)
+            var related_data = []
             arr.forEach((d, i) => {
+                related_data.push(d.properties.related_geometry.coordinates)
                 fPoints.push({
                     type: 'Feature',
                     geometry: {
@@ -477,14 +477,13 @@ export default {
                 yData.forEach(it => {
                     const yItem = it.split(',')[index]
                     arr[index].push(yItem)
-                }) 
+                })
             })
             this.chartData = arr
             this.benData = this.chartData[19]
             setTimeout(() => {
                 this.dialogVisible = true
             })
-
         }
     }
 };

@@ -1,28 +1,26 @@
 <template>
     <div class="main">
-        <el-row>
+        <el-row :gutter="20">
             <el-col :span="12">
-                <div class="tit">栖霞各区土壤镉含量对比</div>
+                <div class="tit">改良前后土壤镉含量安全等级变化</div>
                 <div class="mapDiv">
 	                <el-image style="width: 100%; height: 100%" :src="metal_cd_url" fit="contain" :preview-src-list="[metal_cd_url]" />
                 </div>
             </el-col>
             <el-col :span="12">
-                <div class="tit">栖霞各区土壤铜含量对比</div>
+                <div class="tit">改良前后土壤铜含量安全等级变化</div>
                 <div class="mapDiv">
 	                <el-image style="width: 100%; height: 100%" :src="metal_cu_url" fit="contain" :preview-src-list="[metal_cu_url]" />
                 </div>
             </el-col>
-        </el-row>
-        <el-row style="marigin-top:20px">
             <el-col :span="12">
-                <div class="tit">栖霞各区土壤铬含量对比</div>
+                <div class="tit">改良前后土壤铬含量安全等级变化</div>
                 <div class="mapDiv">
 	                <el-image style="width: 100%; height: 100%" :src="metal_cr_url" fit="contain" :preview-src-list="[metal_cr_url]" />
                 </div>
             </el-col>
             <el-col :span="12">
-                <div class="tit">栖霞各区土壤铅含量对比</div>
+                <div class="tit">改良前后土壤铅含量安全等级变化</div>
                 <div class="mapDiv">
 	                <el-image style="width: 100%; height: 100%" :src="metal_pb_url" fit="contain" :preview-src-list="[metal_pb_url]" />
                 </div>
@@ -31,10 +29,10 @@
     </div>
 </template>
 <script>
-import metal_cd_url from '@/assets/metal_cd.png'
-import metal_cr_url from '@/assets/metal_cr.png'
-import metal_cu_url from '@/assets/metal_cu.png'
-import metal_pb_url from '@/assets/metal_pb.png'
+import metal_cd_url from '@/assets/metal_cd.jpg'
+import metal_cr_url from '@/assets/metal_cr.jpg'
+import metal_cu_url from '@/assets/metal_cu.jpg'
+import metal_pb_url from '@/assets/metal_pb.jpg'
 export default {
     name: 'HighChart',
     props: ['type'],
@@ -48,7 +46,7 @@ export default {
         }
     },
     mounted() {
-        this.initChart()
+
     }
 }
 </script>
